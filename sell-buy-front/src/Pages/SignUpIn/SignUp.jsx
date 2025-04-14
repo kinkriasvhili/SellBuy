@@ -14,10 +14,11 @@ export default function SignIn() {
   const navigate = useNavigate();
   const createEmailMutation = useMutation({
     mutationFn: (data) => {
-      console.log(data);
       postEmailOrCodeConfirmation(data);
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log(signupData);
+
       navigate("/email-confrimation", {
         state: { from: "reg", data: signupData },
       });
@@ -50,7 +51,7 @@ export default function SignIn() {
             label={"UserName"}
             type={"text"}
             placeholder={"UserName"}
-            name="user_name"
+            name="username"
             handleChange={handleChange}
             value={signupData}
             className={makeClass(inputsValidation.isUserNameValid)}

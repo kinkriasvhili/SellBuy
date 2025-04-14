@@ -2,12 +2,12 @@ import { useState } from "react";
 
 export function useControlForm() {
   const [signupData, setSignUpData] = useState({
-    user_name: "",
+    username: "",
     email: "",
     age: "",
+    password: "",
     city: "",
     phone_number: "+9955",
-    password: "",
     repeat_password: "",
   });
 
@@ -21,7 +21,7 @@ export function useControlForm() {
     passwordMatch: false,
   });
 
-  const validatePassword = (value) => value.length >= 6;
+  const validatePassword = (value) => value.length > 8;
   const validateUserName = (value) => value.length >= 4;
   const validateCity = (value) => value.length >= 1;
   const validateEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -65,7 +65,7 @@ export function useControlForm() {
     setInputsValidation((prev) => ({
       ...prev,
       isUserNameValid:
-        name === "user_name" ? validateUserName(value) : prev.isUserNameValid,
+        name === "username" ? validateUserName(value) : prev.isUserNameValid,
       isCityValid: name === "city" ? validateCity(value) : prev.isCityValid,
       isPasswordValid:
         name === "password" ? validatePassword(value) : prev.isPasswordValid,

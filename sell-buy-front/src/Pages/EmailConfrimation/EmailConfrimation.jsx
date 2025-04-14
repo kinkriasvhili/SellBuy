@@ -4,7 +4,10 @@ import React, { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { postEmailOrCodeConfirmation } from "../../fetchData/postData";
+import {
+  postEmailOrCodeConfirmation,
+  postRegisterData,
+} from "../../fetchData/postData";
 
 export default function EmailConfirmation() {
   const queryClient = useQueryClient();
@@ -16,19 +19,40 @@ export default function EmailConfirmation() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const { setUser, userState } = useContext(UserContext);
+  const { repeat_password, ...filteredUserData } = location.state.data;
+  const { from } = location.state;
+  // const formData = new FormData();
+  // formData.append("full_username", filteredUserData.username);
+  // formData.append("username", filteredUserData.username);
+  // formData.append("email", filteredUserData.email);
+  // formData.append("age", parseInt(filteredUserData.age));
+  // formData.append("password", filteredUserData.password);
+  // formData.append("city", filteredUserData.city);
+  // formData.append("phone_number", filteredUserData.phone_number);
   const createCodeMutation = useMutation({
     mutationFn: (data) => postEmailOrCodeConfirmation(data),
     onSuccess: (data) => {
-      console.log(data);
-      navigate("/");
+      createRegUserMutation.mutate({
+        ...filteredUserData,
+        full_username: filteredUserData.username,
+      });
     },
     onError: (error) => {
       setError("Invalid confirmation code. Please try again.");
     },
   });
-  const { setUser, userState } = useContext(UserContext);
-  const { repeat_password, ...filteredUserData } = location.state.data;
-  const { from } = location.state;
+  const createRegUserMutation = useMutation({
+    mutationFn: postRegisterData,
+    onSuccess: (response) => {
+      console.log("success");
+      console.log(response);
+    },
+    onError: (error) => {
+      console.log(error.message);
+    },
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (from == "reg") {
@@ -46,7 +70,19 @@ export default function EmailConfirmation() {
       // set authentication
     }
   };
-  const resendCode = () => {};
+
+  const createResendMutation = useMutation({
+    mutationFn: (data) => postEmailOrCodeConfirmation(data),
+    onSuccess: (data) => {
+      alert("Confrimation code sucessfully sent to email");
+    },
+  });
+  const resendCode = () => {
+    codeRef.current.focus();
+    createResendMutation.mutate({
+      email: filteredUserData.email,
+    });
+  };
   useEffect(() => {
     codeRef.current.focus();
     // console.log(userState);
@@ -79,9 +115,14 @@ export default function EmailConfirmation() {
           />
         </form>
 
-        <button className={`${styles.resend} wht-btn`} onClick={resendCode}>
+        <button
+          disabled={createResendMutation.isPending}
+          className={`${styles.resend} wht-btn`}
+          onClick={resendCode}
+        >
           Resend Code
         </button>
+        <span>{createResendMutation.isPending ? "Sending" : ""}</span>
       </div>
     </div>
   );
