@@ -6,6 +6,8 @@ import { FormButton } from "../../Components/Ui/buttons/Buttons";
 import { SignFormRightSideSvg } from "../../Components/Ui/animations/SvgAnimations";
 import { useNavigate } from "react-router-dom";
 import { useControlForm } from "./ControlForm";
+import { useMutation } from "@tanstack/react-query";
+import { postLogin } from "../../fetchData/postData";
 
 export default function SignIn() {
   const { signupData, inputsValidation, handleChange } = useControlForm();
@@ -14,11 +16,27 @@ export default function SignIn() {
   const makeClass = (isValid) => {
     return !isValid ? styles.inputRed : "";
   };
+
+  const createLoginMutation = useMutation({
+    mutationFn: (data) => postLogin(data),
+    onSuccess: (data) => {
+      console.log("succes");
+      console.log(data);
+      // navigate("/email-confrimation", {
+      //   state: { from: "log", data: signupData.email },
+      // });
+    },
+    onError: (error) => {
+      console.log(error.message);
+    },
+  });
+
   const navigate = useNavigate();
   const handleClick = (e) => {
     e.preventDefault();
-    navigate("/email-confrimation", {
-      state: { from: "log", data: signupData.email },
+    createLoginMutation.mutate({
+      email: signupData.email,
+      password: signupData.password,
     });
   };
   return (

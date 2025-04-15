@@ -35,21 +35,53 @@ export async function postRegisterData(data) {
   }
 }
 
-export async function getUser(user_id) {
+export async function postRefreshToken() {
   try {
-    const res = await axios.get(
-      "https://buy-sell-ecommerce.onrender.com/api/profile/",
+    const res = await axios.post(
+      "https://buy-sell-ecommerce.onrender.com/api/token/refresh/",
+      {},
       {
-        params: {
-          user_id: "250d5fd2-a1ca-4b1d-a9ba-8fc98477b049",
-        },
         withCredentials: true,
       }
-      //
     );
-    return res;
+    return res.data;
   } catch (error) {
-    console.log("error");
+    console.log("Refresh token error:", error.response?.data || error.message);
+    throw error;
+  }
+}
+
+export async function postLogin(data) {
+  try {
+    console.log(data);
+    const res = await axios.post(
+      "https://buy-sell-ecommerce.onrender.com/api/auth/login/",
+      data,
+      {
+        withCredentials: true,
+      }
+    );
+    return res.data;
+  } catch (error) {
+    console.log("Post data error: ", error);
+    throw error;
+  }
+}
+
+export async function postLogout() {
+  try {
+    console.log("me");
+    const res = await axios.post(
+      "https://buy-sell-ecommerce.onrender.com/api/auth/logout/",
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    throw err;
   }
 }
 
