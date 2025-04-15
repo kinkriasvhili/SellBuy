@@ -9,10 +9,12 @@ import {
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { ButtonWIcon } from "../Ui/buttons/Buttons";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import SignUpInNav from "../../Pages/SignUpIn/SignUpInNav";
-
+import { AuthContext } from "../../Context/AuthContext";
 export default function Nav() {
+  const { isAuthenticated } = useContext(AuthContext);
+
   const [displayNav, setDisplayNav] = useState(true);
   const location = useLocation();
   useEffect(() => {
@@ -63,15 +65,28 @@ export default function Nav() {
                 Returns & Orders
               </button>
             </Link>
-            <Link to={"/login"}>
-              <ButtonWIcon
-                text="Sign In"
-                icon={faUser}
-                iconSize="1x"
-                name={["wht-btn", "signin"]}
-                styles={styles}
-              />
-            </Link>
+            {!isAuthenticated ? (
+              <Link to={"/login"}>
+                <ButtonWIcon
+                  text="Sign In"
+                  icon={faUser}
+                  iconSize="1x"
+                  name={["wht-btn", "signin"]}
+                  styles={styles}
+                />
+              </Link>
+            ) : (
+              <Link to={"/profile"}>
+                {console.log(isAuthenticated)}
+                <ButtonWIcon
+                  text="Profile"
+                  icon={faUser}
+                  iconSize="1x"
+                  name={["wht-btn", "profile"]}
+                  styles={styles}
+                />
+              </Link>
+            )}
           </div>
         </nav>
       ) : (

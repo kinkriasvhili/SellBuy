@@ -8,9 +8,10 @@ import {
   postEmailOrCodeConfirmation,
   postRegisterData,
 } from "../../fetchData/postData";
+import { AuthContext } from "../../Context/AuthContext";
 
 export default function EmailConfirmation() {
-  const queryClient = useQueryClient();
+  const { setIsAuthenticated } = useContext(AuthContext);
 
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
@@ -22,14 +23,7 @@ export default function EmailConfirmation() {
   const { setUser, userState } = useContext(UserContext);
   const { repeat_password, ...filteredUserData } = location.state.data;
   const { from } = location.state;
-  // const formData = new FormData();
-  // formData.append("full_username", filteredUserData.username);
-  // formData.append("username", filteredUserData.username);
-  // formData.append("email", filteredUserData.email);
-  // formData.append("age", parseInt(filteredUserData.age));
-  // formData.append("password", filteredUserData.password);
-  // formData.append("city", filteredUserData.city);
-  // formData.append("phone_number", filteredUserData.phone_number);
+
   const createCodeMutation = useMutation({
     mutationFn: (data) => postEmailOrCodeConfirmation(data),
     onSuccess: (data) => {
@@ -44,9 +38,9 @@ export default function EmailConfirmation() {
   });
   const createRegUserMutation = useMutation({
     mutationFn: postRegisterData,
-    onSuccess: (response) => {
-      console.log("success");
-      console.log(response);
+    onSuccess: () => {
+      setIsAuthenticated(true);
+      navigate("/landingpage");
     },
     onError: (error) => {
       console.log(error.message);
@@ -60,14 +54,6 @@ export default function EmailConfirmation() {
         email: location.state.data.email,
         code: code,
       });
-      // setUser(filteredUserData);
-      // setUser and we need to post it on fetch from here.
-      // get user from fetch
-      // set authentication
-    } else if (from == "log") {
-      console.log(location.state.data);
-      // sent email to data and get user from fetch
-      // set authentication
     }
   };
 
@@ -85,7 +71,6 @@ export default function EmailConfirmation() {
   };
   useEffect(() => {
     codeRef.current.focus();
-    // console.log(userState);
   }, [userState, setUser]);
   return (
     <div className={styles.container}>
@@ -127,3 +112,12 @@ export default function EmailConfirmation() {
     </div>
   );
 }
+
+// const formData = new FormData();
+// formData.append("full_username", filteredUserData.username);
+// formData.append("username", filteredUserData.username);
+// formData.append("email", filteredUserData.email);
+// formData.append("age", parseInt(filteredUserData.age));
+// formData.append("password", filteredUserData.password);
+// formData.append("city", filteredUserData.city);
+// formData.append("phone_number", filteredUserData.phone_number);

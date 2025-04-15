@@ -80,17 +80,7 @@ export async function postLogout() {
     );
     return res.data;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     throw err;
   }
 }
-
-/**
- *
- * // Send email
-await postEmailOrCodeConfirmation({ email }, token);
-
-// Confirm with code
-await postEmailOrCodeConfirmation({ email, code }, token);
-
- */

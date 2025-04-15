@@ -8,17 +8,16 @@ import { useNavigate } from "react-router-dom";
 import { useControlForm } from "./ControlForm";
 import { useMutation } from "@tanstack/react-query";
 import { postEmailOrCodeConfirmation } from "../../fetchData/postData";
-
+import { AuthContext } from "../../Context/AuthContext";
 export default function SignIn() {
+  const { setIsAuthenticated } = useContext(AuthContext);
   const { signupData, inputsValidation, handleChange } = useControlForm();
   const navigate = useNavigate();
   const createEmailMutation = useMutation({
     mutationFn: (data) => {
       postEmailOrCodeConfirmation(data);
     },
-    onSuccess: (data) => {
-      console.log(signupData);
-
+    onSuccess: () => {
       navigate("/email-confrimation", {
         state: { from: "reg", data: signupData },
       });

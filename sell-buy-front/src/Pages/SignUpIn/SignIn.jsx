@@ -1,5 +1,5 @@
 import styles from "./signUpIn.module.css";
-import { React, useState } from "react";
+import { React, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { SignForm, Password } from "../../Components/Ui/inputs/Inputs";
 import { FormButton } from "../../Components/Ui/buttons/Buttons";
@@ -8,8 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { useControlForm } from "./ControlForm";
 import { useMutation } from "@tanstack/react-query";
 import { postLogin } from "../../fetchData/postData";
+import { AuthContext } from "../../Context/AuthContext";
 
 export default function SignIn() {
+  const { setIsAuthenticated } = useContext(AuthContext);
   const { signupData, inputsValidation, handleChange } = useControlForm();
   const isLoginValid =
     inputsValidation.isPasswordValid && inputsValidation.isEmailValid;
@@ -19,12 +21,9 @@ export default function SignIn() {
 
   const createLoginMutation = useMutation({
     mutationFn: (data) => postLogin(data),
-    onSuccess: (data) => {
-      console.log("succes");
-      console.log(data);
-      // navigate("/email-confrimation", {
-      //   state: { from: "log", data: signupData.email },
-      // });
+    onSuccess: () => {
+      setIsAuthenticated(true);
+      navigate("/profile");
     },
     onError: (error) => {
       console.log(error.message);
@@ -43,7 +42,9 @@ export default function SignIn() {
     <div className={styles.container}>
       <div className={styles.leftSide}>
         <h2>Sign In</h2>
-        <span>Please login to continue yo your account</span>
+        <span>
+          Please login to <b>accsess all features</b>
+        </span>
         <form action="">
           <SignForm
             label={"Email"}
