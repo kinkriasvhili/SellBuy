@@ -13,6 +13,7 @@ import { AuthContext } from "../../Context/AuthContext";
 export default function SignIn() {
   const { setIsAuthenticated } = useContext(AuthContext);
   const { signupData, inputsValidation, handleChange } = useControlForm();
+  const [invalid, setInvalid] = useState("");
   const isLoginValid =
     inputsValidation.isPasswordValid && inputsValidation.isEmailValid;
   const makeClass = (isValid) => {
@@ -23,15 +24,18 @@ export default function SignIn() {
     mutationFn: (data) => postLogin(data),
     onSuccess: () => {
       setIsAuthenticated(true);
+      setInvalid("");
       navigate("/profile");
     },
     onError: (error) => {
+      setInvalid("Invalid password or email. Please try again.");
       console.log(error.message);
     },
   });
 
   const navigate = useNavigate();
   const handleClick = (e) => {
+    setInvalid("");
     e.preventDefault();
     createLoginMutation.mutate({
       email: signupData.email,
@@ -63,13 +67,15 @@ export default function SignIn() {
             value={signupData}
             className={makeClass(inputsValidation.isPasswordValid)}
           />
+          <span style={{ color: "red" }}>{invalid}</span>
           <FormButton
             handleClick={handleClick}
             type="submit"
             className={`${styles.signButton} wht-btn `}
             text={"Log In"}
-            disabled={!isLoginValid}
+            disabled={!isLoginValid || createLoginMutation.isPending}
           />
+          <span>{createLoginMutation.isPending ? "Logging in..." : ""}</span>
         </form>
         <span className={styles.linkSpam}>
           Need a account <Link to={"/signup"}>Create One</Link>

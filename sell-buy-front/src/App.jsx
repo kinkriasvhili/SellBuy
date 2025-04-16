@@ -8,9 +8,14 @@ import AppProviders from "./Context/AppProvider.jsx";
 import Favorite from "./Pages/Favorite/Favorite.jsx";
 import Orders from "./Pages/Orders/Orders.jsx";
 import EmailConfrimation from "./Pages/EmailConfrimation/EmailConfrimation.jsx";
-
 import Profile from "./Pages/Profile/Profile.jsx";
-function App() {
+import { UserContext } from "./Context/UserContext.jsx";
+import { useContext } from "react";
+
+function AppInner() {
+  const { userState } = useContext(UserContext);
+  console.log(userState);
+
   return (
     <AppProviders>
       <BrowserRouter>
@@ -20,12 +25,22 @@ function App() {
           <Route path="/login" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path={`/guest/cart`} element={<Cart />} />
-          <Route path={`/guest/favorite`} element={<Favorite />} />
+          <Route path={`/${userState.full_username}/cart`} element={<Cart />} />
+          <Route
+            path={`/${userState.full_username}/favorite`}
+            element={<Favorite />}
+          />
           <Route path={`/orders`} element={<Orders />} />
           <Route path={`/email-confrimation`} element={<EmailConfrimation />} />
         </Routes>
       </BrowserRouter>
+    </AppProviders>
+  );
+}
+function App() {
+  return (
+    <AppProviders>
+      <AppInner />
     </AppProviders>
   );
 }

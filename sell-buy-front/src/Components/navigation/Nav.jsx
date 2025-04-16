@@ -12,9 +12,12 @@ import { ButtonWIcon } from "../Ui/buttons/Buttons";
 import { useEffect, useState, useContext } from "react";
 import SignUpInNav from "../../Pages/SignUpIn/SignUpInNav";
 import { AuthContext } from "../../Context/AuthContext";
+import { UserContext } from "../../Context/UserContext";
+
 export default function Nav() {
   const { isAuthenticated } = useContext(AuthContext);
-
+  const { userState } = useContext(UserContext);
+  // console.log(userState);
   const [displayNav, setDisplayNav] = useState(true);
   const location = useLocation();
   useEffect(() => {
@@ -42,7 +45,13 @@ export default function Nav() {
             <Search />
           </div>
           <div className={`${styles.rightCont} flex-center`}>
-            <Link to={`/guest/favorite`}>
+            <Link
+              to={
+                isAuthenticated
+                  ? `/${userState.full_username}/favorite`
+                  : "/login"
+              }
+            >
               <ButtonWIcon
                 icon={faHeart}
                 iconSize="1x"
@@ -51,7 +60,11 @@ export default function Nav() {
                 afterEffect="favoriteBtn"
               />
             </Link>
-            <Link to={`/guest/cart`}>
+            <Link
+              to={
+                isAuthenticated ? `/${userState.full_username}/cart` : "/login"
+              }
+            >
               <ButtonWIcon
                 icon={faShoppingCart}
                 iconSize="1x"
@@ -60,7 +73,7 @@ export default function Nav() {
                 afterEffect="cartBtn"
               />
             </Link>
-            <Link to={"/orders"}>
+            <Link to={isAuthenticated ? "/orders" : "/login"}>
               <button className={`flex-center wht-btn ${styles.orders}`}>
                 Returns & Orders
               </button>
@@ -77,7 +90,6 @@ export default function Nav() {
               </Link>
             ) : (
               <Link to={"/profile"}>
-                {console.log(isAuthenticated)}
                 <ButtonWIcon
                   text="Profile"
                   icon={faUser}

@@ -19,10 +19,24 @@ export default function EmailConfirmation() {
 
   const navigate = useNavigate();
   const location = useLocation();
+  if (!location.state) {
+    navigate("/signup");
+    return (
+      <div>
+        {" "}
+        <h1>Please sign up first</h1>
+      </div>
+    );
+  }
 
+  useEffect(() => {
+    if (!location.state) {
+    }
+  }, []);
   const { setUser, userState } = useContext(UserContext);
   const { repeat_password, ...filteredUserData } = location.state.data;
   const { from } = location.state;
+  console.log(filteredUserData);
 
   const createCodeMutation = useMutation({
     mutationFn: (data) => postEmailOrCodeConfirmation(data),
@@ -39,8 +53,9 @@ export default function EmailConfirmation() {
   const createRegUserMutation = useMutation({
     mutationFn: postRegisterData,
     onSuccess: () => {
+      console.log("Successed");
       setIsAuthenticated(true);
-      navigate("/landingpage");
+      navigate("/");
     },
     onError: (error) => {
       console.log(error.message);
@@ -97,6 +112,7 @@ export default function EmailConfirmation() {
             type="submit"
             text="Verify"
             className={styles.button}
+            disabled={createCodeMutation.isPending}
           />
         </form>
 
@@ -104,7 +120,12 @@ export default function EmailConfirmation() {
           disabled={createResendMutation.isPending}
           className={`${styles.resend} wht-btn`}
           onClick={resendCode}
+          style={{
+            opacity: createResendMutation.isPending ? 0.5 : 1, // Lighter when disabled
+            cursor: createResendMutation.isPending ? "not-allowed" : "pointer", // No pointer when disabled
+          }}
         >
+          {console.log(createResendMutation.isPending)}
           Resend Code
         </button>
         <span>{createResendMutation.isPending ? "Sending" : ""}</span>
