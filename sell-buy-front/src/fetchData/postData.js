@@ -46,14 +46,13 @@ export async function postRefreshToken() {
     );
     return res.data;
   } catch (error) {
-    console.log("Refresh token error:", error.response?.data || error.message);
-    throw error;
+    // console.log("Refresh token error:", error.response?.data || error.message);
+    return error;
   }
 }
 
 export async function postLogin(data) {
   try {
-    console.log(data);
     const res = await axios.post(
       "https://buy-sell-ecommerce.onrender.com/api/auth/login/",
       data,

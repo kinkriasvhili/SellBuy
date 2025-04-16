@@ -75,6 +75,7 @@ svg {
 /* Remove default button styles */
 button {
   all: unset;
+  border: 1px solid var(--white-btn-hover-color);
   display: inline-block;
   position: relative;
   cursor: pointer;

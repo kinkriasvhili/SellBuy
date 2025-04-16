@@ -51,10 +51,27 @@ export function UserContextProvider({ children }) {
   const clearUser = () => {
     dispatch({ type: "CLEAR_USER" });
   };
-
+  useEffect(() => {
+    if (!isAuthenticated) {
+      clearUser();
+    }
+  }, []);
   return (
     <UserContext.Provider value={{ userState, setUser, clearUser, userQuery }}>
       {children}
     </UserContext.Provider>
   );
 }
+
+// if (userQuery.error) {
+// console.log("hello");
+// console.log(userQuery.data);
+// console.log(userQuery.error);
+// console.log(
+// userQuery.error == "Access token expired. Please refresh your session."
+// );
+// }
+
+// if (!isAuthenticated) {
+//   clearUser();
+// }

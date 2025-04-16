@@ -14,7 +14,6 @@ import { useContext } from "react";
 
 function AppInner() {
   const { userState } = useContext(UserContext);
-  console.log(userState);
 
   return (
     <AppProviders>

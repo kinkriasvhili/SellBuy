@@ -1,6 +1,7 @@
 import { createContext, useEffect } from "react";
 import { useLocalStorage } from "../Hooks/useLocalStorage";
-import { postRefreshToken } from "../fetchData/postData";
+import { postLogout, postRefreshToken } from "../fetchData/postData";
+import { useMutation } from "@tanstack/react-query";
 export const AuthContext = createContext();
 
 export function AuthContextProvider({ children }) {
@@ -8,6 +9,41 @@ export function AuthContextProvider({ children }) {
     "isAuthenticated",
     false
   );
+  const refreshMutation = useMutation({
+    mutationFn: postRefreshToken,
+    onSuccess: (data) => {
+      console.log("refreshed");
+      if (
+        data.response.data.message ===
+        "Invalid or expired token. Please log in again."
+      ) {
+        logOutMutation.mutate();
+      }
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
+  const logOutMutation = useMutation({
+    mutationFn: postLogout,
+    onSuccess: () => {
+      setIsAuthenticated(false);
+      console.log("logged out");
+    },
+    onError: (err) => {
+      console.log("logout error ", err);
+    },
+  });
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    const interval = setInterval(() => {
+      refreshMutation.mutate();
+    }, 4 * 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
