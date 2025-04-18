@@ -1,10 +1,13 @@
 import styles from "./profile.module.css";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { UserContext } from "../../Context/UserContext";
-import { postLogout, postRefreshToken } from "../../fetchData/postData";
+import { postLogout } from "../../fetchData/postData";
 import { useNavigate } from "react-router-dom";
+import profileImg from "../../Images/profile.jpg";
+import MyProducts from "../../Components/products/MyProducts";
+
 export default function Profile() {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const { userState, clearUser, userQuery } = useContext(UserContext);
@@ -38,17 +41,39 @@ export default function Profile() {
   }
 
   if (userQuery.status == "success") {
-    console.log(userQuery.data);
+    // console.log(userQuery.data);
   }
-  console.log("query", userQuery.data);
-  console.log("userstate", userState);
+  // console.log("query", userQuery.data);
+  // console.log("userstate", userState);
+  const avatarURL = userState.avatar ? userState.avatar : profileImg;
 
   return (
-    <div className={`mainContainer`}>
-      {" "}
-      <button onClick={handleClick}>logOut</button>
-      <p>user: {userQuery.data.full_username}</p>
-      <p>this is landing page</p>
+    <div className={`mainContainer ${styles.profileContainer}`}>
+      <header className={styles.header}>
+        <button className={styles.addButtin}>Add Products</button>
+        <p className={styles.username}>{userState.full_username}</p>
+      </header>
+
+      <section className={styles.profileSection}>
+        <div className={styles.avatarWrapper}>
+          <img src={avatarURL} alt="Profile Avatar" className={styles.avatar} />
+        </div>
+        <ul className={styles.userDetails}>
+          <li>Email: {userState.email}</li>
+          <li>City: {userState.city}</li>
+          <li>Phone: {userState.phone_number}</li>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <span className={`${styles.edit}`} onClick={handleClick}>
+              Log Out
+            </span>{" "}
+            <span className={styles.edit}> Edit</span>
+          </div>
+        </ul>
+      </section>
+      <section className={styles.productsContainer}>
+        <h2 className={styles.sectionTitle}>My Products</h2>
+        <MyProducts styles={styles} />
+      </section>
     </div>
   );
 }

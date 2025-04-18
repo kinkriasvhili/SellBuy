@@ -16,24 +16,23 @@ function AppInner() {
   const { userState } = useContext(UserContext);
 
   return (
-    <AppProviders>
-      <BrowserRouter>
-        <Nav />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path={`/${userState.full_username}/cart`} element={<Cart />} />
-          <Route
-            path={`/${userState.full_username}/favorite`}
-            element={<Favorite />}
-          />
-          <Route path={`/orders`} element={<Orders />} />
-          <Route path={`/email-confrimation`} element={<EmailConfrimation />} />
-        </Routes>
-      </BrowserRouter>
-    </AppProviders>
+    <BrowserRouter>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path={`/${userState.full_username}/cart`} element={<Cart />} />
+        {console.log(userState)}
+        <Route
+          path={`/${userState.full_username}/favorite`}
+          element={<Favorite />}
+        />
+        <Route path={`/orders`} element={<Orders />} />
+        <Route path={`/email-confrimation`} element={<EmailConfrimation />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 function App() {
