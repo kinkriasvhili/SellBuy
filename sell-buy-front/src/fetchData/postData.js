@@ -3,7 +3,7 @@ import axios from "axios";
 export async function postEmailOrCodeConfirmation(data) {
   try {
     const res = await axios.post(
-      "https://buy-sell-ecommerce.onrender.com/api/auth/email_confirmation/",
+      "https://buy-sell-ecommerce.onrender.com/users/auth/email_confirmation/",
       data,
       {
         headers: {
@@ -22,7 +22,7 @@ export async function postRegisterData(data) {
   try {
     console.log(data);
     const res = await axios.post(
-      "https://buy-sell-ecommerce.onrender.com/api/auth/register/",
+      "https://buy-sell-ecommerce.onrender.com/users/auth/register/",
       data,
       {
         withCredentials: true,
@@ -38,7 +38,7 @@ export async function postRegisterData(data) {
 export async function postRefreshToken() {
   try {
     const res = await axios.post(
-      "https://buy-sell-ecommerce.onrender.com/api/token/refresh/",
+      "https://buy-sell-ecommerce.onrender.com/users/token/refresh/",
       {},
       {
         withCredentials: true,
@@ -54,7 +54,7 @@ export async function postRefreshToken() {
 export async function postLogin(data) {
   try {
     const res = await axios.post(
-      "https://buy-sell-ecommerce.onrender.com/api/auth/login/",
+      "https://buy-sell-ecommerce.onrender.com/users/auth/login/",
       data,
       {
         withCredentials: true,
@@ -71,7 +71,7 @@ export async function postLogout() {
   try {
     console.log("me");
     const res = await axios.post(
-      "https://buy-sell-ecommerce.onrender.com/api/auth/logout/",
+      "https://buy-sell-ecommerce.onrender.com/users/auth/logout/",
       {},
       {
         withCredentials: true,

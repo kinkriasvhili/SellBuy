@@ -12,7 +12,6 @@ export default function Profile() {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const { userState, clearUser, userQuery } = useContext(UserContext);
   const navigate = useNavigate();
-  if (!isAuthenticated) return <h1>You aren't logged in</h1>;
 
   const logOutMutation = useMutation({
     mutationFn: postLogout,
@@ -29,7 +28,7 @@ export default function Profile() {
   const handleClick = () => {
     logOutMutation.mutate();
   };
-
+  if (!isAuthenticated) return <h1>You aren't logged in</h1>;
   if (userQuery.isLoading) return <h1>Loading...</h1>;
   if (userQuery.isError) {
     return (
@@ -77,15 +76,3 @@ export default function Profile() {
     </div>
   );
 }
-
-/**
-age
-avatar
-city
-Tbilisi
-created_at
-email
-full_username
-id
-phone_number
- */

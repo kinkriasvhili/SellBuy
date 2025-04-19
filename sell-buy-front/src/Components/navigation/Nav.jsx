@@ -45,7 +45,7 @@ export default function Nav() {
             <Search />
           </div>
           <div className={`${styles.rightCont} flex-center`}>
-            {console.log("nav, ", userState)}
+            {/* {console.log("nav, ", userState)} */}
             <Link
               to={
                 isAuthenticated

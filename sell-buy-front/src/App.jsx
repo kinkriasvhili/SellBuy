@@ -24,7 +24,7 @@ function AppInner() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
         <Route path={`/${userState.full_username}/cart`} element={<Cart />} />
-        {console.log(userState)}
+        {/* {console.log(userState)} */}
         <Route
           path={`/${userState.full_username}/favorite`}
           element={<Favorite />}

@@ -3,7 +3,7 @@ const URL = "https://buy-sell-ecommerce.onrender.com";
 
 export const getUser = async (userId) => {
   try {
-    let response = await fetch(`${URL}/api/profile/${userId}/`, {
+    let response = await fetch(`${URL}/users/profile/current/`, {
       method: "GET",
       credentials: "include",
     });
@@ -16,7 +16,7 @@ export const getUser = async (userId) => {
 
       await postRefreshToken();
 
-      response = await fetch(`${URL}/api/profile/${userId}/`, {
+      response = await fetch(`${URL}/users/profile/current/`, {
         method: "GET",
         credentials: "include",
       });

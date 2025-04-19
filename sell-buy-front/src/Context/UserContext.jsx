@@ -31,8 +31,8 @@ export function UserContextProvider({ children }) {
   const { isAuthenticated } = useContext(AuthContext);
   // Automatically fetch user data when app loads
   const userQuery = useQuery({
-    queryKey: ["user", { user_id: "990e0ca3-cdc2-4476-8c3f-f5d224d8d410" }],
-    queryFn: () => getUser("990e0ca3-cdc2-4476-8c3f-f5d224d8d410"),
+    queryKey: ["user", { user_id: "123" }],
+    queryFn: () => getUser(),
     retry: 1,
     enabled: isAuthenticated,
   });
