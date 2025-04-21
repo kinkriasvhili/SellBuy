@@ -1,0 +1,126 @@
+@import url("../../index.css");
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  column-gap: 20px;
+  row-gap: 20px;
+}
+
+.productContainer {
+  padding-top: 40px;
+  border-radius: 5px;
+  padding-bottom: 25px;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
+  scale: 1;
+  cursor: pointer;
+}
+.productContainer:hover {
+  scale: 1.05;
+}
+.productImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 180px;
+  margin-bottom: 20px;
+}
+
+.productImage {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 5px;
+}
+
+.productRatingStars {
+  width: 100px;
+  margin-right: 6px;
+}
+
+.productPrice {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.productFooter {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+/* 
+--primary-color: #f1641e;
+  --primary-hover-color: #ed6521;
+  --primary-light-hover-color: #ed65218b;
+  --primary-text-color: #222;
+  --white-btn-color: #ffffff;
+  --white-btn-hover-color: #0e0e0e17;
+  --linked-btn-hover-color: #ccebff;
+  --blue-color: navy;
+
+  --light-blue: #61aaff;
+  --teal: #0d8b8b;
+  --soft-yellow: #ffef80;
+  --light-grey: #d3d3d3;
+  --dark-grey: #444444;
+  --aqua-blue: #00bcd4;
+  --soft-white: #f8f8f8; */
+.addToCart svg {
+  color: var(--blue-color); /* custom color for cart */
+}
+
+.favouriteBtn svg {
+  color: red; /* custom color for heart */
+}
+.inCart svg {
+  margin-left: 5px;
+  color: var(--teal);
+}
+@media (max-width: 2000px) {
+  .productsGrid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+@media (max-width: 1600px) {
+  .productsGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 1300px) {
+  .productsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1000px) {
+  .productsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .productsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 575px) {
+  .productsGrid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* current */
+.edit {
+  font-weight: bolder;
+  transition: 0.2s;
+  cursor: pointer;
+  color: var(--dark-grey);
+}
+.edit:hover {
+  text-decoration: underline;
+}

@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import { postRefreshToken } from "./postData";
 const URL = "https://buy-sell-ecommerce.onrender.com";
 
@@ -32,5 +34,16 @@ export const getUser = async (userId) => {
   } catch (error) {
     console.error("Error fetching profile:", error.message);
     throw error;
+  }
+};
+
+export const getProducts = async () => {
+  try {
+    const res = await axios.get(
+      "https://buy-sell-ecommerce.onrender.com/products/shop/items/"
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
   }
 };

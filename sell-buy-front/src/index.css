@@ -20,7 +20,6 @@
   --dark-grey: #444444;
   --aqua-blue: #00bcd4;
   --soft-white: #f8f8f8;
-  --gradient-orange-blue: linear-gradient(45deg, #f1641e, #61aaff);
 }
 #root {
   height: 100%;

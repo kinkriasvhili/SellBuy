@@ -1,4 +1,5 @@
-/* .gradient-star {
-  background: linear-gradient(45deg, #f1641e, #61aaff);
-  color: red;
-  fill: url(#gradient); /* Fill SVG with the gradient */
+@import url("../../../index.css");
+
+.stars svg {
+  color: var(--primary-color);
+}

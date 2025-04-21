@@ -4,7 +4,7 @@ import img from "../../Images/profile.jpg";
 import styles from "./products.module.css";
 import Product from "./product";
 const avatarURL = img;
-export default function MyProducts() {
+export default function AllProducts() {
   const productsQuery = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
@@ -16,13 +16,13 @@ export default function MyProducts() {
   const products = productsQuery.data.results;
   return (
     <div className={styles.productsGrid}>
-      {products.slice(0, 10).map((product) => (
+      {products.map((product) => (
         <div key={product.id}>
           <Product
             image={product.images[0].image}
             name={product.name}
             price={product.price}
-            scope={"local"}
+            scope={"global"}
           />
         </div>
       ))}

@@ -16,7 +16,8 @@ export function AuthContextProvider({ children }) {
       console.log("refreshed");
       if (
         data.response.data.message ===
-        "Invalid or expired token. Please log in again."
+          "Invalid or expired token. Please log in again." &&
+        false
       ) {
         logOutMutation.mutate();
       }
