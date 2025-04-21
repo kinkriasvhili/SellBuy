@@ -12,8 +12,6 @@ export default function Footer() {
       setShowFooter(true);
     }
   }, []);
-  console.log(showFooter);
-  console.log(location.pathname);
   return (
     <>
       {showFooter ? (

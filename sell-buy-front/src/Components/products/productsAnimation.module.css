@@ -1,0 +1,28 @@
+.productContainer {
+  padding-top: 40px;
+  border-radius: 5px;
+  padding-bottom: 25px;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
+  scale: 1;
+  cursor: pointer;
+  animation: dropIn 1s ease forwards;
+}
+.productContainer:hover {
+  scale: 1.05;
+}
+
+@keyframes dropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

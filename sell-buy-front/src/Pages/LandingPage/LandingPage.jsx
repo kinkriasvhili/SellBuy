@@ -2,11 +2,17 @@ import AllProducts from "../../Components/products/AllProducts";
 import styles from "./landingPage.module.css";
 import banner from "../../Images/landingPageBanner6.jpg";
 import LandingBanner from "./LandingBanner";
+import MyProducts from "../../Components/products/AllProducts";
+import NewProducts from "../../Components/products/NewProducts";
 export default function LandingPage() {
   return (
     <div className={`bottomNav ${styles.landingPageContainer}`}>
       <LandingBanner banner={banner} styles={styles} />
-      <AllProducts />
+      <div className={`mainContainer ${styles.newProductsContainer}`}>
+        <h1>Latest products update</h1>
+        <NewProducts />
+      </div>
+      {/* <AllProducts /> */}
     </div>
   );
 }

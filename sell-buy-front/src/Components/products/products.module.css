@@ -51,23 +51,7 @@
   width: 100%;
   justify-content: space-between;
 }
-/* 
---primary-color: #f1641e;
-  --primary-hover-color: #ed6521;
-  --primary-light-hover-color: #ed65218b;
-  --primary-text-color: #222;
-  --white-btn-color: #ffffff;
-  --white-btn-hover-color: #0e0e0e17;
-  --linked-btn-hover-color: #ccebff;
-  --blue-color: navy;
 
-  --light-blue: #61aaff;
-  --teal: #0d8b8b;
-  --soft-yellow: #ffef80;
-  --light-grey: #d3d3d3;
-  --dark-grey: #444444;
-  --aqua-blue: #00bcd4;
-  --soft-white: #f8f8f8; */
 .addToCart svg {
   color: var(--blue-color); /* custom color for cart */
 }
