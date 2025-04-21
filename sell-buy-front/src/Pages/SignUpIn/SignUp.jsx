@@ -41,7 +41,7 @@ export default function SignIn() {
     });
   };
   return (
-    <div className={styles.container}>
+    <div className={`bottomNav ${styles.container}`}>
       <div className={`${styles.leftSide} ${styles.registerForm}`}>
         <h2>Sign In</h2>
         <span>Please login to continue yo your account</span>

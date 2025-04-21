@@ -1,3 +1,3 @@
 export default function Favorite() {
-  return <div className={`mainContainer`}>This is favorite</div>;
+  return <div className={`mainContainer bottomNav`}>This is favorite</div>;
 }

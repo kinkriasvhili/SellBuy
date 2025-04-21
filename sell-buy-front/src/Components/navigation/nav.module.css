@@ -1,12 +1,24 @@
 @import url("../../index.css");
 @import "@fontsource/sour-gummy/300.css"; /* Light */
-nav {
+.nav {
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 5vw;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background-color: white;
+  z-index: 1000;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease,
+    transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-
+.nav.scrolled {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
 .logo {
   font-family: "Love Light", sans-serif;
   font-size: 50px;

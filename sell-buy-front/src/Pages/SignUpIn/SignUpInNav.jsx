@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { ButtonWIcon } from "../../Components/Ui/buttons/Buttons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-export default function SignUpInNav({ styles }) {
+export default function SignUpInNav({ isScrolled, styles }) {
   const [toPage, setToPage] = useState({ url: "signup", text: "Sign Up" });
   const location = useLocation();
   useEffect(() => {
@@ -16,7 +16,10 @@ export default function SignUpInNav({ styles }) {
     }
   }, [location]);
   return (
-    <nav style={{ paddingBottom: "0px" }}>
+    <nav
+      className={`${styles.nav} ${isScrolled ? styles.scrolled : ""}`}
+      style={{ paddingBottom: "0px" }}
+    >
       <div className={`${styles.leftCont} mainContainer`}>
         <Link to={"/"}>
           <span className={styles.logo}>S&B</span>

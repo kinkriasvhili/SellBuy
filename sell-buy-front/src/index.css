@@ -11,7 +11,7 @@
   --white-btn-hover-color: #0e0e0e17;
   --linked-btn-hover-color: #ccebff;
   --blue-color: navy;
-
+  --gradient-color:  linear-gradient(to right, #f1641e, navy)
   /* add */
   --light-blue: #61aaff;
   --teal: #0d8b8b;
@@ -31,7 +31,9 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+.bottomNav {
+  margin-top: 80px;
+}
 /* Remove default body styles */
 body {
   font-family: "Roboto Flex", "Sour Gummy", sans-serif;

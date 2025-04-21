@@ -12,10 +12,10 @@ export default function AllProducts() {
   if (productsQuery.isLoading) return <h1>...Loading</h1>;
   if (productsQuery.isError) return <h1>Error</h1>;
 
-  console.log(productsQuery.data);
+  // console.log(productsQuery.data);
   const products = productsQuery.data.results;
   return (
-    <div className={styles.productsGrid}>
+    <div className={`mainContainer ${styles.productsGrid}`}>
       {products.map((product) => (
         <div key={product.id}>
           <Product

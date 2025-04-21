@@ -6,13 +6,14 @@ export default function Footer() {
   const [showFooter, setShowFooter] = useState(true);
   const location = useLocation();
   useEffect(() => {
-    if (location.pathname == "/login" || location.pathname == "signup") {
+    if (location.pathname == "/login" || location.pathname == "/signup") {
       setShowFooter(false);
     } else {
       setShowFooter(true);
     }
   }, []);
-
+  console.log(showFooter);
+  console.log(location.pathname);
   return (
     <>
       {showFooter ? (

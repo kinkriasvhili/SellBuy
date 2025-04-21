@@ -17,9 +17,11 @@ import { UserContext } from "../../Context/UserContext";
 export default function Nav() {
   const { isAuthenticated } = useContext(AuthContext);
   const { userState } = useContext(UserContext);
-  // console.log(userState);
+
   const [displayNav, setDisplayNav] = useState(true);
   const location = useLocation();
+
+  const [isScrolled, setIsScrolled] = useState(false);
   useEffect(() => {
     if (
       location.pathname == "/login" ||
@@ -32,10 +34,18 @@ export default function Nav() {
     }
   }, [location.pathname]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10); // add shadow after 10px scroll
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
     <>
       {displayNav ? (
-        <nav>
+        <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ""}`}>
           <div className={styles.leftCont}>
             <Link to={"/"}>
               <span className={styles.logo}>S&B</span>
@@ -103,7 +113,7 @@ export default function Nav() {
           </div>
         </nav>
       ) : (
-        <SignUpInNav styles={styles} />
+        <SignUpInNav isScrolled={isScrolled} styles={styles} />
       )}
     </>
   );

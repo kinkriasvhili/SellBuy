@@ -43,7 +43,7 @@ export default function SignIn() {
     });
   };
   return (
-    <div className={styles.container}>
+    <div className={`bottomNav ${styles.container}`}>
       <div className={styles.leftSide}>
         <h2>Sign In</h2>
         <span>

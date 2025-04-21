@@ -47,7 +47,7 @@ export default function Profile() {
   const avatarURL = userState.avatar ? userState.avatar : profileImg;
 
   return (
-    <div className={`mainContainer ${styles.profileContainer}`}>
+    <div className={`mainContainer bottomNav ${styles.profileContainer}`}>
       <header className={styles.header}>
         <button className={styles.addButtin}>Add Products</button>
         <p className={styles.username}>{userState.full_username}</p>
