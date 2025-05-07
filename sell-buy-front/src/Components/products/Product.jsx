@@ -35,7 +35,11 @@ export default function Product({ image, name, price, scope, index }) {
       className={
         !animated ? styles.productContainer : animatedStyles.productContainer
       }
-      style={animated && { animationDelay: `${index * 0.1}s` }}
+      style={
+        location.pathname == "/"
+          ? animated && { animationDelay: `${index * 0.1}s` }
+          : {}
+      }
     >
       <div className={styles.productImageContainer}>
         <img className={styles.productImage} src={productURL} />

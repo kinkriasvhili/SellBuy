@@ -10,20 +10,21 @@ export function AuthContextProvider({ children }) {
     "isAuthenticated",
     false
   );
+
   const refreshMutation = useMutation({
     mutationFn: postRefreshToken,
     onSuccess: (data) => {
-      console.log("refreshed");
+      // console.log("refreshed");
       if (
         data.response.data.message ===
-          "Invalid or expired token. Please log in again." &&
-        false
+        "Invalid or expired token. Please log in again."
       ) {
         logOutMutation.mutate();
       }
       console.log(data);
     },
     onError: (err) => {
+      // console.log("error in use mutation REFRESH TOKEN");
       if (
         err?.response?.status === 401 ||
         err?.response?.data?.message ===
@@ -35,7 +36,7 @@ export function AuthContextProvider({ children }) {
       console.log(err);
     },
     onSettled: () => {
-      console.log("refresh attempt finished");
+      // console.log("refresh attempt finished");
     },
   });
 
@@ -58,7 +59,7 @@ export function AuthContextProvider({ children }) {
     }
     const interval = setInterval(() => {
       refreshMutation.mutate();
-    }, 4 * 60 * 1000);
+    }, 20 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, []);

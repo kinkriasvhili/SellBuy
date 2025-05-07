@@ -69,7 +69,7 @@ export async function postLogin(data) {
 
 export async function postLogout() {
   try {
-    console.log("me");
+    console.log("logged out this is from pos tada ");
     const res = await axios.post(
       "https://buy-sell-ecommerce.onrender.com/users/auth/logout/",
       {},

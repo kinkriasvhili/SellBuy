@@ -28,22 +28,24 @@ export default function Profile() {
   const handleClick = () => {
     logOutMutation.mutate();
   };
+  console.log(userState);
+  // return (
+  //   <>
+  //     <h1 className={`bottomNav ${styles.landingPageContainer}`}>Error</h1>
+  //     <button onClick={handleClick}>logOut</button>
+  //   </>
+  // );
   if (!isAuthenticated) return <h1>You aren't logged in</h1>;
   if (userQuery.isLoading) return <h1>Loading...</h1>;
   if (userQuery.isError) {
     return (
       <>
-        <h1>Error</h1>
+        <h1 className={`bottomNav ${styles.landingPageContainer}`}>Error</h1>
         <button onClick={handleClick}>logOut</button>
       </>
     );
   }
 
-  if (userQuery.status == "success") {
-    // console.log(userQuery.data);
-  }
-  // console.log("query", userQuery.data);
-  // console.log("userstate", userState);
   const avatarURL = userState.avatar ? userState.avatar : profileImg;
 
   return (
@@ -61,17 +63,19 @@ export default function Profile() {
           <li>Email: {userState.email}</li>
           <li>City: {userState.city}</li>
           <li>Phone: {userState.phone_number}</li>
-          <div style={{ display: "flex", gap: "10px" }}>
-            <span className={`${styles.edit}`} onClick={handleClick}>
-              Log Out
-            </span>{" "}
-            <span className={styles.edit}> Edit</span>
-          </div>
+          <li>
+            <div style={{ display: "flex", gap: "10px" }}>
+              <span className={`${styles.edit}`} onClick={handleClick}>
+                Log Out
+              </span>{" "}
+              <span className={styles.edit}> Edit</span>
+            </div>
+          </li>
         </ul>
       </section>
       <section className={styles.productsContainer}>
         <h2 className={styles.sectionTitle}>My Products</h2>
-        <MyProducts styles={styles} />
+        <MyProducts />
       </section>
     </div>
   );

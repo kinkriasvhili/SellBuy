@@ -3,9 +3,9 @@ import axios from "axios";
 import { postRefreshToken } from "./postData";
 const URL = "https://buy-sell-ecommerce.onrender.com";
 
-export const getUser = async (userId) => {
+export const getUser = async () => {
   try {
-    let response = await fetch(`${URL}/users/profile/current/`, {
+    let response = await fetch(`${URL}/dashboard/me/`, {
       method: "GET",
       credentials: "include",
     });
@@ -18,7 +18,7 @@ export const getUser = async (userId) => {
 
       await postRefreshToken();
 
-      response = await fetch(`${URL}/users/profile/current/`, {
+      response = await fetch(`${URL}/dashboard/me/`, {
         method: "GET",
         credentials: "include",
       });

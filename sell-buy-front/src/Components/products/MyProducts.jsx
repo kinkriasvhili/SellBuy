@@ -1,9 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../../fetchData/getData";
-import img from "../../Images/profile.jpg";
 import styles from "./products.module.css";
-import Product from "./product";
-const avatarURL = img;
+import Product from "./Product";
 export default function MyProducts() {
   const productsQuery = useQuery({
     queryKey: ["products"],
