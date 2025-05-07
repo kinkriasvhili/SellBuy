@@ -28,13 +28,15 @@ export default function Profile() {
   const handleClick = () => {
     logOutMutation.mutate();
   };
-  console.log(userState);
-  // return (
-  //   <>
-  //     <h1 className={`bottomNav ${styles.landingPageContainer}`}>Error</h1>
-  //     <button onClick={handleClick}>logOut</button>
-  //   </>
-  // );
+  if (false) {
+    return (
+      <>
+        <h1 className={`bottomNav ${styles.landingPageContainer}`}>Error</h1>
+        <button onClick={handleClick}>logOut</button>
+      </>
+    );
+  }
+
   if (!isAuthenticated) return <h1>You aren't logged in</h1>;
   if (userQuery.isLoading) return <h1>Loading...</h1>;
   if (userQuery.isError) {

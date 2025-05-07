@@ -44,6 +44,8 @@ export async function postRefreshToken() {
         withCredentials: true,
       }
     );
+    throw error.response?.data || new Error("Token refresh failed");
+
     return res.data;
   } catch (error) {
     // console.log("Refresh token error:", error.response?.data || error.message);
@@ -83,3 +85,41 @@ export async function postLogout() {
     throw err;
   }
 }
+
+// adding products
+
+export const postNewProduct = async ({ formData, images, featuredIndex }) => {
+  if (!images.length) throw new Error("At least one image is required.");
+
+  const form = new FormData();
+
+  // Add product fields
+  Object.entries(formData).forEach(([key, value]) => {
+    form.append(key, value);
+  });
+
+  // Add image files
+  images.forEach((file) => form.append("images", file));
+
+  // Add image metadata
+  const metadata = images.map((_, index) => ({
+    index,
+    is_feature: index === featuredIndex,
+  }));
+  form.append("images_metadata", JSON.stringify(metadata));
+
+  // Make the POST request
+  const response = await axios.post(
+    "http://127.0.0.1:8000/products/shop/items/",
+    form,
+    {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${localStorage.getItem("access")}`,
+      },
+    }
+  );
+
+  return response.data;
+};

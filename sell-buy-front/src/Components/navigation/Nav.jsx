@@ -7,6 +7,7 @@ import {
   faShoppingCart,
   faUser,
   faHeart,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { ButtonWIcon } from "../Ui/buttons/Buttons";
 import { useEffect, useState, useContext } from "react";
@@ -56,6 +57,15 @@ export default function Nav() {
           </div>
           <div className={`${styles.rightCont} flex-center`}>
             {/* {console.log("nav, ", userState)} */}
+            <Link to={isAuthenticated ? `/add-products` : "/login"}>
+              <ButtonWIcon
+                icon={faPlus}
+                iconSize="1x"
+                name={["linked-btn", "addProducts"]}
+                styles={styles}
+                afterEffect="addProducts"
+              />
+            </Link>
             <Link
               to={
                 isAuthenticated

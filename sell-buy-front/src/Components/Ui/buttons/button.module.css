@@ -14,3 +14,7 @@
   font-family: "Sour Gummy";
   content: "Cart";
 }
+.addProducts:after {
+  font-family: "Sour Gummy";
+  content: "Add Products";
+}

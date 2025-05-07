@@ -39,9 +39,16 @@ export const getUser = async () => {
 
 export const getProducts = async () => {
   try {
-    const res = await axios.get(
-      "https://buy-sell-ecommerce.onrender.com/products/shop/items/"
-    );
+    const res = await axios.get(`${URL}/products/shop/items/`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getProductsCategories = async () => {
+  try {
+    const res = await axios.get(`${URL}/products/parent/categories`);
     return res.data;
   } catch (error) {
     console.log(error);

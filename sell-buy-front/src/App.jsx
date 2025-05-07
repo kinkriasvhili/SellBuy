@@ -13,6 +13,7 @@ import { UserContext } from "./Context/UserContext.jsx";
 import { useContext } from "react";
 import Footer from "./Components/appFooter/footer.jsx";
 import PrivacyPolicy from "./Components/policy/PrivacyPolicy.jsx";
+import AddProd from "./Pages/AddProducts/AddProd.jsx";
 // import Footer from "./Components/appFooter/FooterApp.jsx";
 
 function AppInner() {
@@ -32,6 +33,7 @@ function AppInner() {
           path={`/${userState.full_username}/favorite`}
           element={<Favorite />}
         />
+        <Route path={`/add-products`} element={<AddProd />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path={`/orders`} element={<Orders />} />
         <Route path={`/email-confrimation`} element={<EmailConfrimation />} />

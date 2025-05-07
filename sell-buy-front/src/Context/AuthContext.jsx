@@ -13,16 +13,6 @@ export function AuthContextProvider({ children }) {
 
   const refreshMutation = useMutation({
     mutationFn: postRefreshToken,
-    onSuccess: (data) => {
-      // console.log("refreshed");
-      if (
-        data.response.data.message ===
-        "Invalid or expired token. Please log in again."
-      ) {
-        logOutMutation.mutate();
-      }
-      console.log(data);
-    },
     onError: (err) => {
       // console.log("error in use mutation REFRESH TOKEN");
       if (
@@ -59,7 +49,7 @@ export function AuthContextProvider({ children }) {
     }
     const interval = setInterval(() => {
       refreshMutation.mutate();
-    }, 20 * 60 * 1000);
+    }, 3 * 10 * 1000);
 
     return () => clearInterval(interval);
   }, []);

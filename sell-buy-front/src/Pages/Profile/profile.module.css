@@ -29,7 +29,7 @@
   transition: 0.2s;
 }
 .addButtin:hover {
-  border: 1px solid var(--light-blue);
+  border-color: var(--aqua-blue);
 }
 .username {
   color: var(--primary-color);
