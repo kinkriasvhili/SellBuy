@@ -14,6 +14,7 @@ import { useContext } from "react";
 import Footer from "./Components/appFooter/footer.jsx";
 import PrivacyPolicy from "./Components/policy/PrivacyPolicy.jsx";
 import AddProd from "./Pages/AddProducts/AddProd.jsx";
+import SingleProduct from "./Pages/SingleProduct/SingleProduct.jsx";
 // import Footer from "./Components/appFooter/FooterApp.jsx";
 
 function AppInner() {
@@ -37,6 +38,7 @@ function AppInner() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path={`/orders`} element={<Orders />} />
         <Route path={`/email-confrimation`} element={<EmailConfrimation />} />
+        <Route path="/product/:slug" element={<SingleProduct />} />
       </Routes>
       <Footer />
     </BrowserRouter>

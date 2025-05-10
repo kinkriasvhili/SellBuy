@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { UserContext } from "../../Context/UserContext";
 import { postLogout } from "../../fetchData/postData";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import profileImg from "../../Images/profile.jpg";
 import MyProducts from "../../Components/products/MyProducts";
 
@@ -53,7 +53,10 @@ export default function Profile() {
   return (
     <div className={`mainContainer bottomNav ${styles.profileContainer}`}>
       <header className={styles.header}>
-        <button className={styles.addButtin}>Add Products</button>
+        <Link to={`/add-products`}>
+          <button className={styles.addButtin}>Add Products</button>
+        </Link>
+
         <p className={styles.username}>{userState.full_username}</p>
       </header>
 

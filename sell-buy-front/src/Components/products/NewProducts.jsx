@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../../fetchData/getData";
 import styles from "./products.module.css";
 import animatedStyles from "./productsAnimation.module.css";
-import Product from "./product";
+import Product from "./Product";
+import { Link } from "react-router-dom";
 
 export default function NewProducts() {
   const productsQuery = useQuery({
@@ -20,13 +21,15 @@ export default function NewProducts() {
         .slice(0, 10)
         .map((product, index) => (
           <div key={product.id}>
-            <Product
-              image={product.images[0].image}
-              name={product.name}
-              price={product.price}
-              scope={"global"}
-              index={index}
-            />
+            <Link to={`/product/${product.slug}`}>
+              <Product
+                image={product.images[0].image}
+                name={product.name}
+                price={product.price}
+                scope={"global"}
+                index={index}
+              />
+            </Link>
           </div>
         ))}
     </div>

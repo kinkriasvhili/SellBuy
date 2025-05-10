@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getMyProducts } from "../../fetchData/getData";
 import styles from "./products.module.css";
 import Product from "./Product";
+import { Link } from "react-router-dom";
+
 export default function MyProducts() {
   const productsQuery = useQuery({
     queryKey: ["products", "my"],
@@ -19,15 +21,17 @@ export default function MyProducts() {
   return (
     <div className={styles.productsGrid}>
       {products.slice(0, 10).map((product) => (
-        <div key={product.id}>
-          {console.log(product.feature_images)}
-          <Product
-            image={product.feature_image}
-            name={product.name}
-            price={product.price}
-            scope={"local"}
-          />
-        </div>
+        <Link to={`/product/${product.slug}`}>
+          <div key={product.id}>
+            {console.log(product.feature_images)}
+            <Product
+              image={product.feature_image}
+              name={product.name}
+              price={product.price}
+              scope={"local"}
+            />
+          </div>
+        </Link>
       ))}
     </div>
   );
