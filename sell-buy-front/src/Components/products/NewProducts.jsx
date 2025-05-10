@@ -11,13 +11,12 @@ export default function NewProducts() {
   });
   if (productsQuery.isLoading) return <h1>...Loading</h1>;
   if (productsQuery.isError) return <h1>Error</h1>;
-
   // console.log(productsQuery.data);
   const products = productsQuery.data.results;
   return (
     <div className={`${styles.productsGrid}`}>
       {products
-        .filter((product) => product.condition === "new")
+        // .filter((product) => product.condition === "new")
         .slice(0, 10)
         .map((product, index) => (
           <div key={product.id}>

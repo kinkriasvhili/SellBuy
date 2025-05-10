@@ -97,3 +97,28 @@ export function Password({
     </div>
   );
 }
+
+export function AddProductsInput({
+  label,
+  placeholder,
+  name,
+  handleChange,
+  value,
+  type,
+}) {
+  return (
+    <div>
+      <label className="addProductsLabel">{label}</label>
+      <input
+        min={type === "number" ? "0" : undefined}
+        type={type}
+        placeholder={placeholder}
+        value={value[name]}
+        onChange={(e) => {
+          handleChange(e, name);
+        }}
+        name={name}
+      />
+    </div>
+  );
+}

@@ -1,5 +1,5 @@
 import axios from "axios";
-
+const URL = "https://buy-sell-ecommerce.onrender.com";
 export async function postEmailOrCodeConfirmation(data) {
   try {
     const res = await axios.post(
@@ -90,15 +90,12 @@ export async function postLogout() {
 
 export const postNewProduct = async ({ formData, images, featuredIndex }) => {
   if (!images.length) throw new Error("At least one image is required.");
-
   const form = new FormData();
 
-  // Add product fields
   Object.entries(formData).forEach(([key, value]) => {
     form.append(key, value);
   });
 
-  // Add image files
   images.forEach((file) => form.append("images", file));
 
   // Add image metadata
@@ -109,17 +106,13 @@ export const postNewProduct = async ({ formData, images, featuredIndex }) => {
   form.append("images_metadata", JSON.stringify(metadata));
 
   // Make the POST request
-  const response = await axios.post(
-    "http://127.0.0.1:8000/products/shop/items/",
-    form,
-    {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${localStorage.getItem("access")}`,
-      },
-    }
-  );
+  const response = await axios.post(`${URL}/products/shop/items/`, form, {
+    withCredentials: true,
+    // headers: {
+    //   // "Content-Type": "multipart/form-data",
+    //   Authorization: `Bearer ${localStorage.getItem("access")}`,
+    // },
+  });
 
   return response.data;
 };

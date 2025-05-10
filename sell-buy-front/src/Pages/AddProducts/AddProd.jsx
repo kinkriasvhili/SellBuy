@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./addProd.module.css";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { getProductsCategories } from "../../fetchData/getData";
-import { SignForm } from "../../Components/Ui/inputs/Inputs";
+import { AddProductsInput } from "../../Components/Ui/inputs/Inputs";
 import { postNewProduct } from "../../fetchData/postData";
 
 export default function AddProd() {
@@ -24,12 +24,24 @@ export default function AddProd() {
 
   const mutation = useMutation({
     mutationFn: postNewProduct,
-    onSuccess: () => {
+    onSuccess: (data) => {
       alert("Product created!");
-      // Optionally reset the form or invalidate product list query
+      setFormData({
+        name: "",
+        description: "",
+        price: "",
+        stock: "",
+        condition: "new",
+        category: "",
+      });
     },
     onError: (error) => {
       alert(error.message || "Upload failed");
+    },
+    onSettled: (data, error) => {
+      console.log("📦 Settled - either success or error:");
+      console.log("Data:", data);
+      console.log("Error:", error);
     },
   });
 
@@ -38,9 +50,13 @@ export default function AddProd() {
   };
 
   const handleImages = (e) => {
-    const files = Array.from(e.target.files).slice(0, 6);
-    setImages(files);
-    if (featuredIndex === null && files.length > 0) setFeaturedIndex(0);
+    const newFiles = Array.from(e.target.files).slice(0, 6);
+    const updatedFiles = [...images, ...newFiles].slice(0, 6); // max 6 total
+    setImages(updatedFiles);
+
+    if (featuredIndex === null && updatedFiles.length > 0) {
+      setFeaturedIndex(0);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -49,14 +65,11 @@ export default function AddProd() {
     mutation.mutate({ formData, images, featuredIndex });
   };
 
-  if (categQueries.isLoading) return <h1 className="bottomNav">Loading</h1>;
-  if (categQueries.isError) return <h1 className="bottomNav">Error</h1>;
-
   return (
     <form className={`bottomNav ${styles.form}`} onSubmit={handleSubmit}>
-      <h2>Add New Product</h2>
+      <h2 className={styles.title}>Add New Product</h2>
 
-      <SignForm
+      <AddProductsInput
         label="Name"
         type="text"
         placeholder="Product Name"
@@ -66,7 +79,7 @@ export default function AddProd() {
         className={styles.input}
       />
 
-      <SignForm
+      <AddProductsInput
         label="Description"
         type="text"
         placeholder="Product Description"
@@ -76,7 +89,7 @@ export default function AddProd() {
         className={styles.input}
       />
 
-      <SignForm
+      <AddProductsInput
         label="Price"
         type="number"
         placeholder="Price"
@@ -86,7 +99,7 @@ export default function AddProd() {
         className={styles.input}
       />
 
-      <SignForm
+      <AddProductsInput
         label="Stock"
         type="number"
         placeholder="Stock"
@@ -96,7 +109,7 @@ export default function AddProd() {
         className={styles.input}
       />
 
-      <label className={styles.label}>Condition:</label>
+      <label className="addProductsLabel">Condition:</label>
       <select
         name="condition"
         value={formData.condition}
@@ -108,7 +121,7 @@ export default function AddProd() {
         <option value="refurbished">Refurbished</option>
       </select>
 
-      <label className={styles.label}>Category:</label>
+      <label className="addProductsLabel">Category:</label>
       <select
         name="category"
         value={formData.category}
@@ -116,21 +129,29 @@ export default function AddProd() {
         className={styles.select}
       >
         <option value="">Select Category</option>
-        {categQueries.data?.map((cat) => (
-          <option key={cat.id} value={cat.id}>
-            {cat.name}
-          </option>
-        ))}
+        {categQueries.isLoading ? (
+          <option disabled>Loading...</option>
+        ) : categQueries.isError ? (
+          <option disabled>Error loading categories</option>
+        ) : (
+          categQueries.data?.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.name}
+            </option>
+          ))
+        )}
       </select>
 
-      <label className={styles.label}>Images (max 6):</label>
-      <input
-        type="file"
-        multiple
-        accept="image/*"
-        onChange={handleImages}
-        className={styles.fileInput}
-      />
+      <label className={`${styles.label} ${styles.fileUpload}`}>
+        Choose Images
+        <input
+          type="file"
+          multiple
+          accept="image/*"
+          onChange={handleImages}
+          className={styles.hiddenInput}
+        />
+      </label>
 
       <div className={styles.previewContainer}>
         {images.map((img, index) => (
@@ -149,9 +170,19 @@ export default function AddProd() {
         ))}
       </div>
 
-      <button type="submit" className={styles.submitBtn}>
+      <button
+        disabled={mutation.isPending}
+        type="submit"
+        className={styles.submitBtn}
+        style={{
+          opacity: mutation.isPending ? 0.5 : 1, // Lighter when disabled
+          cursor: mutation.isPending ? "not-allowed" : "pointer", // No pointer when disabled
+        }}
+      >
         Add Product
       </button>
+
+      <span>{mutation.isPending ? "Creating..." : ""}</span>
     </form>
   );
 }

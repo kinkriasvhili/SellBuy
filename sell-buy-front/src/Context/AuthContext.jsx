@@ -49,7 +49,7 @@ export function AuthContextProvider({ children }) {
     }
     const interval = setInterval(() => {
       refreshMutation.mutate();
-    }, 3 * 10 * 1000);
+    }, 30 * 10 * 1000);
 
     return () => clearInterval(interval);
   }, []);

@@ -21,6 +21,11 @@
   --aqua-blue: #00bcd4;
   --soft-white: #f8f8f8;
 }
+.addProductsLabel {
+  font-weight: bold;
+  color: var(--teal);
+}
+
 #root {
   height: 100%;
 }
@@ -75,6 +80,7 @@ img {
 }
 
 /* fontawsom */
+
 svg {
   color: var(--blue-color);
 }
