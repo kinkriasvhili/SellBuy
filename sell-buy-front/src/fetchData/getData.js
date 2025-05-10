@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { postRefreshToken } from "./postData";
+import { faExchange } from "@fortawesome/free-solid-svg-icons";
 const URL = "https://buy-sell-ecommerce.onrender.com";
 
 export const getUser = async () => {
@@ -49,6 +50,17 @@ export const getProducts = async () => {
 export const getProductsCategories = async () => {
   try {
     const res = await axios.get(`${URL}/products/parent/categories`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getMyProducts = async () => {
+  try {
+    const res = await axios.get(`${URL}/dashboard/me/products`, {
+      withCredentials: true,
+    });
     return res.data;
   } catch (error) {
     console.log(error);

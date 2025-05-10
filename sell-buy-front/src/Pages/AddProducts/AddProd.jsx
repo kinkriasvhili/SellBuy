@@ -175,8 +175,8 @@ export default function AddProd() {
         type="submit"
         className={styles.submitBtn}
         style={{
-          opacity: mutation.isPending ? 0.5 : 1, // Lighter when disabled
-          cursor: mutation.isPending ? "not-allowed" : "pointer", // No pointer when disabled
+          opacity: mutation.isPending ? 0.5 : 1,
+          cursor: mutation.isPending ? "not-allowed" : "pointer",
         }}
       >
         Add Product
@@ -186,21 +186,3 @@ export default function AddProd() {
     </form>
   );
 }
-
-// const refreshMutation = useMutation({
-//   mutationFn: postRefreshToken,
-//   onError: (err) => {
-//     // console.log("error in use mutation REFRESH TOKEN");
-
-//     console.log(err);
-//   },
-//   onSuccess: () => {
-//     console.log("refreshed");
-//   },
-//   onSettled: () => {
-//     // console.log("refresh attempt finished");
-//   },
-// });
-// useEffect(() => {
-//   refreshMutation.mutate();
-// }, []);

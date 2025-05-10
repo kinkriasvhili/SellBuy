@@ -28,7 +28,7 @@ export default function Profile() {
   const handleClick = () => {
     logOutMutation.mutate();
   };
-  if (true) {
+  if (false) {
     return (
       <>
         <h1 className={`bottomNav ${styles.landingPageContainer}`}>Error</h1>
@@ -79,6 +79,9 @@ export default function Profile() {
         <h2 className={styles.sectionTitle}>My Products</h2>
         <MyProducts />
       </section>
+      <>
+        <button onClick={handleClick}>logOut</button>
+      </>
     </div>
   );
 }
