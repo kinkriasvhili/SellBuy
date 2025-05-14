@@ -66,3 +66,12 @@ export const getMyProducts = async () => {
     console.log(error);
   }
 };
+
+export const getSingleProduct = async (slug) => {
+  try {
+    const res = await axios.get(`${URL}/products/shop/items/${slug}`);
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

@@ -20,11 +20,9 @@
   --dark-grey: #444444;
   --aqua-blue: #00bcd4;
   --soft-white: #f8f8f8;
+  --color-realBlue: #2979ff;
 }
-.addProductsLabel {
-  font-weight: bold;
-  color: var(--teal);
-}
+
 
 #root {
   height: 100%;
@@ -45,6 +43,7 @@ body {
   line-height: 1.5; /* Improve readability */
   text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;
+  background-color: rgb(252, 252, 252);
 }
 
 /* Set span default styles */
@@ -52,7 +51,11 @@ span {
   color: var(--primary-text-color);
   font-size: 13px;
 }
-
+/*  product label */
+.addProductsLabel {
+  font-weight: bold;
+  color: var(--teal);
+}
 /* Remove default list styles */
 ul,
 ol {
