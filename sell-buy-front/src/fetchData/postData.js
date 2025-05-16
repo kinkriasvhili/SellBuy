@@ -35,23 +35,23 @@ export async function postRegisterData(data) {
   }
 }
 
-export async function postRefreshToken() {
-  try {
-    const res = await axios.post(
-      "https://buy-sell-ecommerce.onrender.com/users/token/refresh/",
-      {},
-      {
-        withCredentials: true,
-      }
-    );
-    throw error.response?.data || new Error("Token refresh failed");
+// export async function postRefreshToken() {
+//   try {
+//     const res = await axios.post(
+//       "https://buy-sell-ecommerce.onrender.com/users/token/refresh/",
+//       {},
+//       {
+//         withCredentials: true,
+//       }
+//     );
+//     throw error.response?.data || new Error("Token refresh failed");
 
-    return res.data;
-  } catch (error) {
-    // console.log("Refresh token error:", error.response?.data || error.message);
-    return error;
-  }
-}
+//     return res.data;
+//   } catch (error) {
+//     // console.log("Refresh token error:", error.response?.data || error.message);
+//     return error;
+//   }
+// }
 
 export async function postLogin(data) {
   try {
@@ -86,8 +86,6 @@ export async function postLogout() {
   }
 }
 
-// adding products
-
 export const postNewProduct = async ({ formData, images, featuredIndex }) => {
   if (!images.length) throw new Error("At least one image is required.");
   const form = new FormData();
@@ -98,21 +96,34 @@ export const postNewProduct = async ({ formData, images, featuredIndex }) => {
 
   images.forEach((file) => form.append("images", file));
 
-  // Add image metadata
   const metadata = images.map((_, index) => ({
     index,
     is_feature: index === featuredIndex,
   }));
   form.append("images_metadata", JSON.stringify(metadata));
 
-  // Make the POST request
   const response = await axios.post(`${URL}/products/shop/items/`, form, {
     withCredentials: true,
-    // headers: {
-    //   // "Content-Type": "multipart/form-data",
-    //   Authorization: `Bearer ${localStorage.getItem("access")}`,
-    // },
   });
 
   return response.data;
+};
+
+export const postReview = async ({ message, rating, slug }) => {
+  try {
+    const response = await axios.post(
+      `${URL}/reviews/shop/items/${slug}/reviews/`,
+      { message, rating },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("POST review failed:", error.response?.data || error.message);
+    throw error.response?.data || error; // rethrow for useMutation to catch
+  }
 };

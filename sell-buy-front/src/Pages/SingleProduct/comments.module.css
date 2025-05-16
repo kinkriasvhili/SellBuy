@@ -38,11 +38,13 @@
   outline: none;
   border-color: var(--primary-color);
 }
-
-.writeComment button {
+.writeComment .ratingCont {
   position: absolute;
   right: 15px;
   bottom: 45px;
+  cursor: pointer;
+}
+.writeComment button {
   color: var(--dark-grey);
   border: 1px dashed var(--light-grey);
   padding: 8px 20px;
@@ -55,7 +57,11 @@
   color: var(--primary-color);
   border-color: var(--primary-color);
 }
-
+.commentHeader {
+  display: flex;
+  width: 100%;
+  gap: 3vw;
+}
 .commentBody {
   display: flex;
   flex-direction: column;
@@ -147,4 +153,13 @@
   margin-top: 20px;
   margin-left: 55px;
   margin-bottom: 30px;
+}
+
+.delete {
+  cursor: pointer;
+  transition: 0.2s;
+  align-self: center;
+}
+.delete:hover {
+  text-decoration: underline;
 }

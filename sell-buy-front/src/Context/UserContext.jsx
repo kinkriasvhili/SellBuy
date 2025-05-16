@@ -28,7 +28,11 @@ export const userReducer = (state, action) => {
 
 export function UserContextProvider({ children }) {
   const [userState, dispatch] = useReducer(userReducer, initialUserState);
-  const { isAuthenticated } = useContext(AuthContext);
+  var isAuthenticated;
+  if (AuthContext) {
+    var { isAuthenticated } = useContext(AuthContext);
+  } else {
+  }
   // Automatically fetch user data when app loads
   const userQuery = useQuery({
     queryKey: ["user", "Me"],
@@ -62,16 +66,3 @@ export function UserContextProvider({ children }) {
     </UserContext.Provider>
   );
 }
-
-// if (userQuery.error) {
-// console.log("hello");
-// console.log(userQuery.data);
-// console.log(userQuery.error);
-// console.log(
-// userQuery.error == "Access token expired. Please refresh your session."
-// );
-// }
-
-// if (!isAuthenticated) {
-//   clearUser();
-// }

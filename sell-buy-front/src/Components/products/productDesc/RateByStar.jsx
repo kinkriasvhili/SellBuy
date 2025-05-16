@@ -7,7 +7,7 @@ import {
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 import styles from "./productDesc.module.css";
 
-const RateByStar = ({ rating, onHover }) => {
+const RateByStar = ({ rating, onHover, handleRating }) => {
   const stars = [];
 
   for (let i = 1; i <= 5; i++) {
@@ -26,16 +26,17 @@ const RateByStar = ({ rating, onHover }) => {
         icon={icon}
         onMouseEnter={() => onHover?.(i)}
         className={styles.star}
+        onClick={handleRating}
       />
     );
   }
 
-  // return <div className={styles.stars}>{stars}</div>;
-  return (
-    <div className={styles.stars} onMouseLeave={() => onHover?.(0)}>
-      {stars}
-    </div>
-  );
+  return <div className={styles.stars}>{stars}</div>;
+  // return (
+  //   <div className={styles.stars} onMouseLeave={() => onHover?.(0)}>
+  //     {stars}
+  //   </div>
+  // );
 };
 
 export default RateByStar;

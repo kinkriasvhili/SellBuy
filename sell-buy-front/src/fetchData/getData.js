@@ -1,7 +1,6 @@
 import axios from "axios";
 
-import { postRefreshToken } from "./postData";
-import { faExchange } from "@fortawesome/free-solid-svg-icons";
+// import { postRefreshToken } from "./postData";
 const URL = "https://buy-sell-ecommerce.onrender.com";
 
 export const getUser = async () => {
@@ -17,7 +16,7 @@ export const getUser = async () => {
     if (response.status === 401 || data.code === "token_expired") {
       console.warn("Access token expired, trying to refresh...");
 
-      await postRefreshToken();
+      // await postRefreshToken();
 
       response = await fetch(`${URL}/dashboard/me/`, {
         method: "GET",
@@ -73,5 +72,30 @@ export const getSingleProduct = async (slug) => {
     return res.data;
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const getReview = async ({ slug }) => {
+  try {
+    const response = await axios.get(
+      `${URL}/reviews/shop/items/${slug}/reviews/`,
+      { withCredentials: true }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch reviews:", error.message);
+    throw error;
+  }
+};
+export const getReviewById = async ({ slug, reviewId }) => {
+  try {
+    const response = await axios.get(
+      `${URL}/reviews/shop/items/${slug}/reviews/${reviewId}`
+      // { withCredentials: true }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch reviews:", error.message);
+    throw error;
   }
 };

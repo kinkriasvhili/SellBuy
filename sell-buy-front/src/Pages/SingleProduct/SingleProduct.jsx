@@ -11,7 +11,6 @@ export default function SingleProduct() {
     queryKey: ["product", slug],
     queryFn: () => getSingleProduct(slug),
   });
-  console.log(slug);
   if (productQuery.isLoading) return <h1 className="bottomNav">...Loading</h1>;
   if (productQuery.isError) {
     console.log(productQuery.error);
@@ -24,10 +23,9 @@ export default function SingleProduct() {
     );
   }
   const product = productQuery.data;
-  console.log(product);
   return (
     <div>
-      <ProductDetails product={product} />
+      <ProductDetails slug={slug} product={product} />
     </div>
   );
 }

@@ -11,10 +11,10 @@ import whatsApp from "../../Images/whatsapp.jpg";
 import profileImg from "../../Images/profile.jpg";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
-import RateByStar from "../../Components/products/productDesc/RateByStar";
+import StarRating from "../../Components/products/productDesc/StarsRating";
 import ProductComments from "./ProductComments";
 
-export default function ProductDetails({ product }) {
+export default function ProductDetails({ product, slug }) {
   const [currency, setCurrency] = useState("EUR");
   const [showNumber, setShowNumber] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -25,15 +25,13 @@ export default function ProductDetails({ product }) {
     price,
     category_breadcrumb,
     condition,
-    created_at,
     images,
     seller,
     stock,
     total_reviews,
     average_rating,
   } = product;
-  const [starRating, setStarRating] = useState(average_rating.slice(0, 1));
-  // return <h1 className="bottomNav">{stock}</h1>;
+
   const toggleCurrency = () => {
     setCurrency((prev) => (prev == "EUR" ? "USD" : "EUR"));
   };
@@ -62,7 +60,6 @@ export default function ProductDetails({ product }) {
     const digits = fullNumber.replace("+995", "").trim();
     const parts = digits.split(" ").filter(Boolean);
     const maskedLast = parts[0].slice(0, 7) + "**";
-    console.log(maskedLast);
     return maskedLast;
   };
 
@@ -246,12 +243,7 @@ export default function ProductDetails({ product }) {
       </section>
       <section className={styles.details}>
         <div className={styles.rating}>
-          <RateByStar
-            rating={starRating}
-            onHover={(starIndex) => {
-              setStarRating(starIndex);
-            }}
-          />
+          <StarRating rating={average_rating} />
           <span>{total_reviews}</span>
         </div>
         <div className={styles.condition}>
@@ -269,7 +261,7 @@ export default function ProductDetails({ product }) {
         <strong>Product Description:</strong> {description}
       </section>
       <section>
-        <ProductComments />
+        <ProductComments slug={slug} average_rating={average_rating} />
       </section>
     </div>
   );

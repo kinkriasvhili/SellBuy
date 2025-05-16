@@ -88,7 +88,7 @@ export default function EmailConfirmation() {
     codeRef.current.focus();
   }, [userState, setUser]);
   return (
-    <div className={styles.container}>
+    <div className={`bottomNav ${styles.container}`}>
       <div className={styles.box}>
         <h2>Email Confirmation</h2>
         <p>{setUser.user_name}</p>

@@ -198,3 +198,10 @@ button {
   color: black;
   font-size: 14px;
 }
+
+.disabledBtn {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+  
+}

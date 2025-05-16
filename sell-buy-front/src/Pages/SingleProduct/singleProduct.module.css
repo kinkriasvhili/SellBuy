@@ -293,9 +293,6 @@ toggle dolalr and eur*/
 .details > div b {
   color: var(--primary-color);
 }
-.rating svg {
-  cursor: pointer;
-}
 
 /* commnets */
 .commentsContainer {
@@ -344,6 +341,7 @@ toggle dolalr and eur*/
   border-radius: 20px;
   cursor: pointer;
 }
+
 /* describtion */
 .description {
   width: 100%;
