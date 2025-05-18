@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styles from "./addProd.module.css";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { getProductsCategories } from "../../fetchData/getData";
 import { AddProductsInput } from "../../Components/Ui/inputs/Inputs";
 import { postNewProduct } from "../../fetchData/postData";
+import { AuthContext } from "../../Context/AuthContext";
 
 export default function AddProd() {
   const [formData, setFormData] = useState({
@@ -16,6 +17,21 @@ export default function AddProd() {
   });
   const [images, setImages] = useState([]);
   const [featuredIndex, setFeaturedIndex] = useState(null);
+  const { isAuthenticated } = useContext(AuthContext);
+  const [disabled, setDisabled] = useState(true);
+  function validateForm(formData, images) {
+    const hasEmptyField = Object.entries(formData).some(([key, value]) => {
+      if (key === "condition") return false;
+      return value.trim() === "";
+    });
+
+    const hasNoImages = images.length === 0;
+    return hasEmptyField || hasNoImages;
+  }
+  useEffect(() => {
+    const isDisabled = validateForm(formData, images);
+    setDisabled(isDisabled);
+  }, [formData, images]);
 
   const categQueries = useQuery({
     queryKey: ["categories"],
@@ -34,6 +50,7 @@ export default function AddProd() {
         condition: "new",
         category: "",
       });
+      setImages([]);
     },
     onError: (error) => {
       alert(error.message || "Upload failed");
@@ -50,8 +67,25 @@ export default function AddProd() {
   };
 
   const handleImages = (e) => {
-    const newFiles = Array.from(e.target.files).slice(0, 6);
-    const updatedFiles = [...images, ...newFiles].slice(0, 6); // max 6 total
+    const newFiles = Array.from(e.target.files).slice(0, 5);
+
+    let duplicateFound = false;
+
+    const filteredNewFiles = newFiles.filter((file) => {
+      const isDuplicate = images.some(
+        (existing) => existing.name === file.name && existing.size === file.size
+      );
+      if (isDuplicate) {
+        duplicateFound = true;
+      }
+      return !isDuplicate;
+    });
+
+    if (duplicateFound) {
+      alert("You cannot add the same image twice.");
+    }
+
+    const updatedFiles = [...images, ...filteredNewFiles].slice(0, 5);
     setImages(updatedFiles);
 
     if (featuredIndex === null && updatedFiles.length > 0) {
@@ -65,6 +99,11 @@ export default function AddProd() {
     mutation.mutate({ formData, images, featuredIndex });
   };
 
+  useEffect(() => {
+    if (mutation.isPending) {
+      setDisabled(true);
+    }
+  }, [mutation, isAuthenticated]);
   return (
     <form className={`bottomNav ${styles.form}`} onSubmit={handleSubmit}>
       <h2 className={styles.title}>Add New Product</h2>
@@ -141,9 +180,9 @@ export default function AddProd() {
           ))
         )}
       </select>
-
+      <label className="addProductsLabel">Images:</label>
       <label className={`${styles.label} ${styles.fileUpload}`}>
-        Choose Images
+        Choose Images (Maximum 5)
         <input
           type="file"
           multiple
@@ -165,18 +204,30 @@ export default function AddProd() {
                 border: featuredIndex === index ? "2px solid green" : "none",
               }}
             />
+            <span
+              onClick={() => {
+                const newImages = [...images];
+                newImages.splice(index, 1);
+                setImages(newImages);
+              }}
+              className={styles.delete}
+            >
+              {console.log(images)}X
+            </span>
             <p>{featuredIndex === index ? "Featured" : ""}</p>
           </div>
         ))}
       </div>
 
       <button
-        disabled={mutation.isPending}
+        disabled={isAuthenticated && disabled}
         type="submit"
-        className={styles.submitBtn}
+        className={`${styles.submitBtn} ${
+          isAuthenticated ? "" : styles.notAuthBtn
+        }`}
         style={{
-          opacity: mutation.isPending ? 0.5 : 1,
-          cursor: mutation.isPending ? "not-allowed" : "pointer",
+          opacity: isAuthenticated && disabled ? 0.5 : 1,
+          cursor: isAuthenticated && disabled ? "not-allowed" : "pointer",
         }}
       >
         Add Product
