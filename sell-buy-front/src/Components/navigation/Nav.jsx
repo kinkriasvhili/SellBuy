@@ -14,14 +14,14 @@ import { useEffect, useState, useContext } from "react";
 import SignUpInNav from "../../Pages/SignUpIn/SignUpInNav";
 import { AuthContext } from "../../Context/AuthContext";
 import { UserContext } from "../../Context/UserContext";
+import { useHideNav } from "../../Context/HideNav";
 
 export default function Nav() {
   const { isAuthenticated } = useContext(AuthContext);
   const { userState } = useContext(UserContext);
-
+  const { hide } = useHideNav();
   const [displayNav, setDisplayNav] = useState(true);
   const location = useLocation();
-
   const [isScrolled, setIsScrolled] = useState(false);
   useEffect(() => {
     if (
@@ -43,6 +43,8 @@ export default function Nav() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  if (hide) return;
+
   return (
     <>
       {displayNav ? (

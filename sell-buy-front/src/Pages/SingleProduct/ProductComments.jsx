@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import profileImg from "../../Images/profile.jpg";
+const URL = "https://buy-sell-ecommerce.onrender.com";
 import styles from "./comments.module.css";
 import RateByStar from "../../Components/products/productDesc/RateByStar";
 import { postReview } from "../../fetchData/postData";
@@ -9,17 +9,28 @@ import { getReview } from "../../fetchData/getData";
 import StarRating from "../../Components/products/productDesc/StarsRating";
 import { putReview } from "../../fetchData/putData";
 import { UserContext } from "../../Context/UserContext";
+import { AuthContext } from "../../Context/AuthContext";
 import { delReview } from "../../fetchData/delData";
+import { useNavigate } from "react-router-dom";
 export default function ProductComments({ slug }) {
   const [comments, setComments] = useState([]);
   const [mainInput, setMainInput] = useState("");
   const [starRating, setStarRating] = useState(5.0);
+  const [btnDisabled, setBtnDisabled] = useState(true);
   const { userState } = useContext(UserContext);
+  const { isAuthenticated } = useContext(AuthContext);
+  const [nextPageUrl, setNextPageUrl] = useState(null);
+  const navigate = useNavigate();
   const currentUserId = userState.id;
   const exsistingReview = comments.find((comment) => {
     return comment.user.id == currentUserId;
   });
+
   const addComment = () => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    }
     if (mainInput.trim() === "") return;
     const rating = Number(starRating).toFixed(2);
     const message = mainInput;
@@ -42,11 +53,7 @@ export default function ProductComments({ slug }) {
       return getReview({ slug });
     },
   });
-  useEffect(() => {
-    if (reviewQuery.isSuccess && reviewQuery.data?.results) {
-      setComments(reviewQuery.data.results);
-    }
-  }, [reviewQuery.data]);
+
   const reviewMutation = useMutation({
     mutationKey: ["reviewPost", slug],
     mutationFn: (sendData) => {
@@ -54,7 +61,7 @@ export default function ProductComments({ slug }) {
       return postReview({ message, rating, slug });
     },
     onSuccess: () => {
-      reviewQuery.refetch();
+      fetchInitialReviews(); // Refetch and reset state after add/edit/delete
     },
     onError: (error) => {
       console.log(error);
@@ -67,7 +74,7 @@ export default function ProductComments({ slug }) {
       return putReview({ message, rating, slug, reviewId });
     },
     onSuccess: () => {
-      reviewQuery.refetch();
+      fetchInitialReviews(); // Refetch and reset state after add/edit/delete
     },
     onError: (error) => {
       console.log(error);
@@ -80,7 +87,7 @@ export default function ProductComments({ slug }) {
       return delReview({ slug, reviewId });
     },
     onSuccess: () => {
-      reviewQuery.refetch();
+      fetchInitialReviews(); // Refetch and reset state after add/edit/delete
     },
     onError: (error) => {
       console.log(error);
@@ -93,7 +100,40 @@ export default function ProductComments({ slug }) {
       slug,
     });
   };
+  useEffect(() => {
+    const fetchInitialReviews = async () => {
+      try {
+        const data = await getReview({ slug, url: nextPageUrl });
+        setComments(data.results);
+        setNextPageUrl(data.next);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchInitialReviews();
+  }, [slug]);
+  const loadMoreReviews = async () => {
+    if (!nextPageUrl) return;
 
+    try {
+      const data = await getReview({ slug, url: nextPageUrl });
+      setComments((prev) => [...prev, ...data.results]);
+      setNextPageUrl(data.next);
+    } catch (err) {
+      console.error("Failed to load more reviews", err);
+    }
+  };
+  useEffect(() => {
+    if (
+      mainInput.trim() == "" ||
+      reviewMutation.isPending ||
+      changeReview.isPending
+    ) {
+      setBtnDisabled(true);
+    } else {
+      setBtnDisabled(false);
+    }
+  }, [mainInput, reviewMutation, changeReview]);
   return (
     <div className={styles.taskCommentContainer}>
       <div className={styles.writeComment}>
@@ -114,12 +154,8 @@ export default function ProductComments({ slug }) {
         </div>
 
         <button
-          disabled={reviewMutation.isPending || changeReview.isPending}
-          className={
-            reviewMutation.isPending || changeReview.isPending
-              ? "disabledBtn"
-              : ""
-          }
+          disabled={btnDisabled}
+          className={btnDisabled ? "disabledBtn" : ""}
           onClick={addComment}
         >
           {exsistingReview ? "Change" : "Add"}
@@ -161,6 +197,11 @@ export default function ProductComments({ slug }) {
                 </div>
               </div>
             ))}
+            {nextPageUrl && (
+              <button onClick={loadMoreReviews} className={styles.loadMoreBtn}>
+                Load More
+              </button>
+            )}
           </>
         ) : (
           <h1>...loading</h1>

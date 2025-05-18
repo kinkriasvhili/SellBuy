@@ -9,6 +9,7 @@ import { ReviewContextProvider } from "./ReviewContext";
 import { DiscountContextProvider } from "./DiscountContext";
 import { ChatContextProvider } from "./ChatContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { HideNavProvider } from "./HideNav";
 
 const AppProviders = ({ children }) => {
   const queryClient = new QueryClient();
@@ -23,7 +24,9 @@ const AppProviders = ({ children }) => {
                 <FavoriteContextProvider>
                   <ReviewContextProvider>
                     <DiscountContextProvider>
-                      <ChatContextProvider>{children}</ChatContextProvider>
+                      <ChatContextProvider>
+                        <HideNavProvider>{children}</HideNavProvider>
+                      </ChatContextProvider>
                     </DiscountContextProvider>
                   </ReviewContextProvider>
                 </FavoriteContextProvider>

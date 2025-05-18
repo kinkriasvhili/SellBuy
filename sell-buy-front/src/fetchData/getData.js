@@ -75,18 +75,26 @@ export const getSingleProduct = async (slug) => {
   }
 };
 
-export const getReview = async ({ slug }) => {
+export const getReview = async ({ slug, url }) => {
   try {
-    const response = await axios.get(
-      `${URL}/reviews/shop/items/${slug}/reviews/`,
-      { withCredentials: true }
-    );
+    let fetchUrl = "";
+
+    if (url) {
+      // Remove domain part if it exists (in case `url` is a full URL)
+      const urlObj = url.replace(/^https?:\/\/[^/]+/, "");
+      fetchUrl = `${URL}${urlObj}`;
+    } else {
+      fetchUrl = `${URL}/reviews/shop/items/${slug}/reviews/?limit=2&offset=0`;
+    }
+
+    const response = await axios.get(fetchUrl, { withCredentials: true });
     return response.data;
   } catch (error) {
     console.error("Failed to fetch reviews:", error.message);
     throw error;
   }
 };
+
 export const getReviewById = async ({ slug, reviewId }) => {
   try {
     const response = await axios.get(

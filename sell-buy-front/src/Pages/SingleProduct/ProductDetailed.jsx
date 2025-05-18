@@ -10,15 +10,25 @@ import {
 import whatsApp from "../../Images/whatsapp.jpg";
 import profileImg from "../../Images/profile.jpg";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
-import { useState } from "react";
+import { useState, useContext, useRef } from "react";
 import StarRating from "../../Components/products/productDesc/StarsRating";
 import ProductComments from "./ProductComments";
+import { AuthContext } from "../../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useHideNav } from "../../Context/HideNav";
 
 export default function ProductDetails({ product, slug }) {
   const [currency, setCurrency] = useState("EUR");
   const [showNumber, setShowNumber] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const { isAuthenticated } = useContext(AuthContext);
+  const [isGridImgOpen, setIsGridImgOpen] = useState(false);
+  const [openImage, setOpenImage] = useState(false);
+  const [openFeImage, setOpenFeImage] = useState(false);
 
+  const imageRef = useRef(null);
+  const { setHide } = useHideNav();
+  const navigate = useNavigate();
   const {
     name,
     description,
@@ -35,7 +45,6 @@ export default function ProductDetails({ product, slug }) {
   const toggleCurrency = () => {
     setCurrency((prev) => (prev == "EUR" ? "USD" : "EUR"));
   };
-
   const priceInCurrency = () => {
     const INUSD = `$${Number(price) * quantity}`;
     const INEUR = `€${
@@ -48,25 +57,21 @@ export default function ProductDetails({ product, slug }) {
       return INUSD;
     }
   };
-
   const capitalizeWords = (str) => {
     return str
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
   };
-
   const maskPhoneNumber = (fullNumber) => {
     const digits = fullNumber.replace("+995", "").trim();
     const parts = digits.split(" ").filter(Boolean);
     const maskedLast = parts[0].slice(0, 7) + "**";
     return maskedLast;
   };
-
   const showNumberFun = () => {
     setShowNumber(true);
   };
-
   const changeQuantity = (num, action) => {
     if (action == "add") {
       if (quantity + 1 <= stock) {
@@ -79,18 +84,84 @@ export default function ProductDetails({ product, slug }) {
     }
     setQuantity(Number(num));
   };
+  const addToCart = () => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    }
+
+    alert("added to cart");
+  };
+  const addToFav = () => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    }
+
+    alert("added to favourite");
+  };
+  const handleClickOutside = (event) => {
+    if (imageRef.current && !imageRef.current.contains(event.target)) {
+      setOpenFeImage(false);
+      setOpenImage(false);
+      setIsGridImgOpen(false);
+      setHide(false);
+    }
+  };
 
   return (
     <div className="bottomNav product-details">
+      {(isGridImgOpen || openFeImage) && (
+        <div
+          className={styles.overlay}
+          onClick={(e) => {
+            handleClickOutside(e);
+          }}
+        >
+          {openFeImage &&
+            images
+              .filter((img) => img.is_feature)
+              .map((img, i) => (
+                <img
+                  ref={imageRef}
+                  key={i}
+                  className={styles.openedImg}
+                  src={img.image}
+                  alt="featured"
+                />
+              ))}
+          {images
+            .filter((img) => !img.is_feature)
+            .map((img, i) => {
+              if (openImage != `img${i}`) return null;
+              return (
+                <img
+                  ref={imageRef}
+                  key={i}
+                  className={styles.openedImg}
+                  src={img.image}
+                  alt={`image-${i}`}
+                />
+              );
+            })}
+        </div>
+      )}
+
       <section className={styles.header}>
         <h1 className={styles.title}>{capitalizeWords(name)}</h1>
       </section>
       <section className={styles.adds}>
-        <div>
+        <div
+          onClick={addToCart}
+          className={!isAuthenticated ? styles.logCart : ""}
+        >
           Cart
           <FontAwesomeIcon icon={faCartPlus} />
         </div>
-        <div>
+        <div
+          onClick={addToFav}
+          className={!isAuthenticated ? styles.logFav : ""}
+        >
           Favourite
           <FontAwesomeIcon icon={faHeartRegular} />
         </div>
@@ -98,12 +169,20 @@ export default function ProductDetails({ product, slug }) {
       <section className={styles.mainDescribtion}>
         <div className={styles.images}>
           {/* Featured image on the left */}
-          <div style={{ flex: "1" }}>
+          <div className={styles.featuredImage}>
             {images
               .filter((img) => img.is_feature)
               .map((img, i) => (
                 <img
-                  className={styles.imgF}
+                  onClick={() => {
+                    setOpenImage(false);
+                    setIsGridImgOpen(false);
+                    setOpenFeImage(true);
+                    setHide(true);
+                  }}
+                  className={`${styles.imgF} ${
+                    openFeImage ? styles.openedImg : ""
+                  }`}
                   key={i}
                   src={img.image}
                   alt="featured"
@@ -115,12 +194,24 @@ export default function ProductDetails({ product, slug }) {
             {images
               .filter((img) => !img.is_feature)
               .map((img, i) => (
-                <img
-                  className={`${styles[`img${i}`]}`}
+                <div
+                  onClick={() => {
+                    setOpenFeImage(false);
+                    setHide(true);
+                    setOpenImage(`img${i}`);
+                    setIsGridImgOpen(true);
+                  }}
+                  className={styles.imgCont}
                   key={i}
-                  src={img.image}
-                  alt={`image-${i}`}
-                />
+                >
+                  <img
+                    className={`${styles[`img${i}`]} ${
+                      openImage ? styles.openedImg : ""
+                    }`}
+                    src={img.image}
+                    alt={`image-${i}`}
+                  />
+                </div>
               ))}
           </div>
         </div>
