@@ -4,8 +4,12 @@ import styles from "./products.module.css";
 import animatedStyles from "./productsAnimation.module.css";
 import Product from "./Product";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 export default function NewProducts() {
+  const navigation = useNavigate();
+  const handleNavigate = () => {
+    console.log('this is navigate')
+  }
   const productsQuery = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
@@ -15,7 +19,7 @@ export default function NewProducts() {
   // console.log(productsQuery.data);
   const products = productsQuery.data.results;
   return (
-    <div className={`${styles.productsGrid}`}>
+    <div onClick={handleNavigate} className={`${styles.productsGrid}`}>
       {products
         // .filter((product) => product.condition === "new")
         .slice(0, 10)

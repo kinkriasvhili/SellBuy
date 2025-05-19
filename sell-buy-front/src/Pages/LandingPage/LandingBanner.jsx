@@ -6,7 +6,7 @@ export default function LandingBanner({ banner, styles }) {
   return (
     <div className={styles.bannerContainer}>
       <div className={styles.bannerButtons}>
-        <Link to={isAuthenticated ? "/profile" : "/logIn"}>
+        <Link to={isAuthenticated ? "/add-products" : "/logIn"}>
           <button className={styles.leftBtn}>Start Selling</button>
         </Link>
         <Link to={isAuthenticated ? "/" : "/logIn"}>
