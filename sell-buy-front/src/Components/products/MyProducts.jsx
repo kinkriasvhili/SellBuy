@@ -16,14 +16,12 @@ export default function MyProducts() {
     return <h1>Error</h1>;
   }
 
-  console.log(productsQuery.data);
   const products = productsQuery.data.results;
   return (
     <div className={styles.productsGrid}>
       {products.slice(0, 10).map((product) => (
-        <Link to={`/product/${product.slug}`}>
-          <div key={product.id}>
-            {console.log(product.feature_images)}
+        <Link key={product.id} to={`/product/${product.slug}`}>
+          <div>
             <Product
               image={product.feature_image}
               name={product.name}

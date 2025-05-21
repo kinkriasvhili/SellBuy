@@ -1,17 +1,19 @@
 import styles from "./profile.module.css";
 import { useMutation } from "@tanstack/react-query";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { UserContext } from "../../Context/UserContext";
 import { postLogout } from "../../fetchData/postData";
 import { Link, useNavigate } from "react-router-dom";
 import profileImg from "../../Images/profile.jpg";
 import MyProducts from "../../Components/products/MyProducts";
+import { EditProfile } from "./EditProfile";
 
 export default function Profile() {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const { userState, clearUser, userQuery } = useContext(UserContext);
   const navigate = useNavigate();
+  const [openEditor, setOpenEditor] = useState(false);
 
   const logOutMutation = useMutation({
     mutationFn: postLogout,
@@ -28,6 +30,9 @@ export default function Profile() {
   const handleClick = () => {
     logOutMutation.mutate();
   };
+
+  const openModal = () => setOpenEditor(true);
+
   if (false) {
     return (
       <>
@@ -37,8 +42,9 @@ export default function Profile() {
     );
   }
 
-  if (!isAuthenticated) return <h1>You aren't logged in</h1>;
-  if (userQuery.isLoading) return <h1>Loading...</h1>;
+  if (!isAuthenticated)
+    return <h1 className={`bottomNav`}>You aren't logged in</h1>;
+  if (userQuery.isLoading) return <h1 className={`bottomNav`}>Loading...</h1>;
   if (userQuery.isError) {
     return (
       <>
@@ -62,21 +68,44 @@ export default function Profile() {
 
       <section className={styles.profileSection}>
         <div className={styles.avatarWrapper}>
-          <img src={avatarURL} alt="Profile Avatar" className={styles.avatar} />
+          <img
+            src={userState.avatar ? userState.avatar : avatarURL}
+            alt="Profile Avatar"
+            className={styles.avatar}
+          />
         </div>
         <ul className={styles.userDetails}>
           <li>Email: {userState.email}</li>
           <li>City: {userState.city}</li>
-          <li>Phone: {userState.phone_number}</li>
+          <li>
+            Phone: {userState.phone_number.slice(0, 4)}{" "}
+            {userState.phone_number.slice(4, 7)}{" "}
+            {userState.phone_number.slice(7, 9)}{" "}
+            {userState.phone_number.slice(9, 11)}{" "}
+            {userState.phone_number.slice(11, 13)}{" "}
+          </li>
           <li>
             <div style={{ display: "flex", gap: "10px" }}>
               <span className={`${styles.edit}`} onClick={handleClick}>
                 Log Out
               </span>{" "}
-              <span className={styles.edit}> Edit</span>
+              <span
+                className={styles.edit}
+                onClick={() => {
+                  openModal();
+                }}
+              >
+                {" "}
+                Edit
+              </span>
             </div>
           </li>
         </ul>
+        {openEditor ? (
+          <EditProfile openEditor={openEditor} setDisabled={setOpenEditor} />
+        ) : (
+          ""
+        )}
       </section>
       <section className={styles.productsContainer}>
         <h2 className={styles.sectionTitle}>My Products</h2>
