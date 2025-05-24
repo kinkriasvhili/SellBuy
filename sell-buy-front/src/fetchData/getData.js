@@ -107,3 +107,14 @@ export const getReviewById = async ({ slug, reviewId }) => {
     throw error;
   }
 };
+
+export const getNotifications = async () => {
+  try {
+    const resp = await axios.get(`${URL}/notifications`, {
+      withCredentials: true,
+    });
+    return resp.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -35,23 +35,20 @@ export async function postRegisterData(data) {
   }
 }
 
-// export async function postRefreshToken() {
-//   try {
-//     const res = await axios.post(
-//       "https://buy-sell-ecommerce.onrender.com/users/token/refresh/",
-//       {},
-//       {
-//         withCredentials: true,
-//       }
-//     );
-//     throw error.response?.data || new Error("Token refresh failed");
-
-//     return res.data;
-//   } catch (error) {
-//     // console.log("Refresh token error:", error.response?.data || error.message);
-//     return error;
-//   }
-// }
+export async function postRefreshToken() {
+  try {
+    const res = await axios.post(
+      "https://buy-sell-ecommerce.onrender.com/users/token/refresh/",
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export async function postLogin(data) {
   try {

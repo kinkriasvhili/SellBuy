@@ -1,26 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import { getProducts } from "../../fetchData/getData";
 import styles from "./products.module.css";
-import animatedStyles from "./productsAnimation.module.css";
 import Product from "./Product";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { ProductContext } from "../../Context/ProductContext";
 export default function NewProducts() {
-  const navigation = useNavigate();
-  const handleNavigate = () => {
-    console.log('this is navigate')
-  }
-  const productsQuery = useQuery({
-    queryKey: ["products"],
-    queryFn: getProducts,
-  });
-  if (productsQuery.isLoading) return <h1>...Loading</h1>;
-  if (productsQuery.isError) return <h1>Error</h1>;
+  const { products } = useContext(ProductContext);
+
+  if (products.isLoading) return <h1>...Loading</h1>;
+  if (products.isError) return <h1>Error</h1>;
   // console.log(productsQuery.data);
-  const products = productsQuery.data.results;
+  const productsData = products.data.results;
   return (
-    <div onClick={handleNavigate} className={`${styles.productsGrid}`}>
-      {products
+    <div className={`${styles.productsGrid}`}>
+      {productsData
         // .filter((product) => product.condition === "new")
         .slice(0, 10)
         .map((product, index) => (

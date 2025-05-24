@@ -54,6 +54,7 @@ export default function ChangeInput({
         }));
       }
     } else {
+      console.log(value);
       setInputValue((prev) => ({
         ...prev,
         [changingValue]: value,

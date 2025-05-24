@@ -3,34 +3,51 @@ import { getMyProducts } from "../../fetchData/getData";
 import styles from "./products.module.css";
 import Product from "./Product";
 import { Link } from "react-router-dom";
-
+import { useContext } from "react";
+import { ProductContext } from "../../Context/ProductContext";
 export default function MyProducts() {
-  const productsQuery = useQuery({
-    queryKey: ["products", "my"],
-    queryFn: getMyProducts,
-  });
-  if (productsQuery.isLoading) return <h1>...Loading</h1>;
-
-  if (productsQuery.isError) {
-    console.log(productsQuery.error);
+  const { myProducts, products } = useContext(ProductContext);
+  if (myProducts.isLoading) {
+    return <h1>..loading</h1>;
+  }
+  if (myProducts.isError) {
     return <h1>Error</h1>;
   }
 
-  const products = productsQuery.data.results;
+  const productsData = myProducts.data.results;
+
   return (
     <div className={styles.productsGrid}>
-      {products.slice(0, 10).map((product) => (
-        <Link key={product.id} to={`/product/${product.slug}`}>
-          <div>
+      {console.log(products.data)}
+
+      {productsData.slice(0, 10).map((product, index) => {
+        return (
+          <div key={product.id}>
+            <Link to={`/product/${product.slug}`}>
+              <Product
+                image={product.feature_image}
+                name={product.name}
+                price={product.price}
+                scope={"local"}
+                index={index}
+              />
+            </Link>
+          </div>
+        );
+      })}
+      {/* {products.slice(0, 10).map((product, index) => (
+        <div key={product.id}>
+          <Link to={`/product/${product.slug}`}>
             <Product
-              image={product.feature_image}
+              image={product.images[0].image}
               name={product.name}
               price={product.price}
-              scope={"local"}
+              scope={"global"}
+              index={index}
             />
-          </div>
-        </Link>
-      ))}
+          </Link>
+        </div>
+      ))} */}
     </div>
   );
 }

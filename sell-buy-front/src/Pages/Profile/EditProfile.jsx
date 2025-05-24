@@ -66,17 +66,21 @@ export function EditProfile({ setDisabled, openEditor }) {
           <div className={styles.editContainer}>
             <h2>Edit Profile</h2>
             {/* ["email" +++] */}
-            {["avatar", "phone_number", "city", "full_username"].map(
-              (field) => (
-                <button
-                  key={field}
-                  className={styles.editOption}
-                  onClick={() => handleClick(field)}
-                >
-                  Change {field.replace("_", " ")}
-                </button>
-              )
-            )}
+            {[
+              "avatar",
+              "phone_number",
+              "city",
+              "full_username",
+              "password",
+            ].map((field) => (
+              <button
+                key={field}
+                className={styles.editOption}
+                onClick={() => handleClick(field)}
+              >
+                Change {field.replace("_", " ")}
+              </button>
+            ))}
           </div>
         )}
 

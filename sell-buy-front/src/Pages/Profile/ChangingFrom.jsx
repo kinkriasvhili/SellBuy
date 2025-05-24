@@ -18,6 +18,7 @@ export default function ChangingForm({
     phone_number: "+9955",
     city: "",
     full_username: "",
+    password: "",
   });
   const [disabledSubmit, setDisabledSubmit] = useState(true);
   const changingValue = openEditorStageFirst.change;
@@ -40,20 +41,8 @@ export default function ChangingForm({
     setOpenEditorStageSecond(false);
     setOpenEditorStageFirst({ isOpen: true, change: "" });
     setDisabled(false);
-    // mutation can be minimum one length object maximum ----
-    // full_username: "giorgi",
-    //   age: 30,
-    //   city: "Gori",
-    //   phone_number: "+995598524946",
-    // i am only sending one length object which is backendSendvalue({changingValue: "my vale"})
     console.log({ [changingValue]: inputValue[changingValue] });
-    // console.log is {full_username: 'Ratiko'}
-
     patchMutation.mutate({ [changingValue]: inputValue[changingValue] });
-    // this is working fine ->
-    // patchMutation.mutate({
-    //   email: "rati2101@gmail.com",
-    // });
   };
   return (
     <form onSubmit={handleSubmit}>

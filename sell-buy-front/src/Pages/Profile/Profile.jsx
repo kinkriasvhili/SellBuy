@@ -1,5 +1,5 @@
 import styles from "./profile.module.css";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { UserContext } from "../../Context/UserContext";
@@ -8,12 +8,18 @@ import { Link, useNavigate } from "react-router-dom";
 import profileImg from "../../Images/profile.jpg";
 import MyProducts from "../../Components/products/MyProducts";
 import { EditProfile } from "./EditProfile";
+import { getNotifications } from "../../fetchData/getData";
 
 export default function Profile() {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const { userState, clearUser, userQuery } = useContext(UserContext);
   const navigate = useNavigate();
   const [openEditor, setOpenEditor] = useState(false);
+
+  const notQuery = useQuery({
+    queryKey: ["notifications"],
+    queryFn: getNotifications,
+  });
 
   const logOutMutation = useMutation({
     mutationFn: postLogout,
@@ -54,6 +60,13 @@ export default function Profile() {
     );
   }
 
+  if (notQuery.isLoading) {
+    return <h1>Loading Notification</h1>;
+  }
+  if (notQuery.isError) {
+    return <h1>Error Notifications</h1>;
+  }
+  console.log(notQuery.data);
   const avatarURL = userState.avatar ? userState.avatar : profileImg;
 
   return (

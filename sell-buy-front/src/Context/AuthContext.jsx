@@ -29,7 +29,6 @@ export function AuthContextProvider({ children }) {
   //     // console.log("refresh attempt finished");
   //   },
   // });
-
   const logOutMutation = useMutation({
     mutationFn: postLogout,
     onSuccess: () => {
@@ -40,6 +39,11 @@ export function AuthContextProvider({ children }) {
       console.log("logout error ", err);
     },
   });
+  useEffect(() => {
+    if (isAuthenticated) return;
+    logOutMutation.mutate();
+  }, []);
+
   useEffect(() => {
     if (!isAuthenticated) return;
     console.log("from authioansdaksjdth");
