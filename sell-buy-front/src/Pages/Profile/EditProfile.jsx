@@ -3,6 +3,7 @@ import styles from "./profile.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import ChangingForm from "./ChangingFrom";
+import ChangePasswordForms from "./ChangePasswordForms";
 
 export function EditProfile({ setDisabled, openEditor }) {
   const modalRef = useRef(null);
@@ -11,6 +12,7 @@ export function EditProfile({ setDisabled, openEditor }) {
     isOpen: true,
     change: "",
   });
+  const [openEditorStagePass, setOpenEditorStagePass] = useState(false);
   const [openEditorStageSecond, setOpenEditorStageSecond] = useState(false);
 
   useEffect(() => {
@@ -31,7 +33,12 @@ export function EditProfile({ setDisabled, openEditor }) {
 
   const handleClick = (change) => {
     setOpenEditorStageFirst({ isOpen: false, change });
-    setOpenEditorStageSecond(true);
+    if (change == "password") {
+      setOpenEditorStagePass(true);
+      return;
+    } else {
+      setOpenEditorStageSecond(true);
+    }
   };
 
   return (
@@ -48,11 +55,12 @@ export function EditProfile({ setDisabled, openEditor }) {
         >
           X
         </div>
-        {openEditorStageSecond ? (
+        {openEditorStageSecond || openEditorStagePass ? (
           <div
             onClick={() => {
               setOpenEditorStageSecond(false);
               setOpenEditorStageFirst({ isOpen: true, change: "" });
+              setOpenEditorStagePass(false);
             }}
             className={styles.stageOne}
           >
@@ -88,6 +96,16 @@ export function EditProfile({ setDisabled, openEditor }) {
           <div className={styles.formWrapper}>
             <ChangingForm
               setOpenEditorStageSecond={setOpenEditorStageSecond}
+              setOpenEditorStageFirst={setOpenEditorStageFirst}
+              openEditorStageFirst={openEditorStageFirst}
+              setDisabled={setDisabled}
+            />
+          </div>
+        )}
+        {openEditorStagePass && (
+          <div className={styles.formWrapper}>
+            <ChangePasswordForms
+              setOpenEditorStagePass={setOpenEditorStagePass}
               setOpenEditorStageFirst={setOpenEditorStageFirst}
               openEditorStageFirst={openEditorStageFirst}
               setDisabled={setDisabled}

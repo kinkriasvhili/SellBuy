@@ -66,7 +66,6 @@ export default function Profile() {
   if (notQuery.isError) {
     return <h1>Error Notifications</h1>;
   }
-  console.log(notQuery.data);
   const avatarURL = userState.avatar ? userState.avatar : profileImg;
 
   return (

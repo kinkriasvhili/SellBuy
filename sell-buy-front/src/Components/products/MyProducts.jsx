@@ -18,8 +18,6 @@ export default function MyProducts() {
 
   return (
     <div className={styles.productsGrid}>
-      {console.log(products.data)}
-
       {productsData.slice(0, 10).map((product, index) => {
         return (
           <div key={product.id}>

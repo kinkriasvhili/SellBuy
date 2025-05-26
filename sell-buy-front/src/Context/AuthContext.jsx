@@ -46,7 +46,6 @@ export function AuthContextProvider({ children }) {
 
   useEffect(() => {
     if (!isAuthenticated) return;
-    console.log("from authioansdaksjdth");
     if (!hasRun.current) {
       hasRun.current = true;
       // refreshMutation.mutate(); // run only once on mount

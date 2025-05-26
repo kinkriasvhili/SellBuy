@@ -124,3 +124,18 @@ export const postReview = async ({ message, rating, slug }) => {
     throw error.response?.data || error; // rethrow for useMutation to catch
   }
 };
+
+export const postResetPasRequest = async ({ email }) => {
+  try {
+    console.log(email);
+    const res = await axios.post(
+      `${URL}/users/reset-password-request/`,
+      email,
+      { withCredentials: true }
+    );
+    return res.data;
+  } catch (error) {
+    console.log("Error occurred in request:", error);
+    throw error;
+  }
+};

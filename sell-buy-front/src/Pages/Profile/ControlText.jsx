@@ -20,6 +20,8 @@ export default function ControlText({ changingValue }) {
       case "full_username":
         setText("*Minimum 4 letter");
         break;
+      case "password":
+        setText("Minimum 9 symbol");
     }
   }, [changingValue]);
 
