@@ -1,6 +1,6 @@
 import styles from "./profile.module.css";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { UserContext } from "../../Context/UserContext";
 import { postLogout } from "../../fetchData/postData";
@@ -15,11 +15,24 @@ export default function Profile() {
   const { userState, clearUser, userQuery } = useContext(UserContext);
   const navigate = useNavigate();
   const [openEditor, setOpenEditor] = useState(false);
-
+  const [passwordReset, setPasswordReset] = useState(false);
   const notQuery = useQuery({
     queryKey: ["notifications"],
     queryFn: getNotifications,
   });
+  const [tokenEmailParams, setTokenEmailParams] = useState({
+    email: "",
+    token: "",
+  });
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tokenParam = params.get("token");
+    const emailParam = params.get("email");
+    if (tokenParam && emailParam) {
+      setTokenEmailParams({ email: emailParam, token: tokenParam });
+      setPasswordReset(true);
+    }
+  }, []);
 
   const logOutMutation = useMutation({
     mutationFn: postLogout,
@@ -113,8 +126,14 @@ export default function Profile() {
             </div>
           </li>
         </ul>
-        {openEditor ? (
-          <EditProfile openEditor={openEditor} setDisabled={setOpenEditor} />
+        {openEditor || passwordReset ? (
+          <EditProfile
+            passwordReset={passwordReset}
+            setPasswordReset={setPasswordReset}
+            tokenEmailParams={tokenEmailParams}
+            openEditor={openEditor}
+            setDisabled={setOpenEditor}
+          />
         ) : (
           ""
         )}

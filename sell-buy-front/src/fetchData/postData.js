@@ -127,7 +127,6 @@ export const postReview = async ({ message, rating, slug }) => {
 
 export const postResetPasRequest = async ({ email }) => {
   try {
-    console.log(email);
     const res = await axios.post(
       `${URL}/users/reset-password-request/`,
       email,
@@ -136,6 +135,24 @@ export const postResetPasRequest = async ({ email }) => {
     return res.data;
   } catch (error) {
     console.log("Error occurred in request:", error);
+    throw error;
+  }
+};
+
+export const postResetPasConfrim = async (data) => {
+  try {
+    console.log(data);
+    /**
+     * in console"
+     * {email: 'rati21501@gmail.com', token: 'cqg5e5-31bee70b39e82684da14d3926cd02915', new_password: '222222222'}
+     */
+    const res = await axios.post(`${URL}/users/reset-password-confirm/`, data, {
+      withCredentials: true,
+    });
+
+    return res.data;
+  } catch (error) {
+    console.log("error occured in request:", error);
     throw error;
   }
 };

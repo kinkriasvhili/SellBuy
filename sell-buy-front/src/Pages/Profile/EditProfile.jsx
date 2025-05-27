@@ -5,15 +5,29 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import ChangingForm from "./ChangingFrom";
 import ChangePasswordForms from "./ChangePasswordForms";
 
-export function EditProfile({ setDisabled, openEditor }) {
+export function EditProfile({
+  setDisabled,
+  openEditor,
+  passwordReset,
+  setPasswordReset,
+  tokenEmailParams,
+}) {
   const modalRef = useRef(null);
-  const closeModal = () => setDisabled(false);
+  const closeModal = () => {
+    setDisabled(false);
+    setPasswordReset(false);
+  };
   const [openEditorStageFirst, setOpenEditorStageFirst] = useState({
     isOpen: true,
     change: "",
   });
   const [openEditorStagePass, setOpenEditorStagePass] = useState(false);
   const [openEditorStageSecond, setOpenEditorStageSecond] = useState(false);
+  useEffect(() => {
+    if (passwordReset) {
+      setOpenEditorStageFirst(false);
+    }
+  }, [passwordReset]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -50,6 +64,7 @@ export function EditProfile({ setDisabled, openEditor }) {
             setOpenEditorStageSecond(false);
             setOpenEditorStageFirst({ isOpen: false, change: "" });
             setDisabled(false);
+            setPasswordReset(false);
           }}
           className={styles.closeModal}
         >
@@ -102,13 +117,13 @@ export function EditProfile({ setDisabled, openEditor }) {
             />
           </div>
         )}
-        {openEditorStagePass && (
+        {(openEditorStagePass || passwordReset) && (
           <div className={styles.formWrapper}>
             <ChangePasswordForms
-              setOpenEditorStagePass={setOpenEditorStagePass}
-              setOpenEditorStageFirst={setOpenEditorStageFirst}
               openEditorStageFirst={openEditorStageFirst}
-              setDisabled={setDisabled}
+              setPasswordReset={setPasswordReset}
+              passwordReset={passwordReset}
+              tokenEmailParams={tokenEmailParams}
             />
           </div>
         )}

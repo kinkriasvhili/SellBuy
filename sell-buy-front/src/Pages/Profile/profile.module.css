@@ -249,3 +249,23 @@
 .controlingText {
   color: red;
 }
+
+/* passwordContainer */
+
+.passwordContainer {
+  display: flex;
+  flex-direction: column !important;
+  width: 100%;
+  min-width: 300px;
+}
+.passwordContainer input {
+  display: block;
+  border: 1px solid var(--light-grey);
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  outline: none;
+}
+.passwordText {
+  margin-bottom: 10px;
+}

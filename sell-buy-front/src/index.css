@@ -204,3 +204,7 @@ button {
   cursor: not-allowed !important;
   cursor: default !important;
 }
+
+.inputRed {
+  color: red !important;
+}

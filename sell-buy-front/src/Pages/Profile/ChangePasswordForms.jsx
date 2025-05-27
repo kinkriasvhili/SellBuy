@@ -1,34 +1,31 @@
 import ControlText from "./ControlText";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./profile.module.css";
 import ChangeInput from "./ChangeInput";
 import { useMutation } from "@tanstack/react-query";
 import { postResetPasRequest } from "../../fetchData/postData";
+import PasswordForm from "./PasswordForm";
 
-export default function ChangePasswordForms({ openEditorStageFirst }) {
-  const [isSubmited, setIsSubmited] = useState(false);
+export default function ChangePasswordForms({
+  tokenEmailParams,
+  passwordReset,
+  setPasswordReset,
+}) {
   const [isEmailCorrect, setIsEmailCorrect] = useState(false);
   const [stages, setStages] = useState({
     stageOne: true,
     stageTwo: false,
   });
-  const [changePassword, setPassword] = useState({
-    old_password: "",
-    new_password: "",
-  });
   const [email, setEmail] = useState({
     email: "",
   });
-  const changingValue = openEditorStageFirst.change;
-  const onChange = (e) => {
-    console.log("hello world");
-  };
+  const [isSucces, setIsSucces] = useState(false);
+
   const requestMutation = useMutation({
     mutationKey: ["resetRequest"],
     mutationFn: postResetPasRequest,
     onSuccess: (data) => {
-      console.log(data);
-      console.log("succes this is data: ", data);
+      setIsSucces(true);
     },
     onError: (error) => {
       console.log("error this is an error: ", error);
@@ -37,8 +34,22 @@ export default function ChangePasswordForms({ openEditorStageFirst }) {
       console.log("mutation settled with idk");
     },
   });
+
+  useEffect(() => {
+    if (passwordReset) {
+      setStages({
+        stageOne: false,
+        stageTwo: true,
+      });
+    }
+  }, [passwordReset]);
+
   return (
-    <form action="">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
       {stages.stageOne ? (
         <>
           <label>Email: </label>
@@ -57,11 +68,12 @@ export default function ChangePasswordForms({ openEditorStageFirst }) {
           ) : (
             ""
           )}
+
           <div
             onClick={() => {
               setStages({
                 stageOne: false,
-                stageTwo: true,
+                stageTwo: false,
               });
               requestMutation.mutate({ email });
             }}
@@ -74,35 +86,18 @@ export default function ChangePasswordForms({ openEditorStageFirst }) {
             Next
           </div>
         </>
+      ) : requestMutation.isPending ? (
+        <span>...Pending</span>
+      ) : !stages.stageTwo && isSucces ? (
+        <p>Reset Link sent on your email account</p>
       ) : stages.stageTwo ? (
         <>
-          <div>
-            <label>Password: </label>
-            <ChangeInput
-              inputValue={email}
-              setInputValue={setEmail}
-              changingValue={"email"}
-              disabledSubmit={isEmailCorrect}
-              setDisabledSubmit={setIsEmailCorrect}
+          <div className={styles.passwordContainer}>
+            <PasswordForm
+              tokenEmailParams={tokenEmailParams}
+              setPasswordReset={setPasswordReset}
             />
-            {isEmailCorrect ? (
-              <ControlText
-                setDisabledSubmit={setIsEmailCorrect}
-                changingValue={stages.stageOne ? "email" : "password"}
-              />
-            ) : (
-              ""
-            )}
           </div>
-          <button
-            type="submit"
-            className={`${styles.changeButton} ${
-              isSubmited ? "disabledBtn" : ""
-            }`}
-            disabled={isSubmited}
-          >
-            Save
-          </button>
         </>
       ) : (
         ""
