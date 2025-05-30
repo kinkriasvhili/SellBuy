@@ -2,20 +2,22 @@ import StarRating from "./productDesc/StarsRating";
 import img from "../../Images/profile.jpg";
 import styles from "./products.module.css";
 import animatedStyles from "./productsAnimation.module.css";
-import {
-  faShoppingCart,
-  faHeart as faHeartSolid,
-  faCheck,
-} from "@fortawesome/free-solid-svg-icons";
-import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
-
+import { faShoppingCart, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import FavouriteAddDel from "../../Pages/Favorite/FavouriteAdd";
 
-export default function Product({ image, name, price, scope, index }) {
-  const [inFav, setInFav] = useState(false);
+export default function Product({
+  id,
+  image,
+  name,
+  price,
+  scope,
+  index,
+  slug,
+}) {
   const [inCart, setInCart] = useState(false);
   const location = useLocation();
   const [animated, setAnimated] = useState(true);
@@ -41,15 +43,16 @@ export default function Product({ image, name, price, scope, index }) {
           : {}
       }
     >
-      <div className={styles.productImageContainer}>
-        <img className={styles.productImage} src={productURL} />
-      </div>
-      <div className={styles.productName}>
-        {name.length > 25 ? `${name.slice(0, 22)}...` : name}
-      </div>
-      <StarRating rating={3.5} />
-      <div className={styles.productPrice}>${price}</div>
-
+      <Link to={slug ? `/product/${slug}` : "/favorites"}>
+        <div className={styles.productImageContainer}>
+          <img className={styles.productImage} src={productURL} />
+        </div>
+        <div className={styles.productName}>
+          {name.length > 25 ? `${name.slice(0, 22)}...` : name}
+        </div>
+        <StarRating rating={3.5} />
+        <div className={styles.productPrice}>${price}</div>
+      </Link>
       <div className={styles.productFooter}>
         {scope === "local" ? (
           <>
@@ -72,17 +75,7 @@ export default function Product({ image, name, price, scope, index }) {
                 ""
               )}
             </button>
-            <button
-              onClick={() => {
-                setInFav((prev) => !prev);
-              }}
-              className={styles.favouriteBtn}
-            >
-              <FontAwesomeIcon
-                icon={!inFav ? faHeartRegular : faHeartSolid}
-                size="1x"
-              />
-            </button>
+            <FavouriteAddDel id={id} />
           </>
         ) : null}
       </div>

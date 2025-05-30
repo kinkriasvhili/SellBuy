@@ -56,9 +56,6 @@
   color: var(--blue-color); /* custom color for cart */
 }
 
-.favouriteBtn svg {
-  color: red; /* custom color for heart */
-}
 .inCart svg {
   margin-left: 5px;
   color: var(--teal);

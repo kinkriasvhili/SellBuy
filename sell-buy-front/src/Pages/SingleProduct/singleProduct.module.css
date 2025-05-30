@@ -30,15 +30,11 @@
 }
 .adds div {
   position: relative;
-  cursor: pointer;
-  transition: 0.1s;
   padding: 10px;
-  border: 1px solid rgb(253, 253, 253);
-}
-.adds div:hover {
   border-radius: 30px;
   border: 1px solid var(--light-grey);
 }
+
 .adds svg {
   color: var(--dark-grey);
   cursor: pointer;

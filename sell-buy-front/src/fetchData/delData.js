@@ -14,3 +14,16 @@ export const delReview = async ({ slug, reviewId }) => {
     console.log(error);
   }
 };
+
+export const delFav = async (data) => {
+  try {
+    const res = await axios.delete(`${URL}/wishlist/remove`, {
+      data,
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

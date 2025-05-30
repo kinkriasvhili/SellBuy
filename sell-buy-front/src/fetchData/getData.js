@@ -118,3 +118,12 @@ export const getNotifications = async () => {
     console.log(error);
   }
 };
+export const getFav = async () => {
+  try {
+    const res = await axios.get(`${URL}/wishlist`, { withCredentials: true });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

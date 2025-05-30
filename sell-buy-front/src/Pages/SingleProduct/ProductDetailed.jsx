@@ -15,6 +15,7 @@ import StarRating from "../../Components/products/productDesc/StarsRating";
 import ProductComments from "./ProductComments";
 import { AuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import FavouriteAddDel from "../Favorite/FavouriteAdd";
 import { useHideNav } from "../../Context/HideNav";
 
 export default function ProductDetails({ product, slug }) {
@@ -92,14 +93,6 @@ export default function ProductDetails({ product, slug }) {
 
     alert("added to cart");
   };
-  const addToFav = () => {
-    if (!isAuthenticated) {
-      navigate("/login");
-      return;
-    }
-
-    alert("added to favourite");
-  };
   const handleClickOutside = (event) => {
     if (imageRef.current && !imageRef.current.contains(event.target)) {
       setOpenFeImage(false);
@@ -158,12 +151,9 @@ export default function ProductDetails({ product, slug }) {
           Cart
           <FontAwesomeIcon icon={faCartPlus} />
         </div>
-        <div
-          onClick={addToFav}
-          className={!isAuthenticated ? styles.logFav : ""}
-        >
+        <div className={!isAuthenticated ? styles.logFav : ""}>
           Favourite
-          <FontAwesomeIcon icon={faHeartRegular} />
+          <FavouriteAddDel id={product.id} />
         </div>
       </section>
       <section className={styles.mainDescribtion}>

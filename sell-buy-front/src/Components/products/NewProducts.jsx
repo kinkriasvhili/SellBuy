@@ -17,15 +17,15 @@ export default function NewProducts() {
         .slice(0, 10)
         .map((product, index) => (
           <div key={product.id}>
-            <Link to={`/product/${product.slug}`}>
-              <Product
-                image={product.images[0].image}
-                name={product.name}
-                price={product.price}
-                scope={"global"}
-                index={index}
-              />
-            </Link>
+            <Product
+              image={product.images[0].image}
+              name={product.name}
+              price={product.price}
+              scope={"global"}
+              index={index}
+              slug={product.slug}
+              id={product.id}
+            />
           </div>
         ))}
     </div>

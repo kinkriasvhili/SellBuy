@@ -21,15 +21,15 @@ export default function MyProducts() {
       {productsData.slice(0, 10).map((product, index) => {
         return (
           <div key={product.id}>
-            <Link to={`/product/${product.slug}`}>
-              <Product
-                image={product.feature_image}
-                name={product.name}
-                price={product.price}
-                scope={"local"}
-                index={index}
-              />
-            </Link>
+            <Product
+              image={product.feature_image}
+              name={product.name}
+              price={product.price}
+              scope={"local"}
+              index={index}
+              slug={product.slug}
+              id={product.id}
+            />
           </div>
         );
       })}

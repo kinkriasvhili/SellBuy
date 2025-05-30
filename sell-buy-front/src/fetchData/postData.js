@@ -156,3 +156,15 @@ export const postResetPasConfrim = async (data) => {
     throw error;
   }
 };
+
+export const postFavAdd = async (data) => {
+  try {
+    const res = await axios.post(`${URL}/wishlist/add/`, data, {
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

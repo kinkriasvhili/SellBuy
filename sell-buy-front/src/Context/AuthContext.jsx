@@ -11,24 +11,6 @@ export function AuthContextProvider({ children }) {
     false
   );
 
-  // const refreshMutation = useMutation({
-  //   mutationFn: postRefreshToken,
-  //   onError: (err) => {
-  //     // console.log("error in use mutation REFRESH TOKEN");
-  //     if (
-  //       err?.response?.status === 401 ||
-  //       err?.response?.data?.message ===
-  //         "Invalid or expired token. Please log in again."
-  //     ) {
-  //       setIsAuthenticated(false);
-  //       logOutMutation.mutate();
-  //     }
-  //     console.log(err);
-  //   },
-  //   onSettled: () => {
-  //     // console.log("refresh attempt finished");
-  //   },
-  // });
   const logOutMutation = useMutation({
     mutationFn: postLogout,
     onSuccess: () => {
@@ -50,11 +32,6 @@ export function AuthContextProvider({ children }) {
       hasRun.current = true;
       // refreshMutation.mutate(); // run only once on mount
     }
-    // const interval = setInterval(() => {
-    //   // refreshMutation.mutate();
-    // }, 30 * 10 * 1000);
-
-    // return () => clearInterval(interval);
   }, []);
 
   return (
@@ -63,3 +40,26 @@ export function AuthContextProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+// const interval = setInterval(() => {
+//   // refreshMutation.mutate();
+// }, 30 * 10 * 1000);
+
+// return () => clearInterval(interval);
+// const refreshMutation = useMutation({
+//   mutationFn: postRefreshToken,
+//   onError: (err) => {
+//     // console.log("error in use mutation REFRESH TOKEN");
+//     if (
+//       err?.response?.status === 401 ||
+//       err?.response?.data?.message ===
+//         "Invalid or expired token. Please log in again."
+//     ) {
+//       setIsAuthenticated(false);
+//       logOutMutation.mutate();
+//     }
+//     console.log(err);
+//   },
+//   onSettled: () => {
+//     // console.log("refresh attempt finished");
+//   },
+// });
