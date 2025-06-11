@@ -1,35 +1,52 @@
 @import url("../../index.css");
-
-.cartContainer {
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  max-width: 400px;
-  background-color: #fafafa;
+@import "@fontsource/sour-gummy";
+@import "@fontsource/dm-serif-text"; /* Default (Regular) */
+@import "@fontsource/roboto-flex"; /* Default (Regular) */
+.cartSummaryContainer {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 420px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  font-family: "Roboto Flex", sans-serif;
+  color: var(--primary-text-color);
 }
 
 .heading {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  font-family: "DM Serif Text", serif;
 }
 
 .section {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+  color: var(--dark-grey);
 }
 
 .deliveryOption {
   display: flex;
-  align-items: start;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-  border-radius: 8px;
-  background: #fff;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 14px;
+  background-color: var(--soft-white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.deliveryOption:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: #fdfdfd;
 }
 
 .deliveryOptionInput {
-  margin-top: 0.4rem;
+  margin-top: 0.3rem;
+  accent-color: var(--blue-color);
 }
 
 .optionDetails {
@@ -38,42 +55,51 @@
 }
 
 .optionTitle {
-  font-weight: bold;
-  margin-bottom: 0.3rem;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  color: var(--primary-text-color);
 }
 
 .total {
-  font-size: 1.2rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 1.25rem;
+  color: var(--primary-text-color);
 }
 
 .orderButton {
   width: 100%;
-  padding: 0.75rem;
-  background-color: #0070f3;
+  padding: 0.85rem;
+  background: linear-gradient(to right, #e95a13, #003366);
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .orderButton:hover {
-  background-color: #005ec2;
+  transform: translateY(-1px);
 }
 
-/* cart item priducts */
+.orderButton:disabled,
+.disabledBtn {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--light-grey);
+}
 
-/* Container for the entire cart page */
+/* cart item */
 .mainContainer {
   padding: 2rem;
   background-color: #f9f9f9;
   min-height: 100vh;
 }
 
-/* Container holding all cart items */
 .favProdContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -81,7 +107,6 @@
   margin-top: 2rem;
 }
 
-/* Individual cart item card */
 .CartItem {
   display: flex;
   flex-direction: column;
@@ -96,7 +121,6 @@
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
 }
 
-/* Product image block */
 .productImageContainer {
   width: 100%;
   height: 180px;
@@ -112,7 +136,6 @@
   border-radius: 12px;
 }
 
-/* Product name styling */
 .productName {
   font-size: 1rem;
   font-weight: 600;
@@ -122,7 +145,6 @@
   word-break: break-word;
 }
 
-/* Price styling */
 .productPrice {
   font-size: 1rem;
   font-weight: 500;
@@ -131,7 +153,6 @@
   margin-bottom: 1rem;
 }
 
-/* Footer containing buttons and quantity controls */
 .productFooter {
   display: flex;
   justify-content: space-between;
@@ -141,7 +162,6 @@
   margin-top: auto;
 }
 
-/* Favourite and Edit buttons */
 .productFooterLeft {
   display: flex;
   align-items: center;
@@ -162,7 +182,6 @@
 .edit:hover {
   background-color: #d2e9ff;
 }
-/* Quantity and CartAddDel */
 .productFooterRight {
   display: flex;
   align-items: center;
@@ -187,9 +206,6 @@
   display: none;
 }
 
-/* .quantity::after */
-
-/* linked button */
 .quantityNum {
   border: 1px solid var(--blue-color);
   border-radius: 5px;
@@ -212,7 +228,6 @@
   transform: translate(-50%, -50%) scale(1);
 }
 
-/* Tooltip below the button */
 .quantityNum::after {
   content: "Cart";
   position: absolute;
@@ -232,8 +247,8 @@
 }
 
 .quantityNum:hover::after {
-  opacity: 1; /* Make it visible */
-  transform: translateX(-50%) translateY(-5px); /* Slight lift effect */
+  opacity: 1;
+  transform: translateX(-50%) translateY(-5px);
 }
 
 .quantityNum:after {

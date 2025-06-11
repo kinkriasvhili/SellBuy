@@ -20,7 +20,7 @@ export default function CartAddition({ price }) {
     },
     {
       id: "3",
-      deliveryDays: 999,
+      deliveryDays: 0,
       option: "In-Store Pickup",
       priceCents: 0,
     },
@@ -42,7 +42,7 @@ export default function CartAddition({ price }) {
   const totalPriceCents = price * 100 + TAX_CENTS + selectedOption.priceCents;
 
   return (
-    <div className={styles.cartContainer}>
+    <div className={styles.cartSummaryContainer}>
       <h2 className={styles.heading}>Cart Summary</h2>
 
       <div className={styles.section}>
@@ -54,28 +54,34 @@ export default function CartAddition({ price }) {
 
       <div className={styles.section}>
         <strong>Choose a Delivery Option:</strong>
-        {deliveryOptions.map((option) => (
-          <label key={option.id} className={styles.deliveryOption}>
-            <input
-              type="radio"
-              name="delivery"
-              value={option.id}
-              checked={selectedOptionId === option.id}
-              onChange={() => setSelectedOptionId(option.id)}
-              className={styles.deliveryOptionInput}
-            />
-            <div className={styles.optionDetails}>
-              <div className={styles.optionTitle}>{option.option}</div>
-              <div>
-                Estimated Delivery:{" "}
-                {option.deliveryDays > 0
-                  ? `${option.deliveryDays} day(s) — ${deliveryDateString}`
-                  : deliveryDateString}
+        {deliveryOptions.map((option) => {
+          const estimatedDate = new Date();
+          estimatedDate.setDate(estimatedDate.getDate() + option.deliveryDays);
+          const dateString =
+            option.deliveryDays > 0
+              ? `${
+                  option.deliveryDays
+                } day(s) — ${estimatedDate.toLocaleDateString()}`
+              : "Available Today";
+
+          return (
+            <label key={option.id} className={styles.deliveryOption}>
+              <input
+                type="radio"
+                name="delivery"
+                value={option.id}
+                checked={selectedOptionId === option.id}
+                onChange={() => setSelectedOptionId(option.id)}
+                className={styles.deliveryOptionInput}
+              />
+              <div className={styles.optionDetails}>
+                <div className={styles.optionTitle}>{option.option}</div>
+                <div>Estimated Delivery: {dateString}</div>
+                <div>Shipping: {formatCents(option.priceCents)}</div>
               </div>
-              <div>Shipping: {formatCents(option.priceCents)}</div>
-            </div>
-          </label>
-        ))}
+            </label>
+          );
+        })}
       </div>
 
       <div className={styles.total}>
