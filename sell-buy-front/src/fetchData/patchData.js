@@ -23,3 +23,19 @@ export const profilePatch = async (changedProfile) => {
     throw error;
   }
 };
+
+export const cartItemPatch = async ({ id, data }) => {
+  try {
+    console.log(id);
+    console.log(data);
+
+    const res = await axios.patch(`${URL}/cart/cart-items/${id}/`, data, {
+      withCredentials: true,
+    });
+
+    return res.data;
+  } catch (error) {
+    console.error("Patch error:", error.response?.data || error.message);
+    throw error;
+  }
+};

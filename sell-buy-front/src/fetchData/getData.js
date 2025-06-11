@@ -127,3 +127,15 @@ export const getFav = async () => {
     throw error;
   }
 };
+
+export const getCart = async () => {
+  try {
+    const res = await axios.get(`${URL}/cart/cart-items`, {
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

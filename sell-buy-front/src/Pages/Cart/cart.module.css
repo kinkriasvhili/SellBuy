@@ -1,0 +1,242 @@
+@import url("../../index.css");
+
+.cartContainer {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  max-width: 400px;
+  background-color: #fafafa;
+}
+
+.heading {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.section {
+  margin-bottom: 1rem;
+}
+
+.deliveryOption {
+  display: flex;
+  align-items: start;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.deliveryOptionInput {
+  margin-top: 0.4rem;
+}
+
+.optionDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.optionTitle {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.total {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.orderButton {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.orderButton:hover {
+  background-color: #005ec2;
+}
+
+/* cart item priducts */
+
+/* Container for the entire cart page */
+.mainContainer {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+/* Container holding all cart items */
+.favProdContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* Individual cart item card */
+.CartItem {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+  transition: box-shadow 0.2s ease;
+}
+
+.CartItem:hover {
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Product image block */
+.productImageContainer {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Product name styling */
+.productName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* Price styling */
+.productPrice {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #666;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Footer containing buttons and quantity controls */
+.productFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+/* Favourite and Edit buttons */
+.productFooterLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.edit {
+  font-size: 0.9rem;
+  color: #007bff;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid #007bff;
+  border-radius: 6px;
+  background-color: #eaf4ff;
+  transition: background-color 0.2s ease;
+}
+
+.edit:hover {
+  background-color: #d2e9ff;
+}
+/* Quantity and CartAddDel */
+.productFooterRight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantityInput {
+  border: 1px solid var(--blue-color);
+  border-radius: 5px;
+  background-color: inherit;
+  width: 50px;
+  max-height: 50px;
+  padding-left: 15px;
+  outline: none;
+}
+.changeQuantityOn {
+  display: flex;
+  margin-left: 10px;
+  gap: 10px;
+}
+.changeQuantityOff {
+  display: none;
+}
+
+/* .quantity::after */
+
+/* linked button */
+.quantityNum {
+  border: 1px solid var(--blue-color);
+  border-radius: 5px;
+  background-color: inherit;
+  width: 50px;
+  max-height: 50px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  z-index: 1;
+}
+.quantityNumOff {
+  display: none;
+}
+.quantityNum::before {
+  width: 120%;
+  height: 120%;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Tooltip below the button */
+.quantityNum::after {
+  content: "Cart";
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--blue-color);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 2;
+}
+
+.quantityNum:hover::after {
+  opacity: 1; /* Make it visible */
+  transform: translateX(-50%) translateY(-5px); /* Slight lift effect */
+}
+
+.quantityNum:after {
+  font-family: "Sour Gummy";
+  content: "Change Quantity";
+}

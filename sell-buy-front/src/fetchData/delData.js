@@ -27,3 +27,18 @@ export const delFav = async (data) => {
     throw error;
   }
 };
+
+export const delCart = async (data) => {
+  try {
+    const res = await axios.delete(
+      `${URL}/cart/cart-items/${data.product_id}/`,
+      {
+        withCredentials: true,
+      }
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

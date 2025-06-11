@@ -168,3 +168,15 @@ export const postFavAdd = async (data) => {
     throw error;
   }
 };
+
+export const postCartAdd = async (data) => {
+  try {
+    const res = await axios.post(`${URL}/cart/cart-items/`, data, {
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

@@ -3,7 +3,7 @@ import Nav from "./Components/navigation/Nav.jsx";
 import LandingPage from "./Pages/LandingPage/LandingPage.jsx";
 import SignIn from "./Pages/SignUpIn/SignIn.jsx";
 import SignUp from "./Pages/SignUpIn/SignUp.jsx";
-import Cart from "./Pages/Cart/Cart.jsx";
+import Cart from "./Pages/Cart/cart.jsx";
 import AppProviders from "./Context/AppProvider.jsx";
 import Favorite from "./Pages/Favorite/Favorite.jsx";
 import Orders from "./Pages/Orders/Orders.jsx";
@@ -28,12 +28,9 @@ function AppInner() {
         <Route path="/login" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path={`/${userState.full_username}/cart`} element={<Cart />} />
+        <Route path={`/my/cart`} element={<Cart />} />
         {/* {console.log(userState)} */}
-        <Route
-          path={`/${userState.full_username}/favorite`}
-          element={<Favorite />}
-        />
+        <Route path={`/my/favorite`} element={<Favorite />} />
         <Route path={`/add-products`} element={<AddProd />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path={`/orders`} element={<Orders />} />

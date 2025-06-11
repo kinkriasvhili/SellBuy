@@ -2,12 +2,12 @@ import StarRating from "./productDesc/StarsRating";
 import img from "../../Images/profile.jpg";
 import styles from "./products.module.css";
 import animatedStyles from "./productsAnimation.module.css";
-import { faShoppingCart, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import FavouriteAddDel from "../../Pages/Favorite/FavouriteAdd";
+import CartAddDel from "../../Pages/Cart/CartAddDel";
 
 export default function Product({
   id,
@@ -60,21 +60,7 @@ export default function Product({
           </>
         ) : scope === "global" ? (
           <>
-            <button
-              onClick={() => {
-                setInCart((prev) => !prev);
-              }}
-              className={styles.addToCart}
-            >
-              <FontAwesomeIcon icon={faShoppingCart} size="1x" />
-              {inCart ? (
-                <span className={styles.inCart}>
-                  <FontAwesomeIcon icon={faCheck} size="1.5x" />
-                </span>
-              ) : (
-                ""
-              )}
-            </button>
+            <CartAddDel id={id} quantity={1} slug={slug} />
             <FavouriteAddDel id={id} />
           </>
         ) : null}

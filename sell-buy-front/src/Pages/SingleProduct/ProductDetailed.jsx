@@ -17,7 +17,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import FavouriteAddDel from "../Favorite/FavouriteAdd";
 import { useHideNav } from "../../Context/HideNav";
-
+import CartAddDel from "../cart/CartAddDel";
 export default function ProductDetails({ product, slug }) {
   const [currency, setCurrency] = useState("EUR");
   const [showNumber, setShowNumber] = useState(false);
@@ -90,8 +90,6 @@ export default function ProductDetails({ product, slug }) {
       navigate("/login");
       return;
     }
-
-    alert("added to cart");
   };
   const handleClickOutside = (event) => {
     if (imageRef.current && !imageRef.current.contains(event.target)) {
@@ -149,7 +147,7 @@ export default function ProductDetails({ product, slug }) {
           className={!isAuthenticated ? styles.logCart : ""}
         >
           Cart
-          <FontAwesomeIcon icon={faCartPlus} />
+          <CartAddDel id={product.id} slug={product} quantity={quantity} />
         </div>
         <div className={!isAuthenticated ? styles.logFav : ""}>
           Favourite

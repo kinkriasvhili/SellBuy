@@ -117,13 +117,7 @@ export default function Nav() {
                     afterEffect="addProducts"
                   />
                 </Link>
-                <Link
-                  to={
-                    isAuthenticated
-                      ? `/${userState.full_username}/favorite`
-                      : "/login"
-                  }
-                >
+                <Link to={isAuthenticated ? `/my/favorite` : "/login"}>
                   <ButtonWIcon
                     icon={faHeart}
                     iconSize="1x"
@@ -132,13 +126,7 @@ export default function Nav() {
                     afterEffect="favoriteBtn"
                   />
                 </Link>
-                <Link
-                  to={
-                    isAuthenticated
-                      ? `/${userState.full_username}/cart`
-                      : "/login"
-                  }
-                >
+                <Link to={isAuthenticated ? `/my/cart` : "/login"}>
                   <ButtonWIcon
                     icon={faShoppingCart}
                     iconSize="1x"

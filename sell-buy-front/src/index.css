@@ -204,6 +204,9 @@ button {
   cursor: not-allowed !important;
   cursor: default !important;
 }
+.disabledBtn:hover {
+  cursor: not-allowed !important;
+}
 
 .inputRed {
   color: red !important;
