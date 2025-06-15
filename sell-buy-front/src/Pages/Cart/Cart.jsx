@@ -5,10 +5,8 @@ import { CartContext } from "../../Context/CartContext";
 import CartItem from "./CartItem";
 export default function Cart() {
   const { cart } = useContext(CartContext);
-
   return (
-    <div className={`mainContainer bottomNav`}>
-      <CartAddition price={cart ? cart.total_price : 0} />
+    <div className={`mainContainer bottomNav ${styles.cartContainer}`}>
       <div className={styles.favProdContainer}>
         {cart != "...Loading" && cart ? (
           cart.items.length > 0 ? (
@@ -42,6 +40,7 @@ export default function Cart() {
           <p>Loading...</p>
         )}
       </div>
+      <CartAddition price={cart ? cart.total_price : 0} />
     </div>
   );
 }

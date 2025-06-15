@@ -180,3 +180,15 @@ export const postCartAdd = async (data) => {
     throw error;
   }
 };
+
+export const postOrders = async (data) => {
+  try {
+    const res = await axios.post(`${URL}/orders/checkout/`, data, {
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

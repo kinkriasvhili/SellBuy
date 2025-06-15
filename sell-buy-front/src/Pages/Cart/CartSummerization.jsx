@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import styles from "./cart.module.css";
-
+import MakeOrders from "../Orders/MakeOrders";
 export default function CartAddition({ price }) {
   const TAX_CENTS = 499; // $4.99
   const [selectedOptionId, setSelectedOptionId] = useState("1");
-
+  console.log(price);
   const deliveryOptions = [
     {
       id: "1",
@@ -41,6 +41,7 @@ export default function CartAddition({ price }) {
 
   const totalPriceCents = price * 100 + TAX_CENTS + selectedOption.priceCents;
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className={styles.cartSummaryContainer}>
       <h2 className={styles.heading}>Cart Summary</h2>
@@ -85,15 +86,23 @@ export default function CartAddition({ price }) {
       </div>
 
       <div className={styles.total}>
-        <strong>Total:</strong> {formatCents(totalPriceCents)}
+        <strong>Total: </strong>
+        {!price ? price : formatCents(totalPriceCents)}
       </div>
 
       <button
-        disabled={price == 0}
-        className={`${styles.orderButton} ${price == 0 ? "disabledBtn" : ""}`}
+        disabled={price === 0}
+        className={`${styles.orderButton} ${price === 0 ? "disabledBtn" : ""}`}
+        onClick={() => setIsModalOpen(true)}
       >
-        Order
+        <span>Place Your Order</span>
       </button>
+
+      <MakeOrders
+        shipping_method={selectedOptionId}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
