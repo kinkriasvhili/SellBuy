@@ -1,80 +1,91 @@
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
+@import "@fontsource/sour-gummy";
+@import "@fontsource/dm-serif-text";
+@import "@fontsource/roboto-flex";
+@import url("../../index.css");
+
+.orderContainer {
+  margin-top: 90px;
+}
+
+/* order quantity */
+.orderCount {
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  margin-bottom: 20px;
 }
-
-.modal {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.3s ease;
-}
-
-.title {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-.input {
-  width: 100%;
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-}
-
-.buttonRow {
+.orderCount h2 {
   display: flex;
+  align-items: center;
+}
+.orderCount h2 span {
+  color: var(--primary-color);
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+  font-size: 1.2rem;
+}
+
+/* --orders */
+.orders {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+.orders img {
+  max-width: 150px;
+  border-radius: 5px;
+}
+/* -order */
+.orderCard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 1px solid var(--light-grey);
+  padding-bottom: 20px;
+}
+.orderHeader {
+  width: 100%;
+  display: flex;
+  background-color: rgb(230, 230, 230);
+  align-items: center;
+  padding: 20px;
   justify-content: space-between;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-bottom: 10px;
+}
+.itemCard {
+  font-family: "Sour Gummy";
+  display: flex;
+  width: 100% !important;
+  justify-content: start;
+  gap: 30px;
+  alignment-baseline: center;
+  padding: 20px;
 }
 
-.submitButton {
-  background: #4caf50;
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-
-.submitButton:disabled {
-  background: #a5d6a7;
-  cursor: not-allowed;
-}
-
-.closeButton {
-  background: #f44336;
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-
-@keyframes fadeIn {
-  from {
-    transform: translateY(-10px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
+/* :root {
+  --primary-color: #f1641e;
+  --primary-hover-color: #ed6521;
+  --primary-light-hover-color: #ed65218b;
+  --primary-text-color: #222;
+  --white-btn-color: #ffffff;
+  --white-btn-hover-color: #0e0e0e17;
+  --linked-btn-hover-color: #ccebff;
+  --blue-color: navy;
+  --gradient-color:  linear-gradient(to right, #f1641e, navy)
+  --light-blue: #61aaff;
+  --teal: #0d8b8b;
+  --soft-yellow: #ffef80;
+  --light-grey: #d3d3d3;
+  --dark-grey: #444444;
+  --aqua-blue: #00bcd4;
+  --soft-white: #f8f8f8;
+  --color-realBlue: #2979ff;
+} */

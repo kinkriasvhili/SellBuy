@@ -1,6 +1,6 @@
 // MakeOrders.jsx
 import { useEffect, useRef, useState } from "react";
-import styles from "./orders.module.css";
+import styles from "./makeOrders.module.css";
 import { postOrders } from "../../fetchData/postData";
 import { useMutation } from "@tanstack/react-query";
 

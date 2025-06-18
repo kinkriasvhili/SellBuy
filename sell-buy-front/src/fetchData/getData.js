@@ -118,6 +118,7 @@ export const getNotifications = async () => {
     console.log(error);
   }
 };
+
 export const getFav = async () => {
   try {
     const res = await axios.get(`${URL}/wishlist`, { withCredentials: true });
@@ -139,3 +140,39 @@ export const getCart = async () => {
     throw error;
   }
 };
+
+export const getOrders = async () => {
+  try {
+    const res = await axios.get(`${URL}/orders`, {
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+// export const getSingleOrder = async () => {
+//   try {
+//     const res = await axios.get(`${URL}/cart/cart-items`, {
+//       withCredentials: true,
+//     });
+//     return res.data;
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// };
+
+// export const getOrderDefAddres = async () => {
+//   try {
+//     const res = await axios.get(`${URL}/cart/cart-items`, {
+//       withCredentials: true,
+//     });
+//     return res.data;
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// };

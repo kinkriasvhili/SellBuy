@@ -8,9 +8,9 @@ export default function CartAddition({ price }) {
   const deliveryOptions = [
     {
       id: "1",
-      deliveryDays: 7,
-      option: "Regional Delivery",
-      priceCents: 499,
+      deliveryDays: 0,
+      option: "In-Store Pickup",
+      priceCents: 0,
     },
     {
       id: "2",
@@ -20,9 +20,9 @@ export default function CartAddition({ price }) {
     },
     {
       id: "3",
-      deliveryDays: 0,
-      option: "In-Store Pickup",
-      priceCents: 0,
+      deliveryDays: 7,
+      option: "Regional Delivery",
+      priceCents: 499,
     },
   ];
 
