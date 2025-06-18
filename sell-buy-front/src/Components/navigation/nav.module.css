@@ -120,12 +120,15 @@
   height: 100vh;
   opacity: 0.2;
 }
-
+.respReg {
+  display: none;
+}
 @media (max-width: 1050px) {
   .menuBar {
     z-index: 100;
     display: flex; /* Hide button on larger screens */
   }
+
   .navRightButtons {
     opacity: 0;
     transform: translateY(-20px);
@@ -143,6 +146,39 @@
     right: 0;
     background-color: white;
     z-index: 999;
+    width: 100%;
+    padding: 1rem 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #ddd;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    gap: 20px;
+  }
+}
+@media (max-width: 750px) {
+  .menuBar {
+    z-index: 100;
+    display: flex; /* Hide button on larger screens */
+  }
+
+  .profileLogin {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    display: none;
+  }
+
+  .respReg.respOn {
+    display: flex !important;
+    flex-direction: row;
+    justify-content: end;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    z-index: -1;
     width: 100%;
     padding: 1rem 50px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

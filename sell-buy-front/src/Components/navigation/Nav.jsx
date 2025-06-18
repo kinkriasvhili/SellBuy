@@ -140,9 +140,42 @@ export default function Nav() {
                     Returns & Orders
                   </button>
                 </Link>
+
+                {/* try */}
+                <div
+                  className={`${styles.respReg} ${
+                    isBarOpen ? styles.respOn : ""
+                  }`}
+                >
+                  {!isAuthenticated ? (
+                    <Link to={"/login"}>
+                      <ButtonWIcon
+                        text="Sign In"
+                        icon={faUser}
+                        iconSize="1x"
+                        name={["wht-btn", "signin"]}
+                        styles={styles}
+                      />
+                    </Link>
+                  ) : (
+                    <Link to={"/profile"}>
+                      <ButtonWIcon
+                        text="Profile"
+                        icon={faUser}
+                        iconSize="1x"
+                        name={["wht-btn", "profile"]}
+                        styles={styles}
+                      />
+                    </Link>
+                  )}
+                </div>
               </div>
 
-              <div className={styles.profileLogin}>
+              <div
+                className={`${styles.profileLogin} ${
+                  isBarOpen ? styles.respOn : ""
+                }`}
+              >
                 {!isAuthenticated ? (
                   <Link to={"/login"}>
                     <ButtonWIcon

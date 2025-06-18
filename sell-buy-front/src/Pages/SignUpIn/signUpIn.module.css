@@ -2,27 +2,29 @@
 @import "@fontsource/sour-gummy/500.css"; /* Light */
 
 .container {
+  margin-top: 100px;
   font-family: "Sour Gummy";
   display: flex;
   justify-content: space-between;
   padding: 2vw;
   overflow-x: hidden;
-  min-height: 75vh;
-  max-height: 85vh;
   overflow: hidden;
-  align-items: center;
+  align-items: stretch;
+  height: 85vh;
 }
 
 .leftSide {
-  padding-left: 10vw;
+  padding-left: 9vw;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: start;
   width: 100%;
   gap: 10px;
   margin-right: -10vw;
   color: var(--blue-color);
+  overflow-y: auto;
+  padding-right: 15px;
 }
 .registerForm {
   position: relative;
@@ -145,4 +147,38 @@
 /*  */
 .inputRed {
   color: red !important;
+}
+
+@media (max-width: 1200px) {
+  .rightSide {
+    display: none;
+  }
+  .container {
+    margin-top: 100px;
+    font-family: "Sour Gummy";
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 2vw;
+    align-items: center;
+    height: 100%;
+  }
+
+  .leftSide {
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: start;
+    width: 50%;
+    gap: 10px;
+    color: var(--blue-color);
+    overflow-y: auto;
+    padding-right: 15px;
+  }
+}
+@media (max-width: 800px) {
+  .leftSide {
+    width: 80%;
+  }
 }
