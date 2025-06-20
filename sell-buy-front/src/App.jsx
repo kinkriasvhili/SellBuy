@@ -15,6 +15,7 @@ import Footer from "./Components/appFooter/footer.jsx";
 import PrivacyPolicy from "./Components/policy/PrivacyPolicy.jsx";
 import AddProd from "./Pages/AddProducts/AddProd.jsx";
 import SingleProduct from "./Pages/SingleProduct/SingleProduct.jsx";
+import FilteredProducts from "./Pages/FilteredProducts/FilteredProducts";
 // import Footer from "./Components/appFooter/FooterApp.jsx";
 
 function AppInner() {
@@ -36,6 +37,7 @@ function AppInner() {
         <Route path={`/orders`} element={<Orders />} />
         <Route path={`/email-confrimation`} element={<EmailConfrimation />} />
         <Route path="/product/:slug" element={<SingleProduct />} />
+        <Route path="/products/:slug" element={<FilteredProducts />} />
       </Routes>
       <Footer />
     </BrowserRouter>

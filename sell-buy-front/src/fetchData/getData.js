@@ -176,3 +176,12 @@ export const getOrders = async () => {
 //     throw error;
 //   }
 // };
+
+export const getCategoryProducts = async (slug) => {
+  try {
+    const res = await axios.get(`${URL}/products/categories/${slug}`);
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

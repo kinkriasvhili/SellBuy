@@ -3,6 +3,7 @@ import { ProductContext } from "../../Context/ProductContext";
 import styles from "./categories.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 // import {FontAwe}
 export default function Categories() {
   const [isOn, setIsOn] = useState(false);
@@ -44,11 +45,15 @@ export default function Categories() {
         </div>
 
         <div className={`${styles.list} ${isOn ? styles.listActive : ""}`}>
-          {categories.map(({ name, id }) => (
-            <div key={id} className={styles.category}>
-              <p className={styles.icon} onClick={() => setIsOn(false)}>
-                {name}
-              </p>
+          {categories.map(({ name, id, slug }) => (
+            <div key={id}>
+              <Link to={`/products/${slug}?category=${name}`}>
+                <div className={styles.category}>
+                  <p className={styles.icon} onClick={() => setIsOn(false)}>
+                    {name}
+                  </p>
+                </div>
+              </Link>
             </div>
           ))}
         </div>
