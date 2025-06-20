@@ -5,6 +5,7 @@ import { getProductsCategories } from "../../fetchData/getData";
 import { AddProductsInput } from "../../Components/Ui/inputs/Inputs";
 import { postNewProduct } from "../../fetchData/postData";
 import { AuthContext } from "../../Context/AuthContext";
+import { ProductContext } from "../../Context/ProductContext";
 
 export default function AddProd() {
   const [formData, setFormData] = useState({
@@ -18,6 +19,7 @@ export default function AddProd() {
   const [images, setImages] = useState([]);
   const [featuredIndex, setFeaturedIndex] = useState(null);
   const { isAuthenticated } = useContext(AuthContext);
+  const { categQueries } = useContext(ProductContext);
   const [disabled, setDisabled] = useState(true);
   function validateForm(formData, images) {
     const hasEmptyField = Object.entries(formData).some(([key, value]) => {
@@ -32,11 +34,6 @@ export default function AddProd() {
     const isDisabled = validateForm(formData, images);
     setDisabled(isDisabled);
   }, [formData, images]);
-
-  const categQueries = useQuery({
-    queryKey: ["categories"],
-    queryFn: getProductsCategories,
-  });
 
   const mutation = useMutation({
     mutationFn: postNewProduct,
