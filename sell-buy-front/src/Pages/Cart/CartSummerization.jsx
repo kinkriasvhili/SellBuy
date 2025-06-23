@@ -4,7 +4,6 @@ import MakeOrders from "../Orders/MakeOrders";
 export default function CartAddition({ price }) {
   const TAX_CENTS = 499; // $4.99
   const [selectedOptionId, setSelectedOptionId] = useState("1");
-  console.log(price);
   const deliveryOptions = [
     {
       id: "1",
@@ -22,7 +21,7 @@ export default function CartAddition({ price }) {
       id: "3",
       deliveryDays: 7,
       option: "Regional Delivery",
-      priceCents: 499,
+      priceCents: 799,
     },
   ];
 

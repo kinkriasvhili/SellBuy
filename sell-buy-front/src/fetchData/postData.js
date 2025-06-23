@@ -185,10 +185,14 @@ export const postOrders = async (data) => {
   try {
     const res = await axios.post(`${URL}/orders/checkout/`, data, {
       withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+        "Idempotency-Key": crypto.randomUUID(), // ✅ required header
+      },
     });
     return res.data;
   } catch (error) {
-    console.log(error);
+    console.log(error.response?.data); // 👈 log error details
     throw error;
   }
 };
