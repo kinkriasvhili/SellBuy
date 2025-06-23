@@ -2,15 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import styles from "./filteredProducts.module.css";
 import { useParams, useSearchParams } from "react-router-dom";
 import { getCategoryProducts, getSingleProduct } from "../../fetchData/getData";
-
+import { useContext } from "react";
+import { ProductContext } from "../../Context/ProductContext";
+import Product from "../../Components/products/Product";
 export default function FilteredProducts() {
   const { slug } = useParams();
   const [searchParams] = useSearchParams();
   const category = searchParams.get("category");
-
+  const { myProducts } = useContext(ProductContext);
   console.log("slug:", slug);
   console.log("category:", category);
-
   const productQuery = useQuery({
     queryKey: ["products", slug],
     queryFn: () => getCategoryProducts(slug),
@@ -26,12 +27,29 @@ export default function FilteredProducts() {
   }
 
   const product = productQuery.data;
-  console.log(product);
+  product.children.map((pro) => {
+    console.log(pro);
+  });
+  const productsData = myProducts.data.results;
 
   return (
-    <div className={`bottomNav ${styles.container}`}>
-      This is Filtered Products
-      <pre>{JSON.stringify(product, null, 2)}</pre>
+    <div className={styles.productsGrid}>
+      {productsData.slice(0, 10).map((product, index) => {
+        return (
+          <div key={product.id}>
+            <Product
+              image={product.feature_image}
+              name={product.name}
+              price={product.price}
+              scope={"local"}
+              index={index}
+              slug={product.slug}
+              id={product.id}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 }
+// rc-toys

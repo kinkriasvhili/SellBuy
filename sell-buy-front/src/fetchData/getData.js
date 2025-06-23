@@ -153,17 +153,17 @@ export const getOrders = async () => {
   }
 };
 
-// export const getSingleOrder = async () => {
-//   try {
-//     const res = await axios.get(`${URL}/cart/cart-items`, {
-//       withCredentials: true,
-//     });
-//     return res.data;
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// };
+export const getSingleOrder = async (id) => {
+  try {
+    const res = await axios.get(`${URL}/orders/${id}`, {
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
 
 // export const getOrderDefAddres = async () => {
 //   try {

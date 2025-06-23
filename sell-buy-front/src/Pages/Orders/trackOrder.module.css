@@ -1,0 +1,52 @@
+.trackingBox {
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+.progressBar {
+  position: relative;
+  height: 8px;
+  background-color: #eee;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: #4caf50;
+  transition: width 0.5s ease;
+}
+
+.milestones {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  position: relative;
+  top: -15px;
+}
+
+.milestone {
+  text-align: center;
+}
+
+.dot {
+  display: block;
+  width: 12px;
+  height: 12px;
+  margin: 0 auto 5px;
+  border-radius: 50%;
+}
+
+.label {
+  color: red;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.time {
+  display: block;
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 3px;
+}

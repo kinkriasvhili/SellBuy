@@ -70,6 +70,33 @@
   padding: 20px;
 }
 
+.wrapper {
+  width: 100%;
+  padding: 20px;
+}
+.trackButton {
+  padding: 5px 12px;
+  border: 1px solid var(--light-grey);
+  border-radius: 20px;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+.trackButton:hover {
+  background-color: rgb(228, 228, 228);
+}
+
+.trackingContainer {
+  width: 100%;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+  padding: 0 1rem;
+}
+
+.trackingContainer.open {
+  max-height: 300px;
+  padding: 1rem;
+}
 /* :root {
   --primary-color: #f1641e;
   --primary-hover-color: #ed6521;

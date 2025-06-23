@@ -1,9 +1,18 @@
 import { useEffect, useState } from "react";
 import styles from "./orders.module.css";
+import styles2 from "./trackOrder.module.css";
 import { useQuery } from "@tanstack/react-query";
 import { getOrders } from "../../fetchData/getData";
+import Tracking from "./Tracking";
 
 export default function Orders() {
+  const [openTrackings, setOpenTrackings] = useState({});
+  const toggleTracking = (orderId) => {
+    setOpenTrackings((prev) => ({
+      ...prev,
+      [orderId]: !prev[orderId],
+    }));
+  };
   const ordersQuery = useQuery({
     queryKey: ["orders"],
     queryFn: getOrders,
@@ -21,26 +30,6 @@ export default function Orders() {
     console.error(ordersQuery.error);
     return <>...Error</>;
   }
-  /**
-   *  {
-      id: "1",
-      deliveryDays: 7,
-      option: "Regional Delivery",
-      priceCents: 499,
-    },
-    {
-      id: "2",
-      deliveryDays: 3,
-      option: "City Delivery",
-      priceCents: 499,
-    },
-    {
-      id: "3",
-      deliveryDays: 0,
-      option: "In-Store Pickup",
-      priceCents: 0,
-    },
-   */
   const orders = ordersQuery.data;
   return (
     <div className={`mainContainer bottomNav ${styles.orderContainer}`}>
@@ -90,23 +79,46 @@ export default function Orders() {
                   </div>
                   <div className={styles.orderDescribtion}>
                     {result.items.map((item, index) => (
-                      <div key={index} className={styles.itemCard}>
-                        <div className={styles.orderImg}>
-                          <img
-                            src={item.feature_image}
-                            alt={item.product_name}
-                            className={styles.productImage}
-                          />
-                        </div>
-                        <div className={styles.orderInfo}>
-                          <p style={{ fontSize: "16px", fontWeight: "bold" }}>
-                            Product Name: {item.product_name}
-                          </p>
-                          <p>Total Amount: ${result.total_amount}</p>
-                          <p>Quantity: {item.quantity}</p>
+                      <div key={index}>
+                        <div className={styles.itemCard}>
+                          <div className={styles.orderImg}>
+                            <img
+                              src={item.feature_image}
+                              alt={item.product_name}
+                              className={styles.productImage}
+                            />
+                          </div>
+                          <div className={styles.orderInfo}>
+                            <p style={{ fontSize: "16px", fontWeight: "bold" }}>
+                              Product Name: {item.product_name}
+                            </p>
+                            <p>Total Amount: ${result.total_amount}</p>
+                            <p>Quantity: {item.quantity}</p>
+                          </div>
                         </div>
                       </div>
                     ))}
+                  </div>
+                  <div className={styles.wrapper}>
+                    <button
+                      onClick={() => toggleTracking(result.id)}
+                      className={styles.trackButton}
+                    >
+                      {openTrackings[result.id]
+                        ? "Close Track Order"
+                        : "Track Order"}
+                    </button>
+
+                    <div
+                      className={`${styles.trackingContainer} ${
+                        openTrackings[result.id] ? styles.open : ""
+                      }`}
+                    >
+                      <Tracking
+                        id={result.id}
+                        shouldFetch={!!openTrackings[result.id]}
+                      />
+                    </div>
                   </div>
                 </div>
               );
