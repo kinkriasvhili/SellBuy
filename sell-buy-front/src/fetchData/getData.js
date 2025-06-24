@@ -185,3 +185,16 @@ export const getCategoryProducts = async (slug) => {
     console.error(error);
   }
 };
+
+export const getFilteredProducts = async (filters = {}) => {
+  try {
+    const params = new URLSearchParams();
+    if (filters.category) params.append("category", filters.category);
+    const res = await axios.get(
+      `${URL}/products/shop/items/?${params.toString()}`
+    );
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
