@@ -16,6 +16,7 @@ import PrivacyPolicy from "./Components/policy/PrivacyPolicy.jsx";
 import AddProd from "./Pages/AddProducts/AddProd.jsx";
 import SingleProduct from "./Pages/SingleProduct/SingleProduct.jsx";
 import FilteredProducts from "./Pages/FilteredProducts/FilteredProducts";
+import ResetPassword from "./Pages/ResetPassword/ResetPassword.jsx";
 // import Footer from "./Components/appFooter/FooterApp.jsx";
 
 function AppInner() {
@@ -38,6 +39,7 @@ function AppInner() {
         <Route path={`/email-confrimation`} element={<EmailConfrimation />} />
         <Route path="/product/:slug" element={<SingleProduct />} />
         <Route path="/products/:slug" element={<FilteredProducts />} />
+        <Route path="/reset-password-confirm/" element={<ResetPassword />} />
       </Routes>
       <Footer />
     </BrowserRouter>

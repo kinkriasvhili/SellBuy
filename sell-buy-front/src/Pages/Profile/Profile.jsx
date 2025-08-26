@@ -20,19 +20,6 @@ export default function Profile() {
     queryKey: ["notifications"],
     queryFn: getNotifications,
   });
-  const [tokenEmailParams, setTokenEmailParams] = useState({
-    email: "",
-    token: "",
-  });
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const tokenParam = params.get("token");
-    const emailParam = params.get("email");
-    if (tokenParam && emailParam) {
-      setTokenEmailParams({ email: emailParam, token: tokenParam });
-      setPasswordReset(true);
-    }
-  }, []);
 
   const logOutMutation = useMutation({
     mutationFn: postLogout,
@@ -130,7 +117,6 @@ export default function Profile() {
           <EditProfile
             passwordReset={passwordReset}
             setPasswordReset={setPasswordReset}
-            tokenEmailParams={tokenEmailParams}
             openEditor={openEditor}
             setDisabled={setOpenEditor}
           />

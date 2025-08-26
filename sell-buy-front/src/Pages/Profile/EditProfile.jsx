@@ -10,7 +10,6 @@ export function EditProfile({
   openEditor,
   passwordReset,
   setPasswordReset,
-  tokenEmailParams,
 }) {
   const modalRef = useRef(null);
   const closeModal = () => {
@@ -123,7 +122,6 @@ export function EditProfile({
               openEditorStageFirst={openEditorStageFirst}
               setPasswordReset={setPasswordReset}
               passwordReset={passwordReset}
-              tokenEmailParams={tokenEmailParams}
             />
           </div>
         )}

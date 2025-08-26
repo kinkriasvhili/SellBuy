@@ -4,13 +4,8 @@ import styles from "./profile.module.css";
 import ChangeInput from "./ChangeInput";
 import { useMutation } from "@tanstack/react-query";
 import { postResetPasRequest } from "../../fetchData/postData";
-import PasswordForm from "./PasswordForm";
 
-export default function ChangePasswordForms({
-  tokenEmailParams,
-  passwordReset,
-  setPasswordReset,
-}) {
+export default function ChangePasswordForms({ passwordReset }) {
   const [isEmailCorrect, setIsEmailCorrect] = useState(false);
   const [stages, setStages] = useState({
     stageOne: true,
@@ -90,15 +85,6 @@ export default function ChangePasswordForms({
         <span>...Pending</span>
       ) : !stages.stageTwo && isSucces ? (
         <p>Reset Link sent on your email account</p>
-      ) : stages.stageTwo ? (
-        <>
-          <div className={styles.passwordContainer}>
-            <PasswordForm
-              tokenEmailParams={tokenEmailParams}
-              setPasswordReset={setPasswordReset}
-            />
-          </div>
-        </>
       ) : (
         ""
       )}
