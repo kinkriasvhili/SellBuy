@@ -206,7 +206,15 @@ button {
 }
 .disabledBtn:hover {
   cursor: not-allowed !important;
+  transform: none !important;
 }
+.numberDisabled:hover::after {
+  content: " max > min";   
+  font-size: 14px;
+  color: green;             
+  margin-left: 6px;        
+}
+
 
 .inputRed {
   color: red !important;

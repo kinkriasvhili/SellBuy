@@ -28,9 +28,9 @@ export default function Filter() {
       <div
         className={`${styles.filterContent} ${openFilter ? styles.open : ""}`}
       >
-        <Categories />
-        <Condition />
         <PriceBar />
+        <Condition />
+        <Categories />
       </div>
     </div>
   );

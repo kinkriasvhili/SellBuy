@@ -27,6 +27,10 @@ button {
   opacity: 0;
   transform: translateY(-10px);
   transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
 }
 
 .filterContent.open {

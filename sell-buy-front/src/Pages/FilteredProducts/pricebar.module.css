@@ -1,49 +1,94 @@
 @import url("../../index.css");
-@import "@fontsource/sour-gummy";
-@import "@fontsource/dm-serif-text";
-@import "@fontsource/roboto-flex";
-
-.PriceBarCont {
-  background: var(--soft-white, #f8f8f8);
-  padding: 1.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-  font-family: "Roboto Flex", sans-serif;
-  max-width: 500px;
-  margin: auto;
+.categories {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 10px;
+  padding: 10px 2rem;
 }
 
-.title {
-  font-family: "DM Serif Text", serif;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: var(--primary-text-color, #222);
+.btnContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.icon {
+  transition: transform 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.category {
+  flex: 0 0 auto;
+  background-color: rgb(252, 252, 252);
+  padding: 0.75rem 1.25rem;
+  border-radius: 1px;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
   text-align: center;
+  align-items: center;
+  border: none;
+  border-bottom: 1px solid gray;
+}
+.childCategory {
+  background-color: #ffffff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  text-align: center;
+  align-items: center;
+  border-bottom: none;
+}
+.btnContainer {
+  max-width: 30%;
+}
+.category:hover {
+  transform: translateY(-4px);
 }
 
+.categories::-webkit-scrollbar {
+  height: 8px;
+}
+
+.categories::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+/* so u need to change only the down do not touch apply button */
 .inputGroup {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
+  gap: 6px;
+  margin-top: 20px;
 }
 
 .input {
-  padding: 0.5rem 1rem;
-  width: 100px;
-  border: 1px solid var(--light-grey, #ccc);
-  border-radius: 8px;
-  font-size: 1rem;
-  font-family: "Roboto Flex", sans-serif;
-  transition: border-color 0.3s ease;
-}
-
-.input:focus {
-  border-color: var(--primary-color, #f1641e);
+  border-bottom: 1px solid gray;
+  height: 40px;
+  padding: 10px;
+  background-color: rgb(252, 252, 252);
+  transition: 0.2s;
   outline: none;
 }
-
-.separator {
-  font-size: 1.2rem;
-  color: var(--dark-grey, #444);
+.input:hover {
+  transform: translateY(-4px);
 }

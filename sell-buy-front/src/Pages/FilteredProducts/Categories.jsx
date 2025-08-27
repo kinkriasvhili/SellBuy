@@ -2,8 +2,7 @@ import { useContext, useState } from "react";
 import { ProductContext } from "../../Context/ProductContext";
 import styles from "./categories.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useSearchParams } from "react-router-dom";
 // import {FontAwe}
 export default function Categories() {
@@ -32,13 +31,7 @@ export default function Categories() {
 
     navigate(`/products/${slug}?${newParams.toString()}`);
   };
-  const icon = () => {
-    if (isOn) {
-      return faX;
-    } else {
-      return faBars;
-    }
-  };
+
   return (
     <>
       <div className={styles.categories}>
@@ -49,9 +42,12 @@ export default function Categories() {
           Categories
           <button
             className={`${styles.icon} ${isOn ? styles.rotate : ""}`}
-            onClick={() => setIsOn(!isOn)}
+            onClick={() => {
+              setIsOn(!isOn);
+              handleClick();
+            }}
           >
-            <FontAwesomeIcon icon={icon()} size="1x" />
+            <FontAwesomeIcon icon={faChevronDown} size="1x" />
           </button>
         </div>
 
@@ -60,7 +56,7 @@ export default function Categories() {
             <div key={id}>
               {/* <Link to={`/products/${slug}?category=${name}`}> */}
               <div
-                className={styles.category}
+                className={`${styles.category} ${styles.childCategory}`}
                 onClick={() => {
                   updateParams(name, slug);
                 }}
