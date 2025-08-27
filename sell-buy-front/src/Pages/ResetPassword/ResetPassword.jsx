@@ -18,8 +18,6 @@ export default function ResetPassword() {
     mutationFn: postLogout,
     onSuccess: () => {
       clearUser();
-      setIsAuthenticated(false);
-      navigate("/");
     },
     onError: (err) => {
       console.log(`logout failed ${err}`);
@@ -89,7 +87,12 @@ export default function ResetPassword() {
       new_password: password.password,
     });
 
+    if (!isAuthenticated) {
+      navigate("/");
+      return;
+    }
     navigate("/profile");
+    setIsAuthenticated(false);
   };
   return (
     <div className={`bottomNav ${styles.container}`}>
@@ -132,10 +135,8 @@ export default function ResetPassword() {
 
         <button
           type="submit"
-          className={`${styles.changeButton} ${
-            !isSubmited ? "disabledBtn" : ""
-          }`}
-          disabled={!isSubmited}
+          className={`${styles.changeButton} ${false ? "disabledBtn" : ""}`}
+          // disabled={!isSubmited}
           onClick={() => {
             handleSubmit();
           }}

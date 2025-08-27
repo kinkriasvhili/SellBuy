@@ -9,11 +9,13 @@ import { useControlForm } from "./ControlForm";
 import { useMutation } from "@tanstack/react-query";
 import { postLogin } from "../../fetchData/postData";
 import { AuthContext } from "../../Context/AuthContext";
+import ResetPasswordModal from "../ResetPassword/ResetPasswordModal";
 
 export default function SignIn() {
   const { setIsAuthenticated } = useContext(AuthContext);
   const { signupData, inputsValidation, handleChange } = useControlForm();
   const [invalid, setInvalid] = useState("");
+  const [openModal, setOpenModal] = useState(false);
   const isLoginValid =
     inputsValidation.isPasswordValid && inputsValidation.isEmailValid;
   const makeClass = (isValid) => {
@@ -68,6 +70,19 @@ export default function SignIn() {
             className={makeClass(inputsValidation.isPasswordValid)}
           />
           <span style={{ color: "red" }}>{invalid}</span>
+          <p className={styles.forgetPassword}>
+            Forget password?{" "}
+            <span
+              onClick={() => setOpenModal(true)}
+              className={styles.resetPassword}
+            >
+              Reset
+            </span>
+          </p>
+          <ResetPasswordModal
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+          />
           <FormButton
             handleClick={handleClick}
             type="submit"
