@@ -1,20 +1,27 @@
 import { useState } from "react";
 import styles from "./pricebar.module.css";
+import { useSearchParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function PriceBar() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleMinChange = (e) => {
-    const value = e.target.value;
-    setMinPrice(value);
-    // onChange({ min_price: value, max_price: maxPrice });
-  };
+  const updateParams = () => {
+    const newParams = new URLSearchParams(searchParams); // keep old ones
 
-  const handleMaxChange = (e) => {
-    const value = e.target.value;
-    setMaxPrice(value);
-    // onChange({ min_price: minPrice, max_price: value });
+    if (minPrice) newParams.set("price_min", minPrice);
+    else newParams.delete("price_min");
+
+    if (maxPrice) newParams.set("price_max", maxPrice);
+    else newParams.delete("price_max");
+
+    setSearchParams(newParams); // now contains category + condition + price
+
+    navigate(`${location.pathname}?${newParams.toString()}`);
   };
 
   return (
@@ -25,7 +32,7 @@ export default function PriceBar() {
           type="number"
           placeholder="Min"
           value={minPrice}
-          onChange={handleMinChange}
+          onChange={(e) => setMinPrice(e.target.value)}
           className={styles.input}
         />
         <span className={styles.separator}>—</span>
@@ -33,9 +40,12 @@ export default function PriceBar() {
           type="number"
           placeholder="Max"
           value={maxPrice}
-          onChange={handleMaxChange}
+          onChange={(e) => setMaxPrice(e.target.value)}
           className={styles.input}
         />
+        <button onClick={updateParams} className={styles.applyBtn}>
+          Apply
+        </button>
       </div>
     </div>
   );

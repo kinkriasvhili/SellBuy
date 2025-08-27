@@ -39,6 +39,7 @@ function AppInner() {
         <Route path={`/email-confrimation`} element={<EmailConfrimation />} />
         <Route path="/product/:slug" element={<SingleProduct />} />
         <Route path="/products/:slug" element={<FilteredProducts />} />
+        <Route path="/products" element={<FilteredProducts />} />
         <Route path="/reset-password-confirm/" element={<ResetPassword />} />
       </Routes>
       <Footer />

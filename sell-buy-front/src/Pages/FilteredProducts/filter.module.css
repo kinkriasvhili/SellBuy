@@ -1,3 +1,36 @@
+.filterBtn {
+  padding: 10px 15px;
+  border-bottom: 1px solid rgb(182, 182, 182);
+  border-radius: 1px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .filterContainer {
   padding: 1rem;
+}
+
+.filterContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.filterContent {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease-in-out;
+}
+
+.filterContent.open {
+  max-height: 600px;
+  opacity: 1;
+  transform: translateY(0);
 }

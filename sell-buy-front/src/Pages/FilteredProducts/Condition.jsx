@@ -1,21 +1,16 @@
 import styles from "./condition.module.css";
-
-import { useContext, useState } from "react";
-import { ProductContext } from "../../Context/ProductContext";
+import { useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 export default function Condition() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [isOn, setIsOn] = useState(false);
-  const { categQueries } = useContext(ProductContext);
-  if (categQueries.isLoading) {
-    return <h1>...Loading</h1>;
-  }
-  if (categQueries.isError) {
-    console.log(categQueries.error);
-  }
-
-  const categories = categQueries.data;
-
+  const conditions = ["new", "used", "Refurbished"];
+  const [searchParams, setSearchParams] = useSearchParams();
   const handleClick = () => {
     setIsOn((prev) => !prev);
   };
@@ -28,7 +23,16 @@ export default function Condition() {
     }
   };
 
-  const conditions = ["new", "used", "Refurbished"];
+  const updateParams = (name) => {
+    const newParams = new URLSearchParams(searchParams); // keep old ones
+
+    if (name) newParams.set("condition", name);
+    else newParams.delete("condition");
+
+    setSearchParams(newParams);
+    navigate(`${location.pathname}?${newParams.toString()}`);
+  };
+
   return (
     <>
       <div className={styles.categories}>
@@ -46,13 +50,21 @@ export default function Condition() {
         </div>
 
         <div className={`${styles.list} ${isOn ? styles.listActive : ""}`}>
+          {console.log(conditions)}
           {conditions.map((name) => (
             <div key={name}>
-              <div className={styles.category}>
+              {/* <Link to={`/products?condition=${name}`}> */}
+              <div
+                onClick={() => {
+                  updateParams(name);
+                }}
+                className={styles.category}
+              >
                 <p className={styles.icon} onClick={() => setIsOn(false)}>
                   {name}
                 </p>
               </div>
+              {/* </Link> */}
             </div>
           ))}
         </div>

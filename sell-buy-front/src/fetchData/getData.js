@@ -186,15 +186,14 @@ export const getCategoryProducts = async (slug) => {
   }
 };
 
-export const getFilteredProducts = async (filters = {}) => {
-  try {
-    const params = new URLSearchParams();
-    if (filters.category) params.append("category", filters.category);
-    const res = await axios.get(
-      `${URL}/products/shop/items/?${params.toString()}`
-    );
-    return res.data;
-  } catch (err) {
-    console.log(err);
-  }
-};
+export async function getFilteredProducts(filters) {
+  const params = new URLSearchParams();
+
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value) params.append(key, value);
+  });
+
+  const res = await fetch(`${URL}/products/shop/items/?${params.toString()}`);
+  if (!res.ok) throw new Error("Failed to fetch products");
+  return res.json();
+}

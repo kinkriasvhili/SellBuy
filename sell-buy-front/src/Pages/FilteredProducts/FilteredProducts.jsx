@@ -6,25 +6,33 @@ import { useEffect } from "react";
 
 import Product from "../../Components/products/Product";
 import Filter from "./Filter";
+
 export default function FilteredProducts() {
   const { slug } = useParams();
   const [searchParams] = useSearchParams();
-  const category = searchParams.get("category");
+
+  // 🔥 Build filters object
+  const filters = {
+    category: slug || searchParams.get("category") || undefined,
+    condition: searchParams.get("condition") || undefined,
+    price_min: searchParams.get("price_min") || undefined,
+    price_max: searchParams.get("price_max") || undefined,
+  };
+
   const filteredQuery = useQuery({
-    queryKey: ["products", slug],
-    queryFn: () => getFilteredProducts({ category: slug }),
-    enabled: !!slug, // avoid running if slug is undefined
+    queryKey: ["products", filters],
+    queryFn: () => getFilteredProducts(filters),
+    enabled: true,
   });
 
   useEffect(() => {
-    console.log("slug:", slug);
-    // console.log("category:", category);
-  }, [slug]);
+    console.log("filters:", filters);
+  }, [filters]);
 
   if (filteredQuery.isLoading) {
     return (
       <div className={`${styles.productsGrid} bottomNav`}>
-        <h1>Hello</h1>
+        <h1>Loading...</h1>
       </div>
     );
   }
@@ -33,16 +41,17 @@ export default function FilteredProducts() {
     console.log(filteredQuery.error);
     return (
       <div className={`${styles.productsGrid} bottomNav`}>
-        <h1>error</h1>
+        <h1>Error loading products</h1>
       </div>
     );
   }
 
-  const products = filteredQuery?.data?.results;
+  const products = filteredQuery?.data?.results || [];
+
   return (
     <div className={`${styles.productsGrid} bottomNav`}>
       <Filter />
-      {products && products.length > 0 ? (
+      {products.length > 0 ? (
         products.map((product) => (
           <div key={product.id}>
             <Product
@@ -61,12 +70,3 @@ export default function FilteredProducts() {
     </div>
   );
 }
-// rc-toys
-
-/**
-  const { myProducts } = useContext(ProductContext);
- * 
-  const productsData = myProducts.data.results;
- * 
- * 
- */

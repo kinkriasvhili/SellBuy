@@ -4,10 +4,13 @@ import styles from "./categories.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 // import {FontAwe}
 export default function Categories() {
+  const navigate = useNavigate();
   const [isOn, setIsOn] = useState(false);
   const { categQueries } = useContext(ProductContext);
+  const [searchParams, setSearchParams] = useSearchParams();
   if (categQueries.isLoading) {
     return <h1>...Loading</h1>;
   }
@@ -20,7 +23,15 @@ export default function Categories() {
   const handleClick = () => {
     setIsOn((prev) => !prev);
   };
+  const updateParams = (name, slug) => {
+    const newParams = new URLSearchParams(searchParams);
+    if (name) newParams.set("category", name);
+    else newParams.delete("category");
 
+    setSearchParams(newParams);
+
+    navigate(`/products/${slug}?${newParams.toString()}`);
+  };
   const icon = () => {
     if (isOn) {
       return faX;
@@ -47,13 +58,18 @@ export default function Categories() {
         <div className={`${styles.list} ${isOn ? styles.listActive : ""}`}>
           {categories.map(({ name, id, slug }) => (
             <div key={id}>
-              <Link to={`/products/${slug}?category=${name}`}>
-                <div className={styles.category}>
-                  <p className={styles.icon} onClick={() => setIsOn(false)}>
-                    {name}
-                  </p>
-                </div>
-              </Link>
+              {/* <Link to={`/products/${slug}?category=${name}`}> */}
+              <div
+                className={styles.category}
+                onClick={() => {
+                  updateParams(name, slug);
+                }}
+              >
+                <p className={styles.icon} onClick={() => setIsOn(false)}>
+                  {name}
+                </p>
+              </div>
+              {/* </Link> */}
             </div>
           ))}
         </div>

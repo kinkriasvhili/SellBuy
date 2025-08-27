@@ -5,9 +5,9 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
   gap: 20px;
-  padding: 0 2rem;
+  margin: 10px;
+  padding: 10px 2rem;
 }
 
 .btnContainer {
@@ -31,7 +31,7 @@
 }
 
 .list {
-  display: flex;
+  display: none;
   overflow-x: auto;
   white-space: nowrap;
   padding: 1rem 0;
@@ -43,6 +43,7 @@
 }
 
 .listActive {
+  display: flex;
   transform: translateX(0);
   opacity: 1;
 }
@@ -63,7 +64,6 @@
 
 .btnContainer {
   max-width: 30%;
-  margin-top: 20px;
   box-shadow: 0 2px 8px var(--primary-color) !important;
 }
 .category:hover {
