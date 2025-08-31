@@ -20,8 +20,7 @@ export default function MyProducts() {
     <div className={styles.productsGrid}>
       {productsData.slice(0, 10).map((product, index) => {
         return (
-          <div key={product.id}>
-            {console.log()}
+          <div key={product.id} style={{ cursor: "default !important" }}>
             <Product
               image={product.feature_image}
               name={product.name}
@@ -35,19 +34,6 @@ export default function MyProducts() {
           </div>
         );
       })}
-      {/* {products.slice(0, 10).map((product, index) => (
-        <div key={product.id}>
-          <Link to={`/product/${product.slug}`}>
-            <Product
-              image={product.images[0].image}
-              name={product.name}
-              price={product.price}
-              scope={"global"}
-              index={index}
-            />
-          </Link>
-        </div>
-      ))} */}
     </div>
   );
 }

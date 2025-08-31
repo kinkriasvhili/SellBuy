@@ -34,29 +34,42 @@ export default function Product({
 
   return (
     <div
-      className={
+      className={`${
         !animated ? styles.productContainer : animatedStyles.productContainer
-      }
+      } ${styles.profileProduct}`}
       style={
         location.pathname == "/"
           ? animated && { animationDelay: `${index * 0.1}s` }
           : {}
       }
     >
-      <Link to={slug ? `/product/${slug}` : "/favorites"}>
-        <div className={styles.productImageContainer}>
-          <img className={styles.productImage} src={productURL} />
-        </div>
-        <div className={styles.productName}>
-          {name.length > 25 ? `${name.slice(0, 22)}...` : name}
-        </div>
-        {rating && <StarRating rating={rating} />}
-        <div className={styles.productPrice}>${price}</div>
-      </Link>
+      {slug ? (
+        <Link to={`/product/${slug}`}>
+          <div className={styles.productImageContainer}>
+            <img className={styles.productImage} src={productURL} />
+          </div>
+          <div className={styles.productName}>
+            {name.length > 25 ? `${name.slice(0, 22)}...` : name}
+          </div>
+          {rating && <StarRating rating={rating} />}
+          <div className={styles.productPrice}>${price}</div>
+        </Link>
+      ) : (
+        <>
+          <div className={styles.productImageContainer}>
+            <img className={styles.productImage} src={productURL} />
+          </div>
+          <div className={styles.productName}>
+            {name.length > 25 ? `${name.slice(0, 22)}...` : name}
+          </div>
+          {rating && <StarRating rating={rating} />}
+          <div className={styles.productPrice}>${price}</div>
+        </>
+      )}
       <div className={styles.productFooter}>
         {scope === "local" ? (
           <>
-            <div className={styles.edit}>Edit</div>
+            <div className={styles.edit}></div>
           </>
         ) : scope === "global" ? (
           <>

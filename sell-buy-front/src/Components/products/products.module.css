@@ -1,5 +1,7 @@
 @import url("../../index.css");
-
+.profileProduct {
+  cursor: default !important;
+}
 .productsGrid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
