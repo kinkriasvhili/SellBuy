@@ -21,6 +21,7 @@ export default function MyProducts() {
       {productsData.slice(0, 10).map((product, index) => {
         return (
           <div key={product.id}>
+            {console.log()}
             <Product
               image={product.feature_image}
               name={product.name}
@@ -29,6 +30,7 @@ export default function MyProducts() {
               index={index}
               slug={product.slug}
               id={product.id}
+              rating={product.average_rating}
             />
           </div>
         );

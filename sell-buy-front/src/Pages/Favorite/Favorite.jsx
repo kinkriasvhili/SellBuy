@@ -17,12 +17,13 @@ export default function Favorite() {
                 image={feature_image}
                 name={name}
                 price={price}
+                rating={item.average_rating}
                 scope={"global"}
               />
             </div>
           );
         })}
-        {!favorites.item && (
+        {!favorites.items.length && (
           <div className={styles.favNone}>No products in favorites</div>
         )}
       </div>

@@ -17,11 +17,13 @@ export default function NewProducts() {
         .slice(0, 10)
         .map((product, index) => (
           <div key={product.id}>
+            {console.log(product.average_rating)}
             <Product
               image={product.images[0].image}
               name={product.name}
               price={product.price}
               scope={"global"}
+              rating={product.average_rating}
               index={index}
               slug={product.slug}
               id={product.id}

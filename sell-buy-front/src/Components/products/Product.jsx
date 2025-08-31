@@ -17,8 +17,8 @@ export default function Product({
   scope,
   index,
   slug,
+  rating,
 }) {
-  const [inCart, setInCart] = useState(false);
   const location = useLocation();
   const [animated, setAnimated] = useState(true);
 
@@ -50,7 +50,7 @@ export default function Product({
         <div className={styles.productName}>
           {name.length > 25 ? `${name.slice(0, 22)}...` : name}
         </div>
-        <StarRating rating={3.5} />
+        {rating && <StarRating rating={rating} />}
         <div className={styles.productPrice}>${price}</div>
       </Link>
       <div className={styles.productFooter}>
