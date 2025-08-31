@@ -11,12 +11,12 @@ export default function FilteredProducts() {
   const { slug } = useParams();
   const [searchParams] = useSearchParams();
 
-  // 🔥 Build filters object
   const filters = {
     category: slug || searchParams.get("category") || undefined,
     condition: searchParams.get("condition") || undefined,
     price_min: searchParams.get("price_min") || undefined,
     price_max: searchParams.get("price_max") || undefined,
+    q: searchParams.get("q") || undefined,
   };
 
   const filteredQuery = useQuery({
