@@ -24,15 +24,25 @@ export default function Tracking({ id, shouldFetch }) {
   return (
     <div className={styles.trackingBox}>
       <div className={styles.milestones}>
-        {milestones.map((milestone, index) => (
-          <div className={styles.milestone} key={index}>
-            <span className={styles.dot} />
-            <span className={styles.label}>{milestone.name}</span>
-            <span className={styles.time}>
-              {new Date(milestone.time).toLocaleString()}
-            </span>
-          </div>
-        ))}
+        {milestones.map((milestone, index) => {
+          const milestoneTime = new Date(milestone.time);
+          const isDone = milestoneTime <= new Date();
+
+          return (
+            <div className={styles.milestone} key={index}>
+              <span className={styles.dot} />
+              <span
+                className={styles.label}
+                style={{ color: isDone ? "green" : "red" }}
+              >
+                {milestone.name}
+              </span>
+              <span className={styles.time}>
+                {milestoneTime.toLocaleString()}
+              </span>
+            </div>
+          );
+        })}
       </div>
       <div className={styles.progressBar}>
         <div

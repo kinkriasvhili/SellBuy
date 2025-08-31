@@ -50,3 +50,15 @@
   color: #666;
   margin-top: 3px;
 }
+.label {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.pending {
+  color: red;
+}
+
+.done {
+  color: green;
+}
