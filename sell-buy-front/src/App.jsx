@@ -17,10 +17,13 @@ import AddProd from "./Pages/AddProducts/AddProd.jsx";
 import SingleProduct from "./Pages/SingleProduct/SingleProduct.jsx";
 import FilteredProducts from "./Pages/FilteredProducts/FilteredProducts";
 import ResetPassword from "./Pages/ResetPassword/ResetPassword.jsx";
+import { useServerStatus } from "./Context/ServerContext.jsx";
+
+import LoadingOverlay from "./Components/Loading/LoadingOverlay.jsx";
 // import Footer from "./Components/appFooter/FooterApp.jsx";
 
 function AppInner() {
-  const { userState } = useContext(UserContext);
+  const server = useServerStatus();
 
   return (
     <BrowserRouter>
@@ -43,6 +46,9 @@ function AppInner() {
         <Route path="/reset-password-confirm/" element={<ResetPassword />} />
       </Routes>
       <Footer />
+      {(server.isLoading || server.isError) && (
+        <LoadingOverlay text="Connecting to server..." />
+      )}
     </BrowserRouter>
   );
 }
