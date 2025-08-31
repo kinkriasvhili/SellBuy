@@ -49,7 +49,7 @@ export default function Profile() {
   }
 
   if (!isAuthenticated)
-    return <h1 className={`bottomNav`}>You aren't logged in</h1>;
+    return <div className={styles.profNone}>You aren't logged in</div>;
   if (userQuery.isLoading) return <h1 className={`bottomNav`}>Loading...</h1>;
   if (userQuery.isError) {
     return (

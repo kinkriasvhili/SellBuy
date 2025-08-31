@@ -22,6 +22,9 @@ export default function Favorite() {
             </div>
           );
         })}
+        {!favorites.item && (
+          <div className={styles.favNone}>No products in favorites</div>
+        )}
       </div>
     </div>
   );

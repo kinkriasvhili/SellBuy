@@ -1,30 +1,27 @@
 import styles from "./nav.module.css";
-import { ButtonWIcon } from "../Ui/buttons/Buttons";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Search() {
   const [inputFocus, setInputFocus] = useState(false);
   const [value, setValue] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
 
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      if (value.trim()) {
-        // ✅ always go to /products?q=...
-        navigate(`/products?q=${encodeURIComponent(value.trim())}`);
-      } else {
-        // if empty, just go to products page without q
-        if (location.pathname.startsWith("/products")) {
-          navigate(`/products`);
-        }
-      }
-    }, 300);
+  const handleSearch = () => {
+    if (value.trim()) {
+      navigate(`/products?q=${encodeURIComponent(value.trim())}`);
+    } else {
+      navigate(`/products`);
+    }
+  };
 
-    return () => clearTimeout(handler);
-  }, [value, navigate, location.pathname]);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
     <div
@@ -39,8 +36,11 @@ export default function Search() {
         onChange={(e) => setValue(e.target.value)}
         onFocus={() => setInputFocus(true)}
         onBlur={() => setInputFocus(false)}
+        onKeyDown={handleKeyDown} // allow Enter to trigger search
       />
-      <ButtonWIcon icon={faMagnifyingGlass} iconSize="1x" />
+      <button onClick={handleSearch}>
+        <FontAwesomeIcon icon={faMagnifyingGlass} size="1x" />
+      </button>
     </div>
   );
 }

@@ -6,10 +6,11 @@ import { useEffect } from "react";
 
 import Product from "../../Components/products/Product";
 import Filter from "./Filter";
-
+import { useLocation } from "react-router-dom";
 export default function FilteredProducts() {
   const { slug } = useParams();
-  const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
 
   const filters = {
     category: slug || searchParams.get("category") || undefined,
@@ -20,14 +21,18 @@ export default function FilteredProducts() {
   };
 
   const filteredQuery = useQuery({
-    queryKey: ["products", filters],
-    queryFn: () => getFilteredProducts(filters),
-    enabled: true,
+    queryKey: ["products", location.search], // depend on URL directly
+    queryFn: () => {
+      const searchParams = new URLSearchParams(location.search);
+      return getFilteredProducts({
+        category: slug || searchParams.get("category") || undefined,
+        condition: searchParams.get("condition") || undefined,
+        price_min: searchParams.get("price_min") || undefined,
+        price_max: searchParams.get("price_max") || undefined,
+        q: searchParams.get("q") || undefined,
+      });
+    },
   });
-
-  useEffect(() => {
-    console.log("filters:", filters);
-  }, [filters]);
 
   if (filteredQuery.isLoading) {
     return (
@@ -65,7 +70,7 @@ export default function FilteredProducts() {
           </div>
         ))
       ) : (
-        <p>No products found.</p>
+        <div className={styles.prodNone}>No products found</div>
       )}
     </div>
   );

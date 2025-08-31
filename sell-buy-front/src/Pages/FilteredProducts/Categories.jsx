@@ -23,13 +23,12 @@ export default function Categories() {
     setIsOn((prev) => !prev);
   };
   const updateParams = (name, slug) => {
-    const newParams = new URLSearchParams(searchParams);
+    const newParams = new URLSearchParams(location.search);
+
     if (name) newParams.set("category", name);
     else newParams.delete("category");
 
-    setSearchParams(newParams);
-
-    navigate(`/products/${slug}?${newParams.toString()}`);
+    navigate(`/products/${slug}?${newParams.toString()}`, { replace: false });
   };
 
   return (

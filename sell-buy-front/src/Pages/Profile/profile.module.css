@@ -269,3 +269,13 @@
 .passwordText {
   margin-bottom: 10px;
 }
+
+.profNone {
+  height: calc(100vh - 150px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #555;
+}

@@ -10,3 +10,12 @@
   gap: 40px;
   padding: 1vw;
 }
+.favNone {
+  height: calc(100vh - 285px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #555;
+}

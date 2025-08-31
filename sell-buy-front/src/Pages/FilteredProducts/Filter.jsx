@@ -5,7 +5,7 @@ import styles from "./filter.module.css";
 import { useState } from "react";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { useSearchParams } from "react-router-dom";
 export default function Filter() {
   const [openFilter, setOpenFilter] = useState(false);
 

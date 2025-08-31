@@ -16,12 +16,12 @@ export default function Condition() {
   };
 
   const updateParams = (name) => {
-    const newParams = new URLSearchParams(searchParams); // keep old ones
+    const newParams = new URLSearchParams(location.search); // <- use location.search instead
 
     if (name) newParams.set("condition", name);
     else newParams.delete("condition");
 
-    if (location.pathname == "/") {
+    if (location.pathname === "/") {
       navigate(`/products?${newParams.toString()}`);
     } else {
       navigate(`${location.pathname}?${newParams.toString()}`);
