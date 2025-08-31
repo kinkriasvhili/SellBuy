@@ -3,20 +3,9 @@ import { FavoriteContext } from "../../Context/FavoriteContext";
 import styles from "./favourite.module.css";
 import Product from "../../Components/products/Product";
 export default function Favorite() {
-  /**
-   * export default function Product({
-  id,
-  image,
-  name,
-  price,
-  scope = "global",
-  index,
-  slug,
-})
-   */
   const { favorites } = useContext(FavoriteContext);
   return (
-    <div className={`mainContainer bottomNav`}>
+    <div className={`mainContainer bottomNav ${styles.container}`}>
       <div className={styles.favProdContainer}>
         {favorites.items.map((item, index) => {
           const { id, feature_image, price, name } = item.product;

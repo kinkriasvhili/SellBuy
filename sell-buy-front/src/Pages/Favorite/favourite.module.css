@@ -1,3 +1,12 @@
 .favouriteBtn svg {
   color: red; /* custom color for heart */
 }
+.container {
+  margin-top: 110px;
+}
+.favProdContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 1vw;
+}

@@ -142,10 +142,6 @@ export const postResetPasRequest = async ({ email }) => {
 export const postResetPasConfrim = async (data) => {
   try {
     console.log(data);
-    /**
-     * in console"
-     * {email: 'rati21501@gmail.com', token: 'cqg5e5-31bee70b39e82684da14d3926cd02915', new_password: '222222222'}
-     */
     const res = await axios.post(`${URL}/users/reset-password-confirm/`, data, {
       withCredentials: true,
     });
@@ -187,12 +183,18 @@ export const postOrders = async (data) => {
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
-        "Idempotency-Key": crypto.randomUUID(), // ✅ required header
+        "Idempotency-Key": crypto.randomUUID(),
       },
     });
     return res.data;
   } catch (error) {
-    console.log(error.response?.data); // 👈 log error details
+    if (
+      error.response?.data.detail == "You cannot purchase your own product."
+    ) {
+      alert(error.response?.data.detail);
+    }
+
+    console.log(error.response?.data);
     throw error;
   }
 };
