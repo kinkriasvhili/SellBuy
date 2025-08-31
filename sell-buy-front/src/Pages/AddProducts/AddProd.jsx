@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import styles from "./addProd.module.css";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { getProductsCategories } from "../../fetchData/getData";
 import { AddProductsInput } from "../../Components/Ui/inputs/Inputs";
 import { postNewProduct } from "../../fetchData/postData";
@@ -8,6 +8,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import { ProductContext } from "../../Context/ProductContext";
 
 export default function AddProd() {
+  const queryClient = useQueryClient();
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -38,6 +39,7 @@ export default function AddProd() {
   const mutation = useMutation({
     mutationFn: postNewProduct,
     onSuccess: (data) => {
+      queryClient.invalidateQueries(["products"]);
       alert("Product created!");
       setFormData({
         name: "",

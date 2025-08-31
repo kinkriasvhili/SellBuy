@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./makeOrders.module.css";
 import { postOrders } from "../../fetchData/postData";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 export default function MakeOrders({ shipping_method, isOpen, onClose }) {
   const navigate = useNavigate();
@@ -13,6 +13,7 @@ export default function MakeOrders({ shipping_method, isOpen, onClose }) {
     region: "",
     postal_code: "",
   });
+  const queryClient = useQueryClient();
 
   const isFormValid = Object.values(formData).every((val) => val.length >= 4);
 
@@ -25,6 +26,8 @@ export default function MakeOrders({ shipping_method, isOpen, onClose }) {
     mutationKey: ["order", formData],
     mutationFn: postOrders,
     onSuccess: (data) => {
+      queryClient.invalidateQueries(["cart"]);
+      queryClient.invalidateQueries({ queryKey: ["products", "my"] });
       alert("Your order has been placed");
     },
     onError: (err) => {

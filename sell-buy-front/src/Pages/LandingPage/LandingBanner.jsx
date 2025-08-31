@@ -9,7 +9,7 @@ export default function LandingBanner({ banner, styles }) {
         <Link to={isAuthenticated ? "/add-products" : "/logIn"}>
           <button className={styles.leftBtn}>Start Selling</button>
         </Link>
-        <Link to={isAuthenticated ? "/" : "/logIn"}>
+        <Link to={isAuthenticated ? "/products" : "/logIn"}>
           <button className={styles.rightBtn}>Start Buying</button>
         </Link>
       </div>
