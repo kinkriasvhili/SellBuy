@@ -35,6 +35,12 @@
 .middleCont {
   width: 40%;
 }
+
+.rightCont {
+  gap: 1vw;
+}
+
+/* searchBox */
 .searchBox input {
   font-family: "Sour Gummy";
   font-size: 16px;
@@ -44,11 +50,6 @@
   width: 100%;
   padding: 10px;
 }
-.rightCont {
-  gap: 1vw;
-}
-
-/* searchBox */
 .searchBox {
   position: relative;
 }
@@ -190,5 +191,94 @@
     transform: translateY(0);
     pointer-events: auto;
     gap: 20px;
+  }
+}
+
+/* search box responsive */
+.searchButResp {
+  right: 10px;
+  transition: 0.4s;
+  display: none;
+}
+.searchButResp svg {
+  color: white;
+  background-color: var(--primary-color);
+  padding: 15px;
+  border-radius: 100%;
+  font-size: 20px;
+}
+
+.searchBoxResponsive input {
+  font-family: "Sour Gummy";
+  font-size: 16px;
+  font-weight: 300;
+  border: 1px solid black;
+  border-radius: 50px;
+  width: 100%;
+  padding: 10px;
+}
+.searchBoxResponsive {
+  position: relative;
+  margin-top: 30px;
+  width: 80vw;
+}
+.searchBoxResponsive input {
+  padding: 20px;
+  padding-right: 70px;
+  border: 1px solid var(--white-btn-hover-color);
+}
+
+.searchBoxResponsive button {
+  position: absolute;
+  right: 10px;
+  transition: 0.4s;
+}
+.searchBoxResponsive button svg {
+  color: white;
+  background-color: var(--primary-color);
+  padding: 15px;
+  border-radius: 100%;
+  font-size: 20px;
+}
+.searchBoxResponsive input:hover + button {
+  opacity: 0.8;
+  top: 0;
+  bottom: 0;
+  margin-top: 1px !important;
+  right: 1px;
+}
+.searchBoxResponsive button:hover svg,
+.searchBoxResponsive input:hover + button svg {
+  border-radius: 0;
+  border-top-right-radius: 60%;
+  border-bottom-right-radius: 60%;
+  padding: 22px;
+  right: 0px;
+}
+.focusedResponsive input {
+  border: 1px solid black;
+}
+
+.focusedResponsive input:hover + button {
+  opacity: 1;
+}
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* dim background */
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  z-index: 999;
+}
+@media (max-width: 800px) {
+  .searchBox {
+    display: none;
+  }
+  .searchButResp {
+    display: flex;
   }
 }

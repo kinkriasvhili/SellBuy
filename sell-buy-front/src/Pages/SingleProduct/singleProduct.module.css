@@ -460,4 +460,8 @@ toggle dolalr and eur*/
   }
 }
 @media (max-width: 1000px) {
+  .mainDescribtion {
+    grid-template-columns: 1fr; /* single column */
+    grid-gap: 10px;
+  }
 }

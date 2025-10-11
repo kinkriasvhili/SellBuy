@@ -1,8 +1,6 @@
 @import url("../../index.css");
 @import "@fontsource/sour-gummy";
 .taskCommentContainer {
-  /* border: 0.3px solid #ddd2ff; */
-  /* background-color: #f8f3fea6; */
   padding: 40px;
   border-radius: 10px;
   width: 100%;
@@ -162,4 +160,10 @@
 }
 .delete:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 1000px) {
+  .taskCommentContainer {
+    flex-direction: column;
+  }
 }

@@ -268,3 +268,21 @@
   font-family: "Sour Gummy";
   content: "Change Quantity";
 }
+
+@media (max-width: 1000px) {
+  .cartContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  .cartSummaryContainer {
+    min-width: 80vw;
+  }
+
+  .favProdContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2rem;
+    width: 80vw;
+  }
+}
