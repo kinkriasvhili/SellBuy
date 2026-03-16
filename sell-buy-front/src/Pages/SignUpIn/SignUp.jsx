@@ -1,5 +1,4 @@
 import styles from "./signUpIn.module.css";
-import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Password, SignForm } from "../../Components/Ui/inputs/Inputs";
 import { FormButton } from "../../Components/Ui/buttons/Buttons";
@@ -9,8 +8,8 @@ import { useControlForm } from "./ControlForm";
 import { useMutation } from "@tanstack/react-query";
 import { postEmailOrCodeConfirmation } from "../../fetchData/postData";
 import { AuthContext } from "../../Context/AuthContext";
+import Pass from "../../Components/Errors/Pass";
 export default function SignIn() {
-  const { setIsAuthenticated } = useContext(AuthContext);
   const { signupData, inputsValidation, handleChange } = useControlForm();
   const navigate = useNavigate();
   const createEmailMutation = useMutation({
@@ -42,6 +41,7 @@ export default function SignIn() {
   };
   return (
     <div className={`bottomNav ${styles.container}`}>
+      <Pass />
       <div className={`${styles.leftSide} ${styles.registerForm}`}>
         <h2>Sign In</h2>
         <span>Please login to continue yo your account</span>

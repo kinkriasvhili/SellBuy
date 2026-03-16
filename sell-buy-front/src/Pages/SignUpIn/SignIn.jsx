@@ -10,6 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import { postLogin } from "../../fetchData/postData";
 import { AuthContext } from "../../Context/AuthContext";
 import ResetPasswordModal from "../ResetPassword/ResetPasswordModal";
+import Pass from "../../Components/Errors/Pass";
 
 export default function SignIn() {
   const { setIsAuthenticated } = useContext(AuthContext);
@@ -46,6 +47,7 @@ export default function SignIn() {
   };
   return (
     <div className={`bottomNav ${styles.container}`}>
+      <Pass />
       <div className={styles.leftSide}>
         <h2>Sign In</h2>
         <span>
