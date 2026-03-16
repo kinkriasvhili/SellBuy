@@ -51,13 +51,16 @@ export default function SignIn() {
       <div className={styles.leftSide}>
         <h2>Sign In</h2>
         <span>
-          Please login to <b>accsess all features</b>
+          Please login to{" "}
+          <b>accsess all features (giguuag@gmail.com / giorgi123)</b>
+          <br />
+          please log in with already exsisted profile
         </span>
         <form action="">
           <SignForm
             label={"Email"}
             type={"email"}
-            placeholder={"Mail"}
+            placeholder={"Mail - giguuag@gmail.com"}
             name="email"
             handleChange={handleChange}
             value={signupData}

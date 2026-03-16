@@ -30,7 +30,7 @@ export default function SignIn() {
     return !isValid ? styles.inputRed : "";
   };
   const allValid = Object.values(inputsValidation).every(
-    (value) => value === true
+    (value) => value === true,
   );
   const handleClick = (e) => {
     e.preventDefault();
@@ -109,6 +109,9 @@ export default function SignIn() {
             value={signupData}
             className={makeClass(inputsValidation.passwordMatch)}
           />
+          <span>
+            Please login with already exsisted account to check website
+          </span>
           <FormButton
             handleClick={handleClick}
             type="submit"
