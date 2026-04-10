@@ -21,7 +21,6 @@ import { useHideNav } from "../../Context/HideNav";
 
 export default function Nav() {
   const { isAuthenticated } = useContext(AuthContext);
-  const { userState } = useContext(UserContext);
   const { hide } = useHideNav();
   const [displayNav, setDisplayNav] = useState(true);
   const location = useLocation();
@@ -57,7 +56,7 @@ export default function Nav() {
 
       if (overlay && nav && !nav.contains(event.target) && !isBarOpen) {
         setIsBarOpen(false);
-        setBarIcon((prev) => {
+        setBarIcon(() => {
           return faBars;
         });
       }
@@ -68,7 +67,7 @@ export default function Nav() {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, []);
+  }, [isBarOpen]);
   if (hide) return;
   const toggleMenu = () => {
     setIsBarOpen((prev) => !prev);

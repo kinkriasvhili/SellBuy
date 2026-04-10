@@ -3,9 +3,9 @@ import { useState } from "react";
 export function useControlForm() {
   const [signupData, setSignUpData] = useState({
     username: "",
-    email: "",
+    email: "giguuag@gmail.com ",
     age: "",
-    password: "",
+    password: "giorgi123",
     city: "",
     phone_number: "+9955",
     repeat_password: "",
@@ -13,8 +13,8 @@ export function useControlForm() {
 
   const [inputsValidation, setInputsValidation] = useState({
     isAgeValid: false,
-    isPasswordValid: false,
-    isEmailValid: false,
+    isPasswordValid: true,
+    isEmailValid: true,
     isNumberValid: false,
     isUserNameValid: false,
     isCityValid: false,

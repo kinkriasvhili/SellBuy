@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import styles from "./filteredProducts.module.css";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getFilteredProducts } from "../../fetchData/getData";
-import { useEffect } from "react";
 
 import Product from "../../Components/products/Product";
 import Filter from "./Filter";
@@ -10,15 +9,6 @@ import { useLocation } from "react-router-dom";
 export default function FilteredProducts() {
   const { slug } = useParams();
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-
-  const filters = {
-    category: slug || searchParams.get("category") || undefined,
-    condition: searchParams.get("condition") || undefined,
-    price_min: searchParams.get("price_min") || undefined,
-    price_max: searchParams.get("price_max") || undefined,
-    q: searchParams.get("q") || undefined,
-  };
 
   const filteredQuery = useQuery({
     queryKey: ["products", location.search], // depend on URL directly
@@ -59,8 +49,9 @@ export default function FilteredProducts() {
       {products.length > 0 ? (
         products.map((product) => (
           <div key={product.id}>
+            {console.log(product)}
             <Product
-              image={product.images[0].image}
+              image={product.images[0]?.image}
               name={product.name}
               price={product.price}
               scope={"global"}

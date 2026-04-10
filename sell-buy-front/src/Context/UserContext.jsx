@@ -31,7 +31,6 @@ export function UserContextProvider({ children }) {
   var isAuthenticated;
   if (AuthContext) {
     var { isAuthenticated } = useContext(AuthContext);
-  } else {
   }
   // Automatically fetch user data when app loads
   const userQuery = useQuery({

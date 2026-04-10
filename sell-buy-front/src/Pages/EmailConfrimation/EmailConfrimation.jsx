@@ -1,9 +1,9 @@
 import styles from "./emailConfrimation.module.css";
 import { FormButton } from "../../Components/Ui/buttons/Buttons";
-import React, { useState, useContext, useEffect, useRef } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import {
   postEmailOrCodeConfirmation,
   postRegisterData,
@@ -29,12 +29,8 @@ export default function EmailConfirmation() {
     );
   }
 
-  useEffect(() => {
-    if (!location.state) {
-    }
-  }, []);
-  const { setUser, userState } = useContext(UserContext);
-  const { repeat_password, ...filteredUserData } = location.state.data;
+  const { userState, setUser } = useContext(UserContext);
+  const { ...filteredUserData } = location.state.data;
   const { from } = location.state;
   console.log(filteredUserData);
 
@@ -74,7 +70,7 @@ export default function EmailConfirmation() {
 
   const createResendMutation = useMutation({
     mutationFn: (data) => postEmailOrCodeConfirmation(data),
-    onSuccess: (data) => {
+    onSuccess: () => {
       alert("Confrimation code sucessfully sent to email");
     },
   });
@@ -92,10 +88,7 @@ export default function EmailConfirmation() {
       <div className={styles.box}>
         <h2>Email Confirmation</h2>
         <p>{setUser.user_name}</p>
-        <p>
-          We've sent a confirmation code to your email. Please enter it below.
-        </p>
-
+        <p>Email service is currently unavailable. Please try again later.</p>
         <form>
           <input
             disabled={createCodeMutation.isPending}
