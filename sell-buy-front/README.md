@@ -1,12 +1,55 @@
-# React + Vite
+# SellBuy Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SellBuy is a marketplace frontend where users can browse products, search and filter listings, save favorites, add items to a cart, place orders, and manage their own products. I built this project to practice and show real frontend work: routing, reusable components, API integration, authentication flows, async data handling, and responsive UI structure.
 
-Currently, two official plugins are available:
+## What I Built
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Built the client-side application with React and Vite
+- Connected the UI to a live REST API for products, authentication, profile data, reviews, wishlist, cart, and orders
+- Created route-based pages for landing, product listing, single product view, cart, profile, orders, auth, and product creation
+- Managed app-wide state with React Context, localStorage, and TanStack Query
+- Styled the application with CSS Modules, Resonsive Media Queries, custom fonts, and Font Awesome icons
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React 19
+- Vite
+- React Router DOM
+- TanStack Query
+- Context API
+- Axios and Fetch API
+- CSS Modules
+- Font Awesome
+- Fontsource
+- dotLottie React
+
+## Main Features
+
+- Authentication flow with sign up, sign in, logout, email confirmation, and password reset
+- Product browsing with latest products, search, category filtering, condition filtering, and price filtering
+- Single product pages with image gallery, ratings, reviews, wishlist actions, and cart actions
+- Seller flow for adding new products with multiple image uploads and featured image selection
+- Cart flow with quantity updates, delivery options, and order creation
+- Profile page with user details, editable profile flow, and personal product listings
+- Orders page with order history and tracking flow
+
+## What This Project Shows
+
+- Building a multi-page frontend application with reusable components
+- Handling server state and UI state across multiple user flows
+- Working with authenticated API requests and persistent login state
+- Structuring a marketplace-style user experience from browsing to checkout
+
+## Live Demo
+
+[LiveDemo](https://kinkriashvilirati.github.io/Amazon-Copy/amazon.html)
+
+## Live video
+
+[Live Youtube Video](https://www.youtube.com/watch?v=ezso0CiWDHc&feature=youtu.be)
+
+## Screenshot
+
+![Home page](./public/Images/home-page.png)
+![Log In Page](./public/Images/login-page.png)
+![Dashboard](./public/Images/dashboard.png)
