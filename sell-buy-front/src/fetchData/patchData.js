@@ -26,9 +26,6 @@ export const profilePatch = async (changedProfile) => {
 
 export const cartItemPatch = async ({ id, data }) => {
   try {
-    console.log(id);
-    console.log(data);
-
     const res = await axios.patch(`${URL}/cart/cart-items/${id}/`, data, {
       withCredentials: true,
     });

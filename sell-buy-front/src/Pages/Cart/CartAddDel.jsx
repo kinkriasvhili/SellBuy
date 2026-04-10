@@ -27,10 +27,8 @@ export default function CartAddDel({ id, quantity, slug }) {
   const cartAddMutation = useMutation({
     mutationKey: ["cartAdd", id],
     mutationFn: postCartAdd,
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
-      console.log(data);
-      // setInCart(true);
     },
     onError: (err) => {
       console.error(err);
@@ -76,7 +74,7 @@ export default function CartAddDel({ id, quantity, slug }) {
             onSuccess: () => {
               refetchCart;
             },
-          }
+          },
         );
       }
     } else {
@@ -90,7 +88,7 @@ export default function CartAddDel({ id, quantity, slug }) {
           onSuccess: () => {
             refetchCart;
           },
-        }
+        },
       );
     }
 

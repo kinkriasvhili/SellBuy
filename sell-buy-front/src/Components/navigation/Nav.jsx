@@ -101,7 +101,6 @@ export default function Nav() {
               <Search />
             </div>
             <div className={`${styles.rightCont} flex-center`}>
-              {/* {console.log("nav, ", userState)} */}
               <div
                 className={`${styles.navRightButtons} ${
                   isBarOpen ? styles.respOn : ""

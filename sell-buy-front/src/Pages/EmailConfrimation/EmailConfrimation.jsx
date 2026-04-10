@@ -32,7 +32,6 @@ export default function EmailConfirmation() {
   const { userState, setUser } = useContext(UserContext);
   const { ...filteredUserData } = location.state.data;
   const { from } = location.state;
-  console.log(filteredUserData);
 
   const createCodeMutation = useMutation({
     mutationFn: (data) => postEmailOrCodeConfirmation(data),
@@ -42,14 +41,13 @@ export default function EmailConfirmation() {
         full_username: filteredUserData.username,
       });
     },
-    onError: (error) => {
+    onError: () => {
       setError("Invalid confirmation code. Please try again.");
     },
   });
   const createRegUserMutation = useMutation({
     mutationFn: postRegisterData,
     onSuccess: () => {
-      console.log("Successed");
       setIsAuthenticated(true);
       navigate("/");
     },
@@ -118,7 +116,6 @@ export default function EmailConfirmation() {
             cursor: createResendMutation.isPending ? "not-allowed" : "pointer", // No pointer when disabled
           }}
         >
-          {console.log(createResendMutation.isPending)}
           Resend Code
         </button>
         <span>{createResendMutation.isPending ? "Sending" : ""}</span>

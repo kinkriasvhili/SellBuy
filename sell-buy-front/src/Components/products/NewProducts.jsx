@@ -8,7 +8,6 @@ export default function NewProducts() {
 
   if (products.isLoading) return <h1>...Loading</h1>;
   if (products.isError) return <h1>Error</h1>;
-  // console.log(productsQuery.data);
   const productsData = products.data.results;
   return (
     <div className={`${styles.productsGrid}`}>

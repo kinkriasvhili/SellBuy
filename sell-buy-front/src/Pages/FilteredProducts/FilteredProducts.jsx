@@ -49,7 +49,6 @@ export default function FilteredProducts() {
       {products.length > 0 ? (
         products.map((product) => (
           <div key={product.id}>
-            {console.log(product)}
             <Product
               image={product.images[0]?.image}
               name={product.name}

@@ -10,7 +10,6 @@ import Orders from "./Pages/Orders/Orders.jsx";
 import EmailConfrimation from "./Pages/EmailConfrimation/EmailConfrimation.jsx";
 import Profile from "./Pages/Profile/Profile.jsx";
 import { UserContext } from "./Context/UserContext.jsx";
-import { useContext } from "react";
 import Footer from "./Components/appFooter/footer.jsx";
 import PrivacyPolicy from "./Components/policy/PrivacyPolicy.jsx";
 import AddProd from "./Pages/AddProducts/AddProd.jsx";
@@ -34,7 +33,6 @@ function AppInner() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
         <Route path={`/my/cart`} element={<Cart />} />
-        {/* {console.log(userState)} */}
         <Route path={`/my/favorite`} element={<Favorite />} />
         <Route path={`/add-products`} element={<AddProd />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />

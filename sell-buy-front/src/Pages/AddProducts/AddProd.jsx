@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import styles from "./addProd.module.css";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { getProductsCategories } from "../../fetchData/getData";
 import { AddProductsInput } from "../../Components/Ui/inputs/Inputs";
 import { postNewProduct } from "../../fetchData/postData";
 import { AuthContext } from "../../Context/AuthContext";
@@ -38,7 +37,7 @@ export default function AddProd() {
 
   const mutation = useMutation({
     mutationFn: postNewProduct,
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries(["products"]);
       alert("Product created!");
       setFormData({
@@ -54,11 +53,6 @@ export default function AddProd() {
     onError: (error) => {
       alert(error.message || "Upload failed");
     },
-    onSettled: (data, error) => {
-      console.log("📦 Settled - either success or error:");
-      console.log("Data:", data);
-      console.log("Error:", error);
-    },
   });
 
   const handleChange = (e, field) => {
@@ -72,7 +66,8 @@ export default function AddProd() {
 
     const filteredNewFiles = newFiles.filter((file) => {
       const isDuplicate = images.some(
-        (existing) => existing.name === file.name && existing.size === file.size
+        (existing) =>
+          existing.name === file.name && existing.size === file.size,
       );
       if (isDuplicate) {
         duplicateFound = true;
