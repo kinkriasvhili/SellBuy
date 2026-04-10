@@ -42,7 +42,7 @@ SellBuy is a marketplace frontend where users can browse products, search and fi
 
 ## Live Demo
 
-[LiveDemo](https://kinkriashvilirati.github.io/Amazon-Copy/amazon.html)
+[LiveDemo](https://sell-buy1.netlify.app/)
 
 ## Live video
 
