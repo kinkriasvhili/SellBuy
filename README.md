@@ -50,6 +50,6 @@ SellBuy is a marketplace frontend where users can browse products, search and fi
 
 ## Screenshot
 
-![Home page](./public/Images/home-page.png)
-![Log In Page](./public/Images/login-page.png)
-![Dashboard](./public/Images/dashboard.png)
+![Home page](./sell-buy-front/public/Images/home-page.png)
+![Log In Page](./sell-buy-front/public/Images/login-page.png)
+![Dashboard](./sell-buy-front/public/Images/dashboard.png)
